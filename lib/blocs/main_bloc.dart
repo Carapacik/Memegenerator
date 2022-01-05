@@ -1,5 +1,3 @@
-class MainBloc{
-  void dispose(){
-
-  }
+class MainBloc {
+  void dispose() {}
 }

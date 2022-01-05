@@ -34,18 +34,19 @@ class _MainPageState extends State<MainPage> {
         ),
         backgroundColor: Colors.white,
         floatingActionButton: FloatingActionButton.extended(
-            onPressed: () => Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (_) => CreateMemePage(),
-                  ),
-                ),
-            backgroundColor: AppColors.fuchsia,
-            icon: Icon(
-              Icons.add,
-              color: Colors.white,
+          onPressed: () => Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (_) => const CreateMemePage(),
             ),
-            label: Text("Создать")),
-        body: SafeArea(
+          ),
+          backgroundColor: AppColors.fuchsia,
+          icon: const Icon(
+            Icons.add,
+            color: Colors.white,
+          ),
+          label: const Text("Создать"),
+        ),
+        body: const SafeArea(
           child: MainPageContent(),
         ),
       ),
@@ -69,7 +70,7 @@ class MainPageContent extends StatefulWidget {
 class _MainPageContentState extends State<MainPageContent> {
   @override
   Widget build(BuildContext context) {
-    return Center(
+    return const Center(
       child: Text("Center"),
     );
   }

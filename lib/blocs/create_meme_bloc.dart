@@ -6,7 +6,8 @@ class CreateMemeBloc {
   final memeTextsSubject = BehaviorSubject<List<MemeText>>.seeded(<MemeText>[]);
   final selectedMemeTextsSubject = BehaviorSubject<MemeText?>.seeded(null);
 
-  Stream<List<MemeText>> observeMemeTexts() => memeTextsSubject.distinct((prev, next) => const ListEquality().equals(prev, next));
+  Stream<List<MemeText>> observeMemeTexts() =>
+      memeTextsSubject.distinct((prev, next) => const ListEquality().equals(prev, next));
 
   Stream<MemeText?> observeSelectedMemeTexts() => selectedMemeTextsSubject.distinct();
 
@@ -54,7 +55,8 @@ class MemeText {
 
   @override
   bool operator ==(Object other) =>
-      identical(this, other) || other is MemeText && runtimeType == other.runtimeType && id == other.id && text == other.text;
+      identical(this, other) ||
+      other is MemeText && runtimeType == other.runtimeType && id == other.id && text == other.text;
 
   @override
   int get hashCode => id.hashCode ^ text.hashCode;
