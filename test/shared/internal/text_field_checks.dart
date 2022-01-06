@@ -40,8 +40,9 @@ void checkTextFieldTextCapitalization({
     secondTextCapitalization != null
         ? isOneOrAnother(textCapitalization, secondTextCapitalization)
         : textCapitalization,
-    reason: "$widgetName should have textCapitalization ${secondTextCapitalization != null ? "either "
-        "$textCapitalization or $secondTextCapitalization" : textCapitalization}",
+    reason:
+        "$widgetName should have textCapitalization ${secondTextCapitalization != null ? "either "
+            "$textCapitalization or $secondTextCapitalization" : textCapitalization}",
   );
 }
 

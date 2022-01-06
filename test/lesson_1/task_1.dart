@@ -4,9 +4,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:memogenerator/main.dart';
 import 'package:memogenerator/pages/create_meme_page.dart';
 
-import '../shared/internal/container_checks.dart';
-import 'shared_colors.dart';
-
 ///
 /// 1. Делать активным тот текст, который мы перетаскиваем по экрану
 ///     1. Выделять тот текст, который начали тащить (делать драг) по экрану

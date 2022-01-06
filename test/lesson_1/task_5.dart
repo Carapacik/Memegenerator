@@ -101,9 +101,7 @@ void runTestLesson1Task5() {
     _checkForTextInListView(listViewFinder, secondText);
     _checkForTextInListView(listViewFinder, thirdText);
 
-
     print('---------- Проверяем правильность виджета с текстом "$firstText" ----------');
-
 
     final firstTextContainerFinder = find.descendant(
       of: listViewFinder,
