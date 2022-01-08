@@ -1,3 +1,3 @@
 # Memogenerator
 
-Generate meme
+Create meme

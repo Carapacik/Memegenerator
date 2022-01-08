@@ -1,7 +1,9 @@
+import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
-import 'package:memogenerator/pages/main_page.dart';
+import 'package:memogenerator/presentation/main/main_page.dart';
 
 void main() {
+  EquatableConfig.stringify = true;
   runApp(const MyApp());
 }
 
