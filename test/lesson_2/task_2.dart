@@ -12,8 +12,7 @@ import 'package:memogenerator/presentation/create_meme/create_meme_page.dart';
 void runTestLesson2Task2() {
   setUpAll(() => GoogleFonts.config.allowRuntimeFetching = false);
   testWidgets('module2', (WidgetTester tester) async {
-    print(
-        "\n------------- Запускаем тест к 2 заданию 10-го урока -------------\n");
+    print("\n------------- Запускаем тест к 2 заданию 10-го урока -------------\n");
 
     await tester.pumpWidget(MaterialApp(home: CreateMemePage()));
 
@@ -21,8 +20,7 @@ void runTestLesson2Task2() {
     await tester.pumpWidget(MaterialApp(home: CreateMemePage()));
 
     final addTextText = 'ДОБАВИТЬ ТЕКСТ';
-    print(
-        "На странице CreateMemePage находится единственная кнопка с текстом '$addTextText'");
+    print("На странице CreateMemePage находится единственная кнопка с текстом '$addTextText'");
     final addMemeTextButtonFinder = find.text(addTextText);
     expect(
       addMemeTextButtonFinder,
@@ -31,8 +29,7 @@ void runTestLesson2Task2() {
           "ОШИБКА! На странице CreateMemePage невозможно найти единственную кнопку с текстом '$addTextText'",
     );
 
-    print(
-        "На странице CreateMemePage находится единственный виджет с типом TextField");
+    print("На странице CreateMemePage находится единственный виджет с типом TextField");
     final textFieldFinder = find.byType(TextField);
     expect(
       textFieldFinder,
@@ -42,8 +39,7 @@ void runTestLesson2Task2() {
     );
 
     final firstText = 'Первый текст';
-    await _addMemeTextWithText(
-        tester, addMemeTextButtonFinder, textFieldFinder, firstText);
+    await _addMemeTextWithText(tester, addMemeTextButtonFinder, textFieldFinder, firstText);
 
     final draggableMemeTextWithEnteredTextFinder =
         find.widgetWithText(DraggableMemeText, firstText);
@@ -53,14 +49,12 @@ void runTestLesson2Task2() {
     expect(
       draggableMemeTextWithEnteredTextFinder,
       findsOneWidget,
-      reason:
-          "ОШИБКА! На странице CreateMemePage невозможно найти единственный виджет AspectRatio",
+      reason: "ОШИБКА! На странице CreateMemePage невозможно найти единственный виджет AspectRatio",
     );
 
     final aspectRatioPosition = tester.getTopLeft(aspectRatioFinder);
 
-    print(
-        "Находим единственный виджет DraggableMemeText с текстом '$firstText'");
+    print("Находим единственный виджет DraggableMemeText с текстом '$firstText'");
     expect(
       draggableMemeTextWithEnteredTextFinder,
       findsOneWidget,
@@ -69,10 +63,8 @@ void runTestLesson2Task2() {
     );
 
     print("Вычисляем начальную позицию этого виджета глобально");
-    final absoluteOffset =
-        tester.getTopLeft(draggableMemeTextWithEnteredTextFinder);
-    print(
-        "Вычисляем начальную позицию этого виджета локально, по отношению к позиции AspectRatio");
+    final absoluteOffset = tester.getTopLeft(draggableMemeTextWithEnteredTextFinder);
+    print("Вычисляем начальную позицию этого виджета локально, по отношению к позиции AspectRatio");
 
     final relativeOffset = absoluteOffset - aspectRatioPosition;
     final relativeOffsetWithOneDecimalPoint = Offset(
@@ -83,8 +75,8 @@ void runTestLesson2Task2() {
     print("Ждем ${delayBeforeChecking.inMilliseconds} миллисекунд до проверки");
     await tester.pumpAndSettle(delayBeforeChecking);
 
-    final draggableMemeTextWithEnteredText = tester
-        .widget<DraggableMemeText>(draggableMemeTextWithEnteredTextFinder);
+    final draggableMemeTextWithEnteredText =
+        tester.widget<DraggableMemeText>(draggableMemeTextWithEnteredTextFinder);
 
     print(
         "Проверяем что параметр offset в объекте memeTextWithOffset внутри DraggableMemeText не равен null");
@@ -95,8 +87,7 @@ void runTestLesson2Task2() {
           "ОШИБКА! Параметр параметр offset в объекте memeTextWithOffset внутри DraggableMemeText равен null",
     );
 
-    final savedOffset =
-        draggableMemeTextWithEnteredText.memeTextWithOffset.offset!;
+    final savedOffset = draggableMemeTextWithEnteredText.memeTextWithOffset.offset!;
     final savedOffsetWithOneDecimalPoint = Offset(
       roundDoubleToFixedDecimalPoints(savedOffset.dx, 1),
       roundDoubleToFixedDecimalPoints(savedOffset.dy, 1),
@@ -115,8 +106,7 @@ void runTestLesson2Task2() {
   });
 }
 
-double roundDoubleToFixedDecimalPoints(
-    final double value, final int decimalPoints) {
+double roundDoubleToFixedDecimalPoints(final double value, final int decimalPoints) {
   return double.parse(value.toStringAsFixed(decimalPoints));
 }
 

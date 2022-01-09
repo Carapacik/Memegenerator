@@ -17,8 +17,7 @@ import 'package:uuid/uuid.dart';
 void runTestLesson2Task3() {
   setUpAll(() => GoogleFonts.config.allowRuntimeFetching = false);
   testWidgets('module3', (WidgetTester tester) async {
-    print(
-        "\n------------- Запускаем тест к 3 заданию 10-го урока -------------\n");
+    print("\n------------- Запускаем тест к 3 заданию 10-го урока -------------\n");
 
     SharedPreferences.setMockInitialValues({"meme_key": []});
 
@@ -50,8 +49,7 @@ void runTestLesson2Task3() {
       reason: "ОШИБКА! Мемы сохранены неверно",
     );
 
-    final changedSecondMeme =
-        Meme(id: secondMeme.id, texts: [], memePath: "changedSecond.jpg");
+    final changedSecondMeme = Meme(id: secondMeme.id, texts: [], memePath: "changedSecond.jpg");
 
     print(
         "Добавляем новый мем с тем же id, что и у второго мема, но с другим названием картинки: $changedSecondMeme");

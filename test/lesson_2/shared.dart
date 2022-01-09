@@ -15,9 +15,8 @@ class FakePathProviderPlatform extends Fake
   String getCurrentTestPath() {
     final projectPath = Directory("").absolute.path;
     print("Got project path: $projectPath");
-    final correctedPath = projectPath.endsWith(ps)
-        ? projectPath.substring(0, projectPath.length - 1)
-        : projectPath;
+    final correctedPath =
+        projectPath.endsWith(ps) ? projectPath.substring(0, projectPath.length - 1) : projectPath;
     return "$correctedPath$ps$testPathName$ps$taskDocumentsPathName";
   }
 
@@ -42,8 +41,7 @@ class FakePathProviderPlatform extends Fake
   Future<String?> getExternalStoragePath() async => getCurrentTestPath();
 
   @override
-  Future<List<String>?> getExternalCachePaths() async =>
-      <String>[getCurrentTestPath()];
+  Future<List<String>?> getExternalCachePaths() async => <String>[getCurrentTestPath()];
 
   @override
   Future<List<String>?> getExternalStoragePaths({

@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:collection/collection.dart';
 import 'package:memogenerator/data/models/meme.dart';
-import 'package:memogenerator/data/shared_preferences_data.dart';
+import 'package:memogenerator/data/shared_preference_data.dart';
 import 'package:rxdart/rxdart.dart';
 
 class MemesRepository {
@@ -19,11 +19,10 @@ class MemesRepository {
   Future<bool> addToMemes(final Meme newMeme) async {
     final memes = await getMemes();
     final memeIndex = memes.indexWhere((meme) => meme.id == newMeme.id);
-    if (memeIndex == -1){
+    if (memeIndex == -1) {
       // Добавляем, если нет
       memes.add(newMeme);
-    }
-    else {
+    } else {
       // Удаляем, если есть
       memes.removeAt(memeIndex);
       memes.insert(memeIndex, newMeme);

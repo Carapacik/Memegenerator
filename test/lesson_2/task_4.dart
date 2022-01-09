@@ -46,8 +46,7 @@ void runTestLesson2Task4() {
   });
   testWidgets('module4', (WidgetTester tester) async {
     await tester.runAsync(() async {
-      print(
-          "\n------------- Запускаем тест к 4 заданию 10-го урока -------------\n");
+      print("\n------------- Запускаем тест к 4 заданию 10-го урока -------------\n");
 
       SharedPreferences.setMockInitialValues({"meme_key": []});
       final docsDirectory = Directory("$testPathName$ps$taskDocumentsPathName");
@@ -58,10 +57,7 @@ void runTestLesson2Task4() {
       final docsMemesDirectory = Directory("${docsDirectory.path}${ps}memes");
       print("SHOULD BE ${docsMemesDirectory.absolute.path}");
       final docsMemesPath = docsMemesDirectory.absolute.path;
-      final imagesPath =
-          Directory("$testPathName${ps}lesson_2${ps}task_4_files")
-              .absolute
-              .path;
+      final imagesPath = Directory("$testPathName${ps}lesson_2${ps}task_4_files").absolute.path;
 
       final firstId = Uuid().v4();
       final firstTextWithPositions = <TextWithPosition>[];
@@ -89,8 +85,7 @@ void runTestLesson2Task4() {
       expect(
         await memeRepository.getMemes(),
         [firstMemeGlobal],
-        reason:
-            "ОШИБКА! Сохраненные мемы из репозитория MemeRepository не совпадают с ожидаемыми",
+        reason: "ОШИБКА! Сохраненные мемы из репозитория MemeRepository не совпадают с ожидаемыми",
       );
 
       final secondId = Uuid().v4();
@@ -116,8 +111,7 @@ void runTestLesson2Task4() {
       expect(
         await memeRepository.getMemes(),
         [firstMemeGlobal, secondMemeGlobal],
-        reason:
-            "ОШИБКА! Сохраненные мемы из репозитория MemeRepository не совпадают с ожидаемыми",
+        reason: "ОШИБКА! Сохраненные мемы из репозитория MemeRepository не совпадают с ожидаемыми",
       );
 
       final thirdId = Uuid().v4();
@@ -130,8 +124,7 @@ void runTestLesson2Task4() {
         memePath: "$docsMemesPath$ps$thirdImageName",
       );
 
-      print(
-          "Открываем страницу CreateMemePage, куда передаем картинку image3.jpg");
+      print("Открываем страницу CreateMemePage, куда передаем картинку image3.jpg");
 
       await tester.pumpWidget(
         MaterialApp(
@@ -139,8 +132,8 @@ void runTestLesson2Task4() {
         ),
       );
 
-      final saveButtonFinder = find.byWidgetPredicate(
-          (widget) => widget is Icon && widget.icon == Icons.save);
+      final saveButtonFinder =
+          find.byWidgetPredicate((widget) => widget is Icon && widget.icon == Icons.save);
 
       print("Находим единственную кнопку с иконкой Icons.save");
       expect(
@@ -159,8 +152,7 @@ void runTestLesson2Task4() {
       expect(
         await memeRepository.getMemes(),
         [firstMemeGlobal, secondMemeGlobal, thirdMemeGlobal],
-        reason:
-            "ОШИБКА! Сохраненные мемы из репозитория MemeRepository не совпадают с ожидаемыми",
+        reason: "ОШИБКА! Сохраненные мемы из репозитория MemeRepository не совпадают с ожидаемыми",
       );
 
       print("Удаляем папку с файлами, созданными в рамках тестирования");

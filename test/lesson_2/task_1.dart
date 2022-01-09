@@ -11,15 +11,13 @@ import 'package:memogenerator/presentation/create_meme/create_meme_page.dart';
 void runTestLesson2Task1() {
   setUpAll(() => GoogleFonts.config.allowRuntimeFetching = false);
   testWidgets('module1', (WidgetTester tester) async {
-    print(
-        "\n------------- Запускаем тест к 1 заданию 10-го урока -------------\n");
+    print("\n------------- Запускаем тест к 1 заданию 10-го урока -------------\n");
 
     print("Открываем страницу CreateMemePage");
     await tester.pumpWidget(MaterialApp(home: CreateMemePage()));
 
     final addTextText = 'ДОБАВИТЬ ТЕКСТ';
-    print(
-        "На странице CreateMemePage находится единственная кнопка с текстом '$addTextText'");
+    print("На странице CreateMemePage находится единственная кнопка с текстом '$addTextText'");
     final addMemeTextButtonFinder = find.text(addTextText);
     expect(
       addMemeTextButtonFinder,
@@ -28,8 +26,7 @@ void runTestLesson2Task1() {
           "ОШИБКА! На странице CreateMemePage невозможно найти единственную кнопку с текстом '$addTextText'",
     );
 
-    print(
-        "На странице CreateMemePage находится единственный виджет с типом TextField");
+    print("На странице CreateMemePage находится единственный виджет с типом TextField");
     final textFieldFinder = find.byType(TextField);
     expect(
       textFieldFinder,
@@ -39,12 +36,10 @@ void runTestLesson2Task1() {
     );
 
     final firstText = 'Первый текст';
-    await _addMemeTextWithText(
-        tester, addMemeTextButtonFinder, textFieldFinder, firstText);
+    await _addMemeTextWithText(tester, addMemeTextButtonFinder, textFieldFinder, firstText);
 
     final secondText = 'Второй текст';
-    await _addMemeTextWithText(
-        tester, addMemeTextButtonFinder, textFieldFinder, secondText);
+    await _addMemeTextWithText(tester, addMemeTextButtonFinder, textFieldFinder, secondText);
 
     print("Выделенным должен быть виджет с текстом '$secondText'");
     expect(
@@ -53,8 +48,7 @@ void runTestLesson2Task1() {
       reason: "ОШИБКА! Текущий текст в TextField не совпадает с ожидаемым",
     );
 
-    final bottomMemeTextWithFirstTextFinder =
-        find.widgetWithText(BottomMemeText, firstText);
+    final bottomMemeTextWithFirstTextFinder = find.widgetWithText(BottomMemeText, firstText);
 
     print("Находим единственный виджет BottomMemeText с текстом '$firstText'");
     expect(
@@ -75,8 +69,7 @@ void runTestLesson2Task1() {
       reason: "ОШИБКА! Текущий текст в TextField не совпадает с ожидаемым",
     );
 
-    final bottomMemeTextWithSecondTextFinder =
-        find.widgetWithText(BottomMemeText, secondText);
+    final bottomMemeTextWithSecondTextFinder = find.widgetWithText(BottomMemeText, secondText);
 
     print("Находим единственный виджет BottomMemeText с текстом '$secondText'");
     expect(
