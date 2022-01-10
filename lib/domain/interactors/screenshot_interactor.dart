@@ -19,7 +19,8 @@ class ScreenshotInteractor {
     }
     final tempDocs = await getTemporaryDirectory();
     final imageFile = File(
-        "${tempDocs.path}${Platform.pathSeparator}${DateTime.now().microsecondsSinceEpoch}.png");
+      "${tempDocs.path}${Platform.pathSeparator}${DateTime.now().microsecondsSinceEpoch}.png",
+    );
     await imageFile.create();
     await imageFile.writeAsBytes(image);
     await Share.shareFiles([imageFile.path]);
@@ -32,7 +33,9 @@ class ScreenshotInteractor {
       return;
     }
     final tempDocs = await getApplicationDocumentsDirectory();
-    final imageFile = File("${tempDocs.path}${Platform.pathSeparator}$memeId.png");
+    final imageFile = File(
+      "${tempDocs.path}${Platform.pathSeparator}$memeId.png",
+    );
     await imageFile.create();
     await imageFile.writeAsBytes(image);
   }

@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:memogenerator/presentation/create_meme/create_meme_bloc.dart';
+import 'package:memogenerator/presentation/create_meme/font_settings_bottom_sheet.dart';
 import 'package:memogenerator/presentation/create_meme/models/meme_text.dart';
 import 'package:memogenerator/presentation/create_meme/models/meme_text_with_offset.dart';
 import 'package:memogenerator/presentation/create_meme/models/meme_text_with_selection.dart';
@@ -245,10 +246,32 @@ class BottomMemeText extends StatelessWidget {
         height: 48,
         alignment: Alignment.centerLeft,
         color: item.selected ? AppColors.darkGrey16 : null,
-        padding: const EdgeInsets.symmetric(horizontal: 16),
-        child: Text(
-          item.memeText.text,
-          style: const TextStyle(color: AppColors.darkGrey, fontSize: 16),
+        child: Row(
+          children: [
+            const SizedBox(width: 16),
+            Expanded(
+              child: Text(
+                item.memeText.text,
+                style: const TextStyle(color: AppColors.darkGrey, fontSize: 16),
+              ),
+            ),
+            const SizedBox(width: 4),
+            GestureDetector(
+              onTap: () {
+                showModalBottomSheet(
+                  context: context,
+                  builder: (context) {
+                    return const FontSettingsBottomSheet();
+                  },
+                );
+              },
+              child: const Padding(
+                padding: EdgeInsets.all(8),
+                child: Icon(Icons.font_download_outlined),
+              ),
+            ),
+            const SizedBox(width: 4),
+          ],
         ),
       ),
     );
@@ -270,53 +293,54 @@ class MemeCanvasWidget extends StatelessWidget {
       child: AspectRatio(
         aspectRatio: 1,
         child: StreamBuilder<ScreenshotController>(
-            stream: bloc.observeScreenshotController(),
-            builder: (context, snapshot) {
-              if (!snapshot.hasData) {
-                return const SizedBox.shrink();
-              }
-              return Screenshot(
-                controller: snapshot.requireData,
-                child: Stack(
-                  children: [
-                    StreamBuilder<String?>(
-                      stream: bloc.observeMemePath(),
-                      builder: (context, snapshot) {
-                        final path = snapshot.hasData ? snapshot.data : null;
-                        if (path == null) {
-                          return Container(
-                            color: Colors.white,
-                          );
-                        }
-                        return Image.file(File(path));
-                      },
-                    ),
-                    StreamBuilder<List<MemeTextWithOffset>>(
-                      initialData: const <MemeTextWithOffset>[],
-                      stream: bloc.observeMemeTextsWithOffsets(),
-                      builder: (context, snapshot) {
-                        final memeTextWithOffsets =
-                            snapshot.hasData ? snapshot.data! : const <MemeTextWithOffset>[];
-                        return LayoutBuilder(
-                          builder: (context, constraints) => GestureDetector(
-                            behavior: HitTestBehavior.opaque,
-                            onTap: () => bloc.deselectMemeText(),
-                            child: Stack(
-                              children: memeTextWithOffsets.map((elem) {
-                                return DraggableMemeText(
-                                  memeTextWithOffset: elem,
-                                  parentConstraints: constraints,
-                                );
-                              }).toList(),
-                            ),
-                          ),
+          stream: bloc.observeScreenshotController(),
+          builder: (context, snapshot) {
+            if (!snapshot.hasData) {
+              return const SizedBox.shrink();
+            }
+            return Screenshot(
+              controller: snapshot.requireData,
+              child: Stack(
+                children: [
+                  StreamBuilder<String?>(
+                    stream: bloc.observeMemePath(),
+                    builder: (context, snapshot) {
+                      final path = snapshot.hasData ? snapshot.data : null;
+                      if (path == null) {
+                        return Container(
+                          color: Colors.white,
                         );
-                      },
-                    ),
-                  ],
-                ),
-              );
-            }),
+                      }
+                      return Image.file(File(path));
+                    },
+                  ),
+                  StreamBuilder<List<MemeTextWithOffset>>(
+                    initialData: const <MemeTextWithOffset>[],
+                    stream: bloc.observeMemeTextsWithOffsets(),
+                    builder: (context, snapshot) {
+                      final memeTextWithOffsets =
+                          snapshot.hasData ? snapshot.data! : const <MemeTextWithOffset>[];
+                      return LayoutBuilder(
+                        builder: (context, constraints) => GestureDetector(
+                          behavior: HitTestBehavior.opaque,
+                          onTap: () => bloc.deselectMemeText(),
+                          child: Stack(
+                            children: memeTextWithOffsets.map((elem) {
+                              return DraggableMemeText(
+                                memeTextWithOffset: elem,
+                                parentConstraints: constraints,
+                              );
+                            }).toList(),
+                          ),
+                        ),
+                      );
+                    },
+                  ),
+                ],
+              ),
+            );
+          },
+        ),
       ),
     );
   }
