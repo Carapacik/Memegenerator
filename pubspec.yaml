@@ -20,6 +20,8 @@ dependencies:
   path_provider: ^2.0.8
   provider: ^6.0.2
   rxdart: ^0.27.3
+  screenshot: ^1.2.3
+  share_plus: ^3.0.4
   shared_preferences: ^2.0.11
   uuid: ^3.0.5
 
