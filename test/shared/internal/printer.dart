@@ -14,16 +14,14 @@ void fancyPrint(
 }) {
   final dashesCount = printType.dashesCount;
   final dashesString = List.generate(dashesCount, (_) => _token).join();
-  final leftIndentString =
-      List.generate(_leftIndentCount, (_) => _leftToken).join();
+  final leftIndentString = List.generate(_leftIndentCount, (_) => _leftToken).join();
   final reservedSymbolsCount = dashesCount * 2 + _additionalSpacesCount;
   final maxLineCount = _maxSymbolsInLine - reservedSymbolsCount;
   final lines = <String>[];
   var tempPhrase = '';
   var tempWord = '';
   for (int i = 0; i < text.length; i++) {
-    final effectiveMaxLineCount =
-        lines.isEmpty ? maxLineCount : maxLineCount - _leftIndentCount;
+    final effectiveMaxLineCount = lines.isEmpty ? maxLineCount : maxLineCount - _leftIndentCount;
     if (text[i] == ' ') {
       tempPhrase = "$tempPhrase $tempWord".trim();
       tempWord = '';
@@ -34,8 +32,7 @@ void fancyPrint(
       tempPhrase = "$tempPhrase $tempWord".trim();
       tempWord = '';
       lines.add(tempPhrase);
-    } else if (tempPhrase.length + tempWord.length + 1 ==
-        effectiveMaxLineCount) {
+    } else if (tempPhrase.length + tempWord.length + 1 == effectiveMaxLineCount) {
       lines.add(tempPhrase);
       tempPhrase = '';
     }
@@ -47,16 +44,11 @@ void fancyPrint(
   for (int i = 0; i < lines.length; i++) {
     final stringBuffer = StringBuffer();
     stringBuffer.write(dashesString);
-    final needToAddLeftIndent =
-        i == 0 && printType.addLeftIndentOnConsequentLines;
+    final needToAddLeftIndent = i == 0 && printType.addLeftIndentOnConsequentLines;
     if (needToAddLeftIndent) {
       stringBuffer.write(leftIndentString);
     }
-    final techSymbolsCount = dashesCount +
-        1 +
-        (needToAddLeftIndent ? _leftIndentCount : 0) +
-        1 +
-        dashesCount;
+    final techSymbolsCount = dashesCount + 1 + (needToAddLeftIndent ? _leftIndentCount : 0) + 1 + dashesCount;
     final overallSymbols = lines[i].length + techSymbolsCount;
     late int emptySpacesLeft;
     late int emptySpacesRight;
@@ -69,16 +61,14 @@ void fancyPrint(
       emptySpacesRight = (blankTokensToAdd / 2).ceil();
     }
     if (emptySpacesLeft > 0) {
-      stringBuffer
-          .write(List.generate(emptySpacesLeft, (_) => _spaceToken).join());
+      stringBuffer.write(List.generate(emptySpacesLeft, (_) => _spaceToken).join());
     }
     stringBuffer.write(_spaceToken);
     stringBuffer.write(lines[i]);
     stringBuffer.write(_spaceToken);
 
     if (emptySpacesRight > 0) {
-      stringBuffer
-          .write(List.generate(emptySpacesRight, (_) => _spaceToken).join());
+      stringBuffer.write(List.generate(emptySpacesRight, (_) => _spaceToken).join());
     }
     stringBuffer.write(dashesString);
 

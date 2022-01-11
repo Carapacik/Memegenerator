@@ -38,9 +38,7 @@ void checkParamValue({
   final String? readableRightValueName,
 }) {
   final name = readableRightValueName ??
-      (secondaryRightValue == null
-          ? rightValue.toString()
-          : "$rightValue или $secondaryRightValue");
+      (secondaryRightValue == null ? rightValue.toString() : "$rightValue или $secondaryRightValue");
   print("Внутри $widgetName значение $paramName должно быть равным $name");
   expect(
     actualValue,

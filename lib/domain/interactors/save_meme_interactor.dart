@@ -89,15 +89,13 @@ class SaveMemeInteractor {
     final indexOfLastUnderscore = imageNameWithoutExt.lastIndexOf("_");
 
     if (indexOfLastUnderscore == -1) {
-      final correctedNewImagePath =
-          "$memePath${Platform.pathSeparator}${imageNameWithoutExt}_1$ext";
+      final correctedNewImagePath = "$memePath${Platform.pathSeparator}${imageNameWithoutExt}_1$ext";
       await tempFile.copy(correctedNewImagePath);
     } else {
       final suffixNumberString = imageNameWithoutExt.substring(indexOfLastUnderscore + 1);
       final suffixNumber = int.tryParse(suffixNumberString);
       if (suffixNumber == null) {
-        final correctedNewImagePath =
-            "$memePath${Platform.pathSeparator}${imageNameWithoutExt}_1$ext";
+        final correctedNewImagePath = "$memePath${Platform.pathSeparator}${imageNameWithoutExt}_1$ext";
         await tempFile.copy(correctedNewImagePath);
       } else {
         final imageNameWithoutSuffix = imageNameWithoutExt.substring(0, indexOfLastUnderscore + 1);

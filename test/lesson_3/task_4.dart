@@ -77,8 +77,7 @@ void runTestLesson3Task4() {
     tester.binding.window.devicePixelRatioTestValue = 2.625;
     tester.binding.window.textScaleFactorTestValue = 1.1;
     final dpi = tester.binding.window.devicePixelRatio;
-    tester.binding.window.physicalSizeTestValue =
-        Size(width * dpi, height * dpi);
+    tester.binding.window.physicalSizeTestValue = Size(width * dpi, height * dpi);
 
     fancyPrint(
       "Запускаем тест к 4 заданию 11-го урока",
@@ -113,8 +112,7 @@ void runTestLesson3Task4() {
     expect(
       textOnDraggableTextFinder,
       findsOneWidget,
-      reason:
-          "ОШИБКА! Невозможно найти единственный Text внутри виджета DraggableMemeText",
+      reason: "ОШИБКА! Невозможно найти единственный Text внутри виджета DraggableMemeText",
     );
 
     final textOnDraggableText = tester.widget<Text>(textOnDraggableTextFinder);
@@ -145,8 +143,7 @@ void runTestLesson3Task4() {
       printType: PrintType.headline,
     );
 
-    fancyPrint(
-        "Находим кнопку изменения настроек шрифта в BottomMemeText с текстом '${memeText.text}'");
+    fancyPrint("Находим кнопку изменения настроек шрифта в BottomMemeText с текстом '${memeText.text}'");
     expect(
       changeFontSettingsIconFinder,
       findsOneWidget,
@@ -154,8 +151,7 @@ void runTestLesson3Task4() {
           "ОШИБКА! Невозможно найти единственную виджет Icon с иконкой Icons.font_download_outlined в BottomMemeText с текстом '${memeText.text}'",
     );
 
-    fancyPrint(
-        "Тапаем на найденную кнопку изменения настроек шрифта для текста '${memeText.text}'");
+    fancyPrint("Тапаем на найденную кнопку изменения настроек шрифта для текста '${memeText.text}'");
     await tester.tap(changeFontSettingsIconFinder);
 
     await tester.pumpAndSettle();
@@ -175,8 +171,7 @@ void runTestLesson3Task4() {
     );
 
     final fontWeightText = 'Font Weight:';
-    fancyPrint(
-        "На FontSettingBottomSheet находится единственный виджет Text с текстом '$fontWeightText'");
+    fancyPrint("На FontSettingBottomSheet находится единственный виджет Text с текстом '$fontWeightText'");
     expect(
       find.text(fontWeightText),
       findsOneWidget,
@@ -216,12 +211,10 @@ void runTestLesson3Task4() {
     expect(
       fontWeightSliderThemeFinder,
       findsOneWidget,
-      reason:
-          "ОШИБКА! Невозможно найти SliderTheme, находящийся над нужным слайдером",
+      reason: "ОШИБКА! Невозможно найти SliderTheme, находящийся над нужным слайдером",
     );
 
-    final fontWeightSliderTheme =
-        tester.widget<SliderTheme>(fontWeightSliderThemeFinder);
+    final fontWeightSliderTheme = tester.widget<SliderTheme>(fontWeightSliderThemeFinder);
 
     if (fontWeightSlider.label == null) {
       fancyPrint("В этом слайдере label равен null");
@@ -246,12 +239,10 @@ void runTestLesson3Task4() {
 
     final textOnFontSettingBottomSheetFinder = find.descendant(
       of: fontSettingBottomSheetFinder,
-      matching: find.byWidgetPredicate(
-          (widget) => widget is Text && widget.data == memeText.text),
+      matching: find.byWidgetPredicate((widget) => widget is Text && widget.data == memeText.text),
     );
 
-    fancyPrint(
-        "На FontSettingBottomSheet находится единственный виджет Text с текстом '${memeText.text}'");
+    fancyPrint("На FontSettingBottomSheet находится единственный виджет Text с текстом '${memeText.text}'");
     expect(
       textOnFontSettingBottomSheetFinder,
       findsOneWidget,
@@ -261,13 +252,11 @@ void runTestLesson3Task4() {
 
     final text = tester.widget<Text>(textOnFontSettingBottomSheetFinder);
 
-    fancyPrint(
-        "Виджет с текстом '${memeText.text}' имеет style не равный null");
+    fancyPrint("Виджет с текстом '${memeText.text}' имеет style не равный null");
     expect(
       text.style,
       isNotNull,
-      reason:
-          "ОШИБКА! Виджет с текстом '${memeText.text}' имеет style равный null",
+      reason: "ОШИБКА! Виджет с текстом '${memeText.text}' имеет style равный null",
     );
 
     fancyPrint(
@@ -275,12 +264,10 @@ void runTestLesson3Task4() {
     expect(
       text.style!.fontWeight,
       memeText.fontWeight,
-      reason:
-          "ОШИБКА! Виджет с текстом '${memeText.text}' имеет style в котором fontWeight неверный",
+      reason: "ОШИБКА! Виджет с текстом '${memeText.text}' имеет style в котором fontWeight неверный",
     );
 
-    fancyPrint(
-        "Выделяем на Slider с выбором FontWeight самое крайнее левое значение");
+    fancyPrint("Выделяем на Slider с выбором FontWeight самое крайнее левое значение");
 
     final Offset topLeft = tester.getTopLeft(fontWeightSliderFinder);
     final Offset bottomRight = tester.getBottomRight(fontWeightSliderFinder);
@@ -293,13 +280,11 @@ void runTestLesson3Task4() {
     await tester.pump();
 
     final newFontWeight = FontWeight.w100;
-    fancyPrint(
-        "Проверяем, что Text с текстом '${memeText.text}' изменил свой fontWeight на FontWeight.w100");
+    fancyPrint("Проверяем, что Text с текстом '${memeText.text}' изменил свой fontWeight на FontWeight.w100");
     expect(
       tester.widget<Text>(textOnFontSettingBottomSheetFinder).style!.fontWeight,
       newFontWeight,
-      reason:
-          "ОШИБКА! Text с текстом '${memeText.text}' имеет неверное значение",
+      reason: "ОШИБКА! Text с текстом '${memeText.text}' имеет неверное значение",
     );
 
     fancyPrint(
@@ -365,10 +350,9 @@ void runTestLesson3Task4() {
 
     final sp = await SharedPreferences.getInstance();
     final memesRaw = sp.getStringList(memeKey) ?? <String>[];
-    final memes = memesRaw.map((rawMeme) => Meme.fromJson(jsonDecode(rawMeme)));
+    final memes = memesRaw.map((rawMeme) => Meme.fromJson(jsonDecode(rawMeme) as Map<String, dynamic>));
 
-    fancyPrint(
-        "Ожидаем, что в SharedPreferences будет сохранен только один мем");
+    fancyPrint("Ожидаем, что в SharedPreferences будет сохранен только один мем");
     expect(
       memes.length,
       1,
@@ -376,15 +360,13 @@ void runTestLesson3Task4() {
           "ОШИБКА! В SharedPreferences под ключем '$memeKey' после сохранения мема на странице CreateMemePage находится больше одного мем",
     );
 
-    fancyPrint(
-        "Ожидаем, что в сохраненном меме в содержится только один TextWithPosition в texts");
+    fancyPrint("Ожидаем, что в сохраненном меме в содержится только один TextWithPosition в texts");
 
     final updatedMeme = memes.first;
     expect(
       updatedMeme.texts.length,
       1,
-      reason:
-          "ОШИБКА! В сохраненном меме неверное количество TextWithPosition в texts",
+      reason: "ОШИБКА! В сохраненном меме неверное количество TextWithPosition в texts",
     );
 
     fancyPrint(
@@ -394,8 +376,7 @@ void runTestLesson3Task4() {
     expect(
       updatedTextWithPosition.fontWeight,
       newFontWeight,
-      reason:
-          "ОШИБКА! В обновленном TextWithPosition содержится неверный fontWeight",
+      reason: "ОШИБКА! В обновленном TextWithPosition содержится неверный fontWeight",
     );
 
     fancyPrint("УСПЕХ! Тест пройден!", printType: PrintType.startEnd);

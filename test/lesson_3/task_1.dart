@@ -23,8 +23,7 @@ void runTestLesson3Task1() {
     tester.binding.window.devicePixelRatioTestValue = 2.625;
     tester.binding.window.textScaleFactorTestValue = 1.1;
     final dpi = tester.binding.window.devicePixelRatio;
-    tester.binding.window.physicalSizeTestValue =
-        Size(width * dpi, height * dpi);
+    tester.binding.window.physicalSizeTestValue = Size(width * dpi, height * dpi);
 
     fancyPrint(
       "Запускаем тест к 1 заданию 11-го урока",
@@ -35,8 +34,7 @@ void runTestLesson3Task1() {
     await tester.pumpWidget(MaterialApp(home: CreateMemePage()));
 
     final addTextText = 'ДОБАВИТЬ ТЕКСТ';
-    fancyPrint(
-        "На странице CreateMemePage находится единственная кнопка с текстом '$addTextText'");
+    fancyPrint("На странице CreateMemePage находится единственная кнопка с текстом '$addTextText'");
     final addMemeTextButtonFinder = find.text(addTextText);
     expect(
       addMemeTextButtonFinder,
@@ -90,8 +88,7 @@ void runTestLesson3Task1() {
 
     expect(
       bottomSheet.shape,
-      RoundedRectangleBorder(
-          borderRadius: BorderRadius.vertical(top: Radius.circular(24))),
+      RoundedRectangleBorder(borderRadius: BorderRadius.vertical(top: Radius.circular(24))),
       reason: "ОШИБКА! BottomSheet имеет некорректный shape",
     );
 
@@ -102,15 +99,13 @@ void runTestLesson3Task1() {
       of: find.byType(FontSettingBottomSheet),
       matching: find.ancestor(
           of: find.byType(Column),
-          matching: find.byWidgetPredicate(
-              (widget) => widget is Container && widget.color == Colors.white)),
+          matching: find.byWidgetPredicate((widget) => widget is Container && widget.color == Colors.white)),
     );
 
     expect(
       containerWithIncorrectBackground,
       findsNothing,
-      reason:
-          "ОШИБКА! В FontSettingBottomSheet пристутсвтвует лишний Container с цветом",
+      reason: "ОШИБКА! В FontSettingBottomSheet пристутсвтвует лишний Container с цветом",
     );
 
     fancyPrint(

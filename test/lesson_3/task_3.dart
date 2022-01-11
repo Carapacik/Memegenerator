@@ -34,8 +34,7 @@ void runTestLesson3Task3() {
     );
 
     final addTextText = 'ДОБАВИТЬ ТЕКСТ';
-    fancyPrint(
-        "На странице CreateMemePage находится единственная кнопка с текстом '$addTextText'");
+    fancyPrint("На странице CreateMemePage находится единственная кнопка с текстом '$addTextText'");
     final addMemeTextButtonFinder = find.text(addTextText);
     expect(
       addMemeTextButtonFinder,
@@ -44,51 +43,41 @@ void runTestLesson3Task3() {
           "ОШИБКА! На странице CreateMemePage невозможно найти единственную кнопку с текстом '$addTextText'",
     );
 
-    fancyPrint(
-        "На странице CreateMemePage находится единственный виджет с типом TextField");
+    fancyPrint("На странице CreateMemePage находится единственный виджет с типом TextField");
     final textFieldFinder = find.byType(TextField);
     expect(
       textFieldFinder,
       findsOneWidget,
-      reason:
-          "ОШИБКА! На странице CreateMemePage невозможно найти единственный виджет с типом TextField",
+      reason: "ОШИБКА! На странице CreateMemePage невозможно найти единственный виджет с типом TextField",
     );
 
     final firstText = 'Первый текст';
-    await addMemeTextWithText(
-        tester, addMemeTextButtonFinder, textFieldFinder, firstText);
+    await addMemeTextWithText(tester, addMemeTextButtonFinder, textFieldFinder, firstText);
 
     final secondText = 'Второй текст';
-    await addMemeTextWithText(
-        tester, addMemeTextButtonFinder, textFieldFinder, secondText);
+    await addMemeTextWithText(tester, addMemeTextButtonFinder, textFieldFinder, secondText);
 
     final thirdText = 'Третий текст';
-    await addMemeTextWithText(
-        tester, addMemeTextButtonFinder, textFieldFinder, thirdText);
+    await addMemeTextWithText(tester, addMemeTextButtonFinder, textFieldFinder, thirdText);
 
-    final bottomMemeByTextFinder =
-        (text) => find.widgetWithText(BottomMemeText, text);
+    final bottomMemeByTextFinder = (text) => find.widgetWithText(BottomMemeText, text as String);
 
-    final draggableByTextFinder =
-        (text) => find.widgetWithText(DraggableMemeText, text);
+    final draggableByTextFinder = (text) => find.widgetWithText(DraggableMemeText, text as String);
 
     fancyPrint(
         "Проверяем что на странице CreateMemePage содержится 3 виджета BottomMemeText с текстами '$firstText', '$secondText' и '$thirdText'");
 
     expect(bottomMemeByTextFinder(firstText), findsOneWidget,
-        reason:
-            "ОШИБКА! Невозможно найти единственный виджет BottomMemeText с текстом '$firstText'");
+        reason: "ОШИБКА! Невозможно найти единственный виджет BottomMemeText с текстом '$firstText'");
     expect(
       bottomMemeByTextFinder(secondText),
       findsOneWidget,
-      reason:
-          "ОШИБКА! Невозможно найти единственный виджет BottomMemeText с текстом '$secondText'",
+      reason: "ОШИБКА! Невозможно найти единственный виджет BottomMemeText с текстом '$secondText'",
     );
     expect(
       bottomMemeByTextFinder(thirdText),
       findsOneWidget,
-      reason:
-          "ОШИБКА! Невозможно найти единственный виджет BottomMemeText с текстом '$thirdText'",
+      reason: "ОШИБКА! Невозможно найти единственный виджет BottomMemeText с текстом '$thirdText'",
     );
 
     fancyPrint(
@@ -97,20 +86,17 @@ void runTestLesson3Task3() {
     expect(
       draggableByTextFinder(firstText),
       findsOneWidget,
-      reason:
-          "ОШИБКА! Невозможно найти единственный виджет DraggableMemeText с текстом '$firstText'",
+      reason: "ОШИБКА! Невозможно найти единственный виджет DraggableMemeText с текстом '$firstText'",
     );
     expect(
       draggableByTextFinder(secondText),
       findsOneWidget,
-      reason:
-          "ОШИБКА! Невозможно найти единственный виджет DraggableMemeText с текстом '$secondText'",
+      reason: "ОШИБКА! Невозможно найти единственный виджет DraggableMemeText с текстом '$secondText'",
     );
     expect(
       draggableByTextFinder(thirdText),
       findsOneWidget,
-      reason:
-          "ОШИБКА! Невозможно найти единственный виджет DraggableMemeText с текстом '$thirdText'",
+      reason: "ОШИБКА! Невозможно найти единственный виджет DraggableMemeText с текстом '$thirdText'",
     );
 
     fancyPrint(
@@ -122,11 +108,10 @@ void runTestLesson3Task3() {
       return widget is Icon && widget.icon == Icons.delete_forever_outlined;
     });
 
-    final deleteMemeTextByTextButtonFinder = (text) => find.descendant(
-        of: bottomMemeByTextFinder(text), matching: deleteIconFinder);
+    final deleteMemeTextByTextButtonFinder =
+        (text) => find.descendant(of: bottomMemeByTextFinder(text), matching: deleteIconFinder);
 
-    fancyPrint(
-        "Находим кнопку удаления в BottomMemeText с текстом '$firstText'");
+    fancyPrint("Находим кнопку удаления в BottomMemeText с текстом '$firstText'");
     expect(
       deleteMemeTextByTextButtonFinder(firstText),
       findsOneWidget,
@@ -145,20 +130,17 @@ void runTestLesson3Task3() {
     expect(
       bottomMemeByTextFinder(firstText),
       findsNothing,
-      reason:
-          "ОШИБКА! Найден виджет BottomMemeText с текстом '$firstText', хотя не должен",
+      reason: "ОШИБКА! Найден виджет BottomMemeText с текстом '$firstText', хотя не должен",
     );
     expect(
       bottomMemeByTextFinder(secondText),
       findsOneWidget,
-      reason:
-          "ОШИБКА! Невозможно найти единственный виджет BottomMemeText с текстом '$secondText'",
+      reason: "ОШИБКА! Невозможно найти единственный виджет BottomMemeText с текстом '$secondText'",
     );
     expect(
       bottomMemeByTextFinder(thirdText),
       findsOneWidget,
-      reason:
-          "ОШИБКА! Невозможно найти единственный виджет BottomMemeText с текстом '$thirdText'",
+      reason: "ОШИБКА! Невозможно найти единственный виджет BottomMemeText с текстом '$thirdText'",
     );
 
     fancyPrint(
@@ -166,20 +148,17 @@ void runTestLesson3Task3() {
     expect(
       draggableByTextFinder(firstText),
       findsNothing,
-      reason:
-          "ОШИБКА! Найден виджет DraggableMemeText с текстом '$firstText', хотя не должен",
+      reason: "ОШИБКА! Найден виджет DraggableMemeText с текстом '$firstText', хотя не должен",
     );
     expect(
       draggableByTextFinder(secondText),
       findsOneWidget,
-      reason:
-          "ОШИБКА! Невозможно найти единственный виджет DraggableMemeText с текстом '$secondText'",
+      reason: "ОШИБКА! Невозможно найти единственный виджет DraggableMemeText с текстом '$secondText'",
     );
     expect(
       draggableByTextFinder(thirdText),
       findsOneWidget,
-      reason:
-          "ОШИБКА! Невозможно найти единственный виджет DraggableMemeText с текстом '$thirdText'",
+      reason: "ОШИБКА! Невозможно найти единственный виджет DraggableMemeText с текстом '$thirdText'",
     );
 
     fancyPrint(
@@ -187,8 +166,7 @@ void runTestLesson3Task3() {
       printType: PrintType.headline,
     );
 
-    fancyPrint(
-        "Находим кнопку удаления в BottomMemeText с текстом $secondText");
+    fancyPrint("Находим кнопку удаления в BottomMemeText с текстом $secondText");
     expect(
       deleteMemeTextByTextButtonFinder(secondText),
       findsOneWidget,
@@ -207,20 +185,17 @@ void runTestLesson3Task3() {
     expect(
       bottomMemeByTextFinder(firstText),
       findsNothing,
-      reason:
-          "ОШИБКА! Найден виджет BottomMemeText с текстом '$firstText', хотя не должен",
+      reason: "ОШИБКА! Найден виджет BottomMemeText с текстом '$firstText', хотя не должен",
     );
     expect(
       bottomMemeByTextFinder(secondText),
       findsNothing,
-      reason:
-          "ОШИБКА! Найден виджет BottomMemeText с текстом '$firstText', хотя не должен",
+      reason: "ОШИБКА! Найден виджет BottomMemeText с текстом '$firstText', хотя не должен",
     );
     expect(
       bottomMemeByTextFinder(thirdText),
       findsOneWidget,
-      reason:
-          "ОШИБКА! Невозможно найти единственный виджет BottomMemeText с текстом '$thirdText'",
+      reason: "ОШИБКА! Невозможно найти единственный виджет BottomMemeText с текстом '$thirdText'",
     );
 
     fancyPrint(
@@ -228,20 +203,17 @@ void runTestLesson3Task3() {
     expect(
       draggableByTextFinder(firstText),
       findsNothing,
-      reason:
-          "ОШИБКА! Найден виджет DraggableMemeText с текстом '$firstText', хотя не должен",
+      reason: "ОШИБКА! Найден виджет DraggableMemeText с текстом '$firstText', хотя не должен",
     );
     expect(
       draggableByTextFinder(secondText),
       findsNothing,
-      reason:
-          "ОШИБКА! Найден виджет DraggableMemeText с текстом '$secondText', хотя не должен",
+      reason: "ОШИБКА! Найден виджет DraggableMemeText с текстом '$secondText', хотя не должен",
     );
     expect(
       draggableByTextFinder(thirdText),
       findsOneWidget,
-      reason:
-          "ОШИБКА! Невозможно найти единственный виджет DraggableMemeText с текстом '$thirdText'",
+      reason: "ОШИБКА! Невозможно найти единственный виджет DraggableMemeText с текстом '$thirdText'",
     );
 
     fancyPrint(

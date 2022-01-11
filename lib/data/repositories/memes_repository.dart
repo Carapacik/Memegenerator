@@ -23,9 +23,8 @@ class MemesRepository {
       // Добавляем, если нет
       memes.add(newMeme);
     } else {
-      // Удаляем, если есть
-      memes.removeAt(memeIndex);
-      memes.insert(memeIndex, newMeme);
+      // Меняем, если есть
+      memes[memeIndex] = newMeme;
     }
     return _setMemes(memes);
   }

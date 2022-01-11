@@ -16,9 +16,7 @@ void checkTextFieldTextInputAction({
   );
   expect(
     textField.textInputAction,
-    secondTextInputAction != null
-        ? isOneOrAnother(textInputAction, secondTextInputAction)
-        : textInputAction,
+    secondTextInputAction != null ? isOneOrAnother(textInputAction, secondTextInputAction) : textInputAction,
     reason: "$widgetName should have textInputAction ${secondTextInputAction != null ? "either "
         "$textInputAction or $secondTextInputAction" : textInputAction}",
   );
@@ -154,16 +152,14 @@ void checkTextFieldBorder({
     reason: "$widgetName should have not null $actualBorderName property",
   );
 
-  if (border is OutlineInputBorder &&
-      (secondBorder == null || secondBorder is OutlineInputBorder)) {
+  if (border is OutlineInputBorder && (secondBorder == null || secondBorder is OutlineInputBorder)) {
     expect(
       actualBorder,
       isInstanceOf<OutlineInputBorder>(),
       reason: "$widgetName should have $actualBorderName of type OutlineInputBorder",
     );
     final actualOutlinedInputBorder = actualBorder as OutlineInputBorder;
-    final secondOutlinedInputBorder =
-        secondBorder != null ? secondBorder as OutlineInputBorder : null;
+    final secondOutlinedInputBorder = secondBorder != null ? secondBorder as OutlineInputBorder : null;
 
     expect(
       actualOutlinedInputBorder.borderRadius,

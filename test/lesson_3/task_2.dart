@@ -37,8 +37,7 @@ void runTestLesson3Task2() {
     await tester.pump(const Duration(seconds: 1));
 
     final dialogTitle = "Точно хотите выйти?";
-    fancyPrint(
-        "Проверяем, что в диалоге есть виджет Text с текстом '$dialogTitle'");
+    fancyPrint("Проверяем, что в диалоге есть виджет Text с текстом '$dialogTitle'");
     expect(
       find.text(dialogTitle),
       findsOneWidget,
@@ -46,8 +45,7 @@ void runTestLesson3Task2() {
     );
 
     final dialogContent = "Мемы сами себя не сделают";
-    fancyPrint(
-        "Проверяем, что в диалоге есть виджет Text с текстом '$dialogContent'");
+    fancyPrint("Проверяем, что в диалоге есть виджет Text с текстом '$dialogContent'");
     expect(
       find.text(dialogContent),
       findsOneWidget,
@@ -56,8 +54,7 @@ void runTestLesson3Task2() {
 
     final dialogCancelButton = "ОСТАТЬСЯ";
     final cancelButtonFinder = find.text(dialogCancelButton);
-    fancyPrint(
-        "Проверяем, что в диалоге есть кнопка с текстом '$dialogCancelButton'");
+    fancyPrint("Проверяем, что в диалоге есть кнопка с текстом '$dialogCancelButton'");
     expect(
       cancelButtonFinder,
       findsOneWidget,
@@ -75,8 +72,7 @@ void runTestLesson3Task2() {
     expect(
       find.text(dialogTitle),
       findsNothing,
-      reason:
-          "ОШИБКА! Найден виджет Text с текстом '$dialogTitle', хотя не должен",
+      reason: "ОШИБКА! Найден виджет Text с текстом '$dialogTitle', хотя не должен",
     );
 
     fancyPrint("Проверяем, что диалог MainPage находится в стеке страниц");
@@ -95,8 +91,7 @@ void runTestLesson3Task2() {
 
     final dialogExitButton = "ВЫЙТИ";
     final exitButtonFinder = find.text(dialogExitButton);
-    fancyPrint(
-        "Проверяем, что в диалоге есть кнопка с текстом '$dialogExitButton'");
+    fancyPrint("Проверяем, что в диалоге есть кнопка с текстом '$dialogExitButton'");
     expect(
       exitButtonFinder,
       findsOneWidget,
