@@ -111,7 +111,6 @@ class _CreateMemePageState extends State<CreateMemePage> {
           AppButton(
             onTap: () => Navigator.of(context).pop(true),
             text: "Выйти",
-            color: AppColors.darkGrey,
           ),
         ],
       ),

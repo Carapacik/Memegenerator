@@ -86,7 +86,6 @@ class _MainPageState extends State<MainPage> {
           AppButton(
             onTap: () => Navigator.of(context).pop(true),
             text: "Выйти",
-            color: AppColors.darkGrey,
           ),
         ],
       ),
