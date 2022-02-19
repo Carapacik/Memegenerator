@@ -38,7 +38,8 @@ class MemeTextOnCanvas extends StatelessWidget {
       child: Text(
         text,
         textAlign: TextAlign.center,
-        style: TextStyle(color: color, fontSize: fontSize, fontWeight: fontWeight),
+        style:
+            TextStyle(color: color, fontSize: fontSize, fontWeight: fontWeight),
       ),
     );
   }

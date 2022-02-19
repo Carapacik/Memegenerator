@@ -1,20 +1,21 @@
 import 'dart:io';
 import 'dart:typed_data';
 
+import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:share_plus/share_plus.dart';
 
 class ScreenshotInteractor {
   static ScreenshotInteractor? _instance;
 
-  factory ScreenshotInteractor.getInstance() => _instance ??= ScreenshotInteractor._internal();
+  factory ScreenshotInteractor.getInstance() =>
+      _instance ??= ScreenshotInteractor._internal();
 
   ScreenshotInteractor._internal();
 
   Future<void> shareScreenshot(final Future<Uint8List?> capture) async {
     final image = await capture;
     if (image == null) {
-      print("ERR: Can not get image from screenshot controller");
       return;
     }
     final tempDocs = await getTemporaryDirectory();
@@ -26,10 +27,10 @@ class ScreenshotInteractor {
     await Share.shareFiles([imageFile.path]);
   }
 
-  Future<void> saveThumbnail(final String memeId, final Future<Uint8List?> capture) async {
+  Future<void> saveThumbnail(
+      final String memeId, final Future<Uint8List?> capture) async {
     final image = await capture;
     if (image == null) {
-      print("ERR: Can not get image from screenshot controller");
       return;
     }
     final tempDocs = await getApplicationDocumentsDirectory();
@@ -38,5 +39,6 @@ class ScreenshotInteractor {
     );
     await imageFile.create();
     await imageFile.writeAsBytes(image);
+    await FileImage(imageFile).evict();
   }
 }

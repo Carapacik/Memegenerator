@@ -83,7 +83,8 @@ class _FontSettingBottomSheetState extends State<FontSettingBottomSheet> {
           alignment: Alignment.centerRight,
           child: Buttons(
             onPositiveButtonAction: () {
-              bloc.changeFontSetting(widget.memeText.id, color, fontSize, fontWeight);
+              bloc.changeFontSetting(
+                  widget.memeText.id, color, fontSize, fontWeight);
               Navigator.of(context).pop();
             },
           ),
@@ -292,7 +293,8 @@ class _FontWeightSliderState extends State<FontWeightSlider> {
               value: fontWeight.index.toDouble(),
               onChanged: (value) {
                 setState(() {
-                  fontWeight = FontWeight.values.firstWhere((fw) => fw.index == value.toInt());
+                  fontWeight = FontWeight.values
+                      .firstWhere((fw) => fw.index == value.toInt());
                   widget.changeFontWeight(fontWeight);
                 });
               },

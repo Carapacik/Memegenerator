@@ -26,7 +26,8 @@ class TextWithPosition extends Equatable {
     this.fontWeight,
   });
 
-  factory TextWithPosition.fromJson(Map<String, dynamic> json) => _$TextWithPositionFromJson(json);
+  factory TextWithPosition.fromJson(Map<String, dynamic> json) =>
+      _$TextWithPositionFromJson(json);
 
   Map<String, dynamic> toJson() => _$TextWithPositionToJson(this);
 

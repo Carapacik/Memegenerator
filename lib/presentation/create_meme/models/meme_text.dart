@@ -32,7 +32,9 @@ class MemeText extends Equatable {
     );
   }
 
-  factory MemeText.createFromTextWithPosition(final TextWithPosition textWithPosition) {
+  factory MemeText.createFromTextWithPosition(
+    final TextWithPosition textWithPosition,
+  ) {
     return MemeText(
       id: textWithPosition.id,
       text: textWithPosition.text,

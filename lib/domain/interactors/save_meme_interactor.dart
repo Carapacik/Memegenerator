@@ -12,7 +12,8 @@ class SaveMemeInteractor {
   static const memesPathName = "memes";
   static SaveMemeInteractor? _instance;
 
-  factory SaveMemeInteractor.getInstance() => _instance ??= SaveMemeInteractor._internal();
+  factory SaveMemeInteractor.getInstance() =>
+      _instance ??= SaveMemeInteractor._internal();
 
   SaveMemeInteractor._internal();
 
@@ -26,7 +27,8 @@ class SaveMemeInteractor {
     if (imagePath == null) {
       meme = Meme(id: id, texts: textWithPositions);
     } else {
-      await ScreenshotInteractor.getInstance().saveThumbnail(id, screenshotController.capture());
+      await ScreenshotInteractor.getInstance()
+          .saveThumbnail(id, screenshotController.capture());
       await createNewFile(imagePath);
       meme = Meme(
         id: id,
@@ -40,7 +42,8 @@ class SaveMemeInteractor {
   Future<void> createNewFile(final String imagePath) async {
     // Работа с папками
     final docsPath = await getApplicationDocumentsDirectory();
-    final memePath = "${docsPath.absolute.path}${Platform.pathSeparator}$memesPathName";
+    final memePath =
+        "${docsPath.absolute.path}${Platform.pathSeparator}$memesPathName";
     final memesDirectory = Directory(memePath);
     await memesDirectory.create(recursive: true);
     final currentFiles = memesDirectory.listSync();
@@ -89,16 +92,20 @@ class SaveMemeInteractor {
     final indexOfLastUnderscore = imageNameWithoutExt.lastIndexOf("_");
 
     if (indexOfLastUnderscore == -1) {
-      final correctedNewImagePath = "$memePath${Platform.pathSeparator}${imageNameWithoutExt}_1$ext";
+      final correctedNewImagePath =
+          "$memePath${Platform.pathSeparator}${imageNameWithoutExt}_1$ext";
       await tempFile.copy(correctedNewImagePath);
     } else {
-      final suffixNumberString = imageNameWithoutExt.substring(indexOfLastUnderscore + 1);
+      final suffixNumberString =
+          imageNameWithoutExt.substring(indexOfLastUnderscore + 1);
       final suffixNumber = int.tryParse(suffixNumberString);
       if (suffixNumber == null) {
-        final correctedNewImagePath = "$memePath${Platform.pathSeparator}${imageNameWithoutExt}_1$ext";
+        final correctedNewImagePath =
+            "$memePath${Platform.pathSeparator}${imageNameWithoutExt}_1$ext";
         await tempFile.copy(correctedNewImagePath);
       } else {
-        final imageNameWithoutSuffix = imageNameWithoutExt.substring(0, indexOfLastUnderscore + 1);
+        final imageNameWithoutSuffix =
+            imageNameWithoutExt.substring(0, indexOfLastUnderscore + 1);
         final correctedNewImagePath =
             "$memePath${Platform.pathSeparator}$imageNameWithoutSuffix${suffixNumber + 1}";
         await tempFile.copy(correctedNewImagePath);
@@ -106,5 +113,6 @@ class SaveMemeInteractor {
     }
   }
 
-  String _getFileNameByPath(String path) => path.split(Platform.pathSeparator).last;
+  String _getFileNameByPath(String path) =>
+      path.split(Platform.pathSeparator).last;
 }

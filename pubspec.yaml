@@ -14,15 +14,15 @@ dependencies:
   equatable: ^2.0.3
   flutter:
     sdk: flutter
-  google_fonts: ^2.2.0
-  image_picker: ^0.8.4+4
+  google_fonts: ^2.3.1
+  image_picker: ^0.8.4+9
   json_annotation: ^4.4.0
-  path_provider: ^2.0.8
+  path_provider: ^2.0.9
   provider: ^6.0.2
   rxdart: ^0.27.3
   screenshot: ^1.2.3
-  share_plus: ^3.0.4
-  shared_preferences: ^2.0.12
+  share_plus: ^3.0.5
+  shared_preferences: ^2.0.13
   uuid: ^3.0.5
 
 dev_dependencies:

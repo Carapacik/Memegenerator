@@ -139,11 +139,13 @@ class _EditTextBarState extends State<EditTextBar> {
       child: StreamBuilder<MemeText?>(
         stream: bloc.observeSelectedMemeTexts(),
         builder: (context, snapshot) {
-          final MemeText? selectedMemeText = snapshot.hasData ? snapshot.data! : null;
+          final MemeText? selectedMemeText =
+              snapshot.hasData ? snapshot.data! : null;
           if (selectedMemeText?.text != controller.text) {
             final newText = selectedMemeText?.text ?? "";
             controller.text = newText;
-            controller.selection = TextSelection.collapsed(offset: newText.length);
+            controller.selection =
+                TextSelection.collapsed(offset: newText.length);
           }
           final haveSelected = selectedMemeText != null;
           return TextField(
@@ -160,7 +162,8 @@ class _EditTextBarState extends State<EditTextBar> {
               filled: true,
               hintText: haveSelected ? "Ввести текст" : null,
               hintStyle: TextStyle(fontSize: 16, color: AppColors.darkGrey38),
-              fillColor: haveSelected ? AppColors.fuchsia16 : AppColors.darkGrey6,
+              fillColor:
+                  haveSelected ? AppColors.fuchsia16 : AppColors.darkGrey6,
               disabledBorder: UnderlineInputBorder(
                 borderSide: BorderSide(color: AppColors.darkGrey38),
               ),
@@ -222,7 +225,9 @@ class BottomList extends StatelessWidget {
         stream: bloc.observeSelectedMemeTextsWithSelection(),
         initialData: const <MemeTextWithSelection>[],
         builder: (context, snapshot) {
-          final items = snapshot.hasData ? snapshot.data! : const <MemeTextWithSelection>[];
+          final items = snapshot.hasData
+              ? snapshot.data!
+              : const <MemeTextWithSelection>[];
           return ListView.separated(
             itemCount: items.length + 1,
             itemBuilder: (BuildContext context, int index) {
@@ -399,7 +404,8 @@ class MemeTexts extends StatelessWidget {
       initialData: const <MemeTextWithOffset>[],
       stream: bloc.observeMemeTextsWithOffsets(),
       builder: (context, snapshot) {
-        final memeTextWithOffsets = snapshot.hasData ? snapshot.data! : const <MemeTextWithOffset>[];
+        final memeTextWithOffsets =
+            snapshot.hasData ? snapshot.data! : const <MemeTextWithOffset>[];
         return LayoutBuilder(
           builder: (context, constraints) => GestureDetector(
             behavior: HitTestBehavior.opaque,
@@ -462,8 +468,10 @@ class _DraggableMemeTextState extends State<DraggableMemeText> {
 
   @override
   void initState() {
-    left = widget.memeTextWithOffset.offset?.dx ?? widget.parentConstraints.maxWidth / 3;
-    top = widget.memeTextWithOffset.offset?.dy ?? widget.parentConstraints.maxHeight / 2;
+    left = widget.memeTextWithOffset.offset?.dx ??
+        widget.parentConstraints.maxWidth / 3;
+    top = widget.memeTextWithOffset.offset?.dy ??
+        widget.parentConstraints.maxHeight / 2;
     if (widget.memeTextWithOffset.offset == null) {
       WidgetsBinding.instance?.addPostFrameCallback((timeStamp) {
         final bloc = Provider.of<CreateMemeBloc>(context, listen: false);
@@ -500,7 +508,8 @@ class _DraggableMemeTextState extends State<DraggableMemeText> {
           stream: bloc.observeSelectedMemeTexts(),
           builder: (context, snapshot) {
             final selectedItem = snapshot.hasData ? snapshot.data : null;
-            final selected = widget.memeTextWithOffset.memeText.id == selectedItem?.id;
+            final selected =
+                widget.memeTextWithOffset.memeText.id == selectedItem?.id;
             return MemeTextOnCanvas(
               selected: selected,
               padding: padding,

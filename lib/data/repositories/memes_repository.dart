@@ -11,8 +11,8 @@ class MemesRepository {
 
   static MemesRepository? _instance;
 
-  factory MemesRepository.getInstance() =>
-      _instance ??= MemesRepository._internal(SharedPreferenceData.getInstance());
+  factory MemesRepository.getInstance() => _instance ??=
+      MemesRepository._internal(SharedPreferenceData.getInstance());
 
   MemesRepository._internal(this.spData);
 
@@ -39,7 +39,8 @@ class MemesRepository {
     final rawMemes = await spData.getMemes();
     return rawMemes
         .map(
-          (rawMeme) => Meme.fromJson(json.decode(rawMeme) as Map<String, dynamic>),
+          (rawMeme) =>
+              Meme.fromJson(json.decode(rawMeme) as Map<String, dynamic>),
         )
         .toList();
   }

@@ -10,7 +10,8 @@ class Position extends Equatable {
 
   const Position({required this.left, required this.top});
 
-  factory Position.fromJson(Map<String, dynamic> json) => _$PositionFromJson(json);
+  factory Position.fromJson(Map<String, dynamic> json) =>
+      _$PositionFromJson(json);
 
   Map<String, dynamic> toJson() => _$PositionToJson(this);
 
