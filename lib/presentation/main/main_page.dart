@@ -51,12 +51,8 @@ class _MainPageState extends State<MainPage> {
                 indicatorColor: AppColors.fuchsia,
                 indicatorWeight: 3,
                 tabs: [
-                  Tab(
-                    text: "Созданные".toUpperCase(),
-                  ),
-                  Tab(
-                    text: "Шаблоны".toUpperCase(),
-                  )
+                  Tab(text: "Созданные".toUpperCase()),
+                  Tab(text: "Шаблоны".toUpperCase())
                 ],
               ),
             ),

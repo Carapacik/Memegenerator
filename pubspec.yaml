@@ -1,12 +1,10 @@
 name: memogenerator
-description: Generate meme
-
+description: Generate your meme
 publish_to: 'none'
-
 version: 1.0.0+1
 
 environment:
-  sdk: ">=2.15.0 <3.0.0"
+  sdk: ">=2.16.0 <3.0.0"
 
 dependencies:
   collection: ^1.15.0
@@ -21,9 +19,9 @@ dependencies:
   provider: ^6.0.2
   rxdart: ^0.27.3
   screenshot: ^1.2.3
-  share_plus: ^3.0.5
+  share_plus: ^3.1.0
   shared_preferences: ^2.0.13
-  uuid: ^3.0.5
+  uuid: ^3.0.6
 
 dev_dependencies:
   build_runner: ^2.1.7
@@ -34,3 +32,5 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+  assets:
+    - assets/images/

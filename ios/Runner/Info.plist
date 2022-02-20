@@ -4,6 +4,8 @@
 <dict>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
+	<key>CFBundleDisplayName</key>
+	<string>Memogenerator</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -41,11 +43,5 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
-	<key>NSPhotoLibraryUsageDescription</key>
-	<string>Provide access to gallery to select some memes</string>
-	<key>NSCameraUsageDescription</key>
-	<string>Provide access to camera to photo some memes</string>
-	<key>NSMicrophoneUsageDescription</key>
-	<string>Provide access to microphone to record meme videos</string>
 </dict>
 </plist>
