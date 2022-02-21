@@ -1,7 +1,7 @@
 import 'package:flutter/painting.dart';
 
 class AppColors {
-  AppColors._();
+  const AppColors._();
 
   static const lemon = Color(0xFFFFE600);
 
