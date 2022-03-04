@@ -44,7 +44,9 @@ void checkParamValue({
   print("Внутри $widgetName значение $paramName должно быть равным $name");
   expect(
     actualValue,
-    secondaryRightValue == null ? rightValue : isOneOrAnother(rightValue, secondaryRightValue),
+    secondaryRightValue == null
+        ? rightValue
+        : isOneOrAnother(rightValue, secondaryRightValue),
     reason: "ОШИБКА! Внутри $widgetName значение $paramName неверное",
   );
 }

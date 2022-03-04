@@ -5,7 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:memogenerator/presentation/create_meme/create_meme_page.dart';
 import 'package:memogenerator/presentation/easter_egg/easter_egg_page.dart';
 import 'package:memogenerator/presentation/main/main_bloc.dart';
-import 'package:memogenerator/presentation/main/memes_with_docs_path.dart';
+import 'package:memogenerator/presentation/main/models/meme_thumbnail.dart';
 import 'package:memogenerator/presentation/main/models/template_full.dart';
 import 'package:memogenerator/presentation/widgets/app_button.dart';
 import 'package:memogenerator/resources/app_colors.dart';
@@ -180,21 +180,20 @@ class CreatedMemesGrid extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final bloc = Provider.of<MainBloc>(context, listen: false);
-    return StreamBuilder<MemesWithDocsPath>(
-      stream: bloc.observeMemesWithDocsPath(),
+    return StreamBuilder<List<MemeThumbnail>>(
+      stream: bloc.observeMemes(),
       builder: (context, snapshot) {
         if (!snapshot.hasData) {
           return const SizedBox.shrink();
         }
-        final items = snapshot.requireData.memes;
-        final docsPath = snapshot.requireData.docsPath;
+        final items = snapshot.requireData;
         return GridView.extent(
           maxCrossAxisExtent: 180,
           mainAxisSpacing: 8,
           crossAxisSpacing: 8,
           padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 12),
           children: items.map((item) {
-            return MemeGridItem(docsPath: docsPath, memeId: item.id);
+            return MemeGridItem(memeThumbnail: item);
           }).toList(),
         );
       },
@@ -278,22 +277,20 @@ class TemplateGridItem extends StatelessWidget {
 class MemeGridItem extends StatelessWidget {
   const MemeGridItem({
     Key? key,
-    required this.docsPath,
-    required this.memeId,
+    required this.memeThumbnail,
   }) : super(key: key);
 
-  final String docsPath;
-  final String memeId;
+  final MemeThumbnail memeThumbnail;
 
   @override
   Widget build(BuildContext context) {
     final bloc = Provider.of<MainBloc>(context, listen: false);
-    final imageFile = File("$docsPath${Platform.pathSeparator}$memeId.png");
+    final imageFile = File(memeThumbnail.fullImageUrl);
     return GestureDetector(
       onTap: () {
         Navigator.of(context).push(
           MaterialPageRoute(
-            builder: (context) => CreateMemePage(id: memeId),
+            builder: (context) => CreateMemePage(id: memeThumbnail.memeId),
           ),
         );
       },
@@ -303,14 +300,15 @@ class MemeGridItem extends StatelessWidget {
             alignment: Alignment.centerLeft,
             decoration:
                 BoxDecoration(border: Border.all(color: AppColors.darkGrey)),
-            child:
-                imageFile.existsSync() ? Image.file(imageFile) : Text(memeId),
+            child: imageFile.existsSync()
+                ? Image.file(imageFile)
+                : Text(memeThumbnail.memeId),
           ),
           Positioned(
             bottom: 4,
             right: 4,
             child: DeleteButton(
-              onDeleteAction: () => bloc.deleteMeme(memeId),
+              onDeleteAction: () => bloc.deleteMeme(memeThumbnail.memeId),
               itemName: 'мем',
             ),
           ),

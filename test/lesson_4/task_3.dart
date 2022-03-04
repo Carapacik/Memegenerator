@@ -37,20 +37,21 @@ import '../shared/test_helpers.dart';
 ///
 void runTestLesson4Task3() {
   final textWithPosition = TextWithPosition(
-    id: Uuid().v4(),
+    id: const Uuid().v4(),
     text: "Мем-мем",
-    position: Position(top: 0, left: 0),
+    position: const Position(top: 0, left: 0),
     fontSize: 30,
     color: Colors.black,
     fontWeight: FontWeight.w700,
   );
 
-  final meme = Meme(id: Uuid().v4(), texts: [textWithPosition]);
+  final meme = Meme(id: const Uuid().v4(), texts: [textWithPosition]);
   final memeThumbnail = MemeThumbnail(
-      memeId: meme.id,
-      fullImageUrl:
-          "${Directory(kApplicationDocumentsPath).absolute.path}${Platform.pathSeparator}${meme.id}.png");
-  final memeKey = "meme_key";
+    memeId: meme.id,
+    fullImageUrl:
+        "${Directory(kApplicationDocumentsPath).absolute.path}${Platform.pathSeparator}${meme.id}.png",
+  );
+  const memeKey = "meme_key";
 
   setUpAll(() {
     GoogleFonts.config.allowRuntimeFetching = false;
@@ -67,11 +68,12 @@ void runTestLesson4Task3() {
       memeKey: [jsonEncode(meme.toJson())]
     });
 
-    await tester.pumpWidget(MyApp());
+    await tester.pumpWidget(const MyApp());
     await tester.pumpAndSettle();
 
     fancyPrint(
-        "Проверяем, что метод observeMemes() внутри MainBloc имеет тип Stream<List<MemeThumbnail>>");
+      "Проверяем, что метод observeMemes() внутри MainBloc имеет тип Stream<List<MemeThumbnail>>",
+    );
     MainBloc().observeMemes().startWith([memeThumbnail]);
 
     fancyPrint("Ищем на странице MainPage единственный виджет MemeGridItem");
@@ -93,7 +95,8 @@ void runTestLesson4Task3() {
     );
 
     fancyPrint(
-        "Переходим на страницу создания мема после нажатия на найденный MemeGridItem");
+      "Переходим на страницу создания мема после нажатия на найденный MemeGridItem",
+    );
     await tester.tap(memeGridItemFinder);
     await tester.pumpAndSettle();
 
@@ -108,7 +111,8 @@ void runTestLesson4Task3() {
     );
 
     fancyPrint(
-        "Ожидаем, что на странице находится текст мема '${textWithPosition.text}'");
+      "Ожидаем, что на странице находится текст мема '${textWithPosition.text}'",
+    );
     final memeTextFinder = find.descendant(
       of: find.byType(MemeCanvasWidget),
       matching: find.text(textWithPosition.text),
