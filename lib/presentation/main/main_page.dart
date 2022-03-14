@@ -30,9 +30,7 @@ class _MainPageState extends State<MainPage>
     bloc = MainBloc();
     tabController = TabController(length: 2, vsync: this);
     tabController.animation!.addListener(() {
-      setState(() {
-        tabIndex = tabController.animation!.value;
-      });
+      setState(() => tabIndex = tabController.animation!.value);
     });
   }
 
@@ -162,7 +160,7 @@ class CreateTemplateFab extends StatelessWidget {
     final bloc = Provider.of<MainBloc>(context, listen: false);
     return FloatingActionButton.extended(
       onPressed: () async {
-        await bloc.selectMeme();
+        await bloc.addToTemplates();
       },
       backgroundColor: AppColors.fuchsia,
       icon: const Icon(
