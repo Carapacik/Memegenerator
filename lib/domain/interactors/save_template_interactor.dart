@@ -23,6 +23,6 @@ class SaveTemplateInteractor {
       imageUrl: newImagePath,
     );
 
-    return TemplatesRepository.getInstance().addItemsOrReplaceById(template);
+    return TemplatesRepository.getInstance().addItemOrReplaceById(template);
   }
 }

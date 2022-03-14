@@ -7,7 +7,7 @@ abstract class ListWithIdsReactiveRepository<T>
   @protected
   dynamic getId(final T item);
 
-  Future<bool> addItemsOrReplaceById(final T newItem) async {
+  Future<bool> addItemOrReplaceById(final T newItem) async {
     final items = await getItems();
     final itemIndex = items.indexWhere((item) => getId(item) == getId(newItem));
     if (itemIndex == -1) {
