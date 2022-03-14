@@ -17,9 +17,9 @@ class CopyUniqueFileInteractor {
   }) async {
     // Работа с папками
     final docsPath = await getApplicationDocumentsDirectory();
-    final memePath =
+    final absoluteFilePath =
         "${docsPath.absolute.path}${Platform.pathSeparator}$directoryWithFiles";
-    final memesDirectory = Directory(memePath);
+    final memesDirectory = Directory(absoluteFilePath);
     await memesDirectory.create(recursive: true);
     final currentFiles = memesDirectory.listSync();
 
@@ -30,7 +30,7 @@ class CopyUniqueFileInteractor {
         return _getFileNameByPath(element.path) == imageName && element is File;
       },
     );
-    final newImagePath = "$memePath${Platform.pathSeparator}$imageName";
+    final newImagePath = "$absoluteFilePath${Platform.pathSeparator}$imageName";
     final tempFile = File(filePath);
 
     if (oldFileWithTheSameName == null) {
@@ -59,7 +59,7 @@ class CopyUniqueFileInteractor {
       // Сохраняем файл в документы и добавляем суффикс '_1'
       final newImageName = "${imageNameWithoutExt}_1$ext";
       final correctedNewImagePath =
-          "$memePath${Platform.pathSeparator}$newImageName";
+          "$absoluteFilePath${Platform.pathSeparator}$newImageName";
       await tempFile.copy(correctedNewImagePath);
       return newImageName;
     }
@@ -72,7 +72,7 @@ class CopyUniqueFileInteractor {
       // Сохраняем файл в документы и добавляем суффикс '_1'
       final newImageName = "${imageNameWithoutExt}_1$ext";
       final correctedNewImagePath =
-          "$memePath${Platform.pathSeparator}$newImageName";
+          "$absoluteFilePath${Platform.pathSeparator}$newImageName";
       await tempFile.copy(correctedNewImagePath);
       return newImageName;
     }
@@ -84,7 +84,7 @@ class CopyUniqueFileInteractor {
 
     final newImageName = "${imageNameWithoutSuffix}_${suffixNumber + 1}$ext";
     final correctedNewImagePath =
-        "$memePath${Platform.pathSeparator}newImageName";
+        "$absoluteFilePath${Platform.pathSeparator}newImageName";
     await tempFile.copy(correctedNewImagePath);
     return newImageName;
   }

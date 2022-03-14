@@ -218,7 +218,7 @@ class TemplatesGrid extends StatelessWidget {
           crossAxisSpacing: 8,
           padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 12),
           children: templates
-              .map((item) => TemplateGridItem(template: item))
+              .map((template) => TemplateGridItem(template: template))
               .toList(),
         );
       },

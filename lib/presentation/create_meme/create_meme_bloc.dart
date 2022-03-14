@@ -96,8 +96,8 @@ class CreateMemeBloc {
     }
     final savedMemeTexts = savedMeme.texts
         .map(
-          (textWithPosition) => MemeText.createFromTextWithPosition(
-               textWithPosition),
+          (textWithPosition) =>
+              MemeText.createFromTextWithPosition(textWithPosition),
         )
         .toList();
     final savedMemeTextsOffsets = savedMeme.texts
@@ -263,8 +263,8 @@ class CreateMemeBloc {
         } else {
           final List<MemeText> memeTexts = meme.texts
               .map(
-                (textWithPosition) => MemeText.createFromTextWithPosition(
-                     textWithPosition),
+                (textWithPosition) =>
+                    MemeText.createFromTextWithPosition(textWithPosition),
               )
               .toList();
           final memeTextsOffsets = meme.texts
