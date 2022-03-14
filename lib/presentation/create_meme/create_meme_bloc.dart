@@ -94,8 +94,12 @@ class CreateMemeBloc {
     if (savedMeme == null) {
       return false;
     }
-    final savedMemeTexts =
-        savedMeme.texts.map(MemeText.createFromTextWithPosition).toList();
+    final savedMemeTexts = savedMeme.texts
+        .map(
+          (textWithPosition) => MemeText.createFromTextWithPosition(
+              textWithPosition: textWithPosition),
+        )
+        .toList();
     final savedMemeTextsOffsets = savedMeme.texts
         .map(
           (textWithPosition) => MemeTextOffset(
@@ -257,8 +261,12 @@ class CreateMemeBloc {
         if (meme == null) {
           return;
         } else {
-          final memeTexts =
-              meme.texts.map(MemeText.createFromTextWithPosition).toList();
+          final memeTexts = meme.texts
+              .map(
+                (textWithPosition) => MemeText.createFromTextWithPosition(
+                    textWithPosition: textWithPosition),
+              )
+              .toList();
           final memeTextsOffsets = meme.texts
               .map(
                 (textWithPosition) => MemeTextOffset(
@@ -270,7 +278,7 @@ class CreateMemeBloc {
                 ),
               )
               .toList();
-          memeTextsSubject.add(memeTexts);
+          memeTextsSubject.add(memeTexts as List<MemeText>);
           memeTextOffsetsSubject.add(memeTextsOffsets);
           if (meme.memePath != null) {
             getApplicationDocumentsDirectory().then((dir) {
