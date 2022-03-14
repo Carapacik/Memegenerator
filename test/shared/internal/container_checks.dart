@@ -59,8 +59,7 @@ void checkContainerHaveDecorationOfTypeBoxDecoration(
   );
 }
 
-void checkContainerHaveDecoration(
-    final String widgetName, final Container container) {
+void checkContainerHaveDecoration(final String widgetName, final Container container) {
   print("Проверяем наличие decoration в виджете $widgetName");
   expect(
     container.decoration,
@@ -328,8 +327,7 @@ class EdgeInsetsCheck {
           right == other.right;
 
   @override
-  int get hashCode =>
-      top.hashCode ^ bottom.hashCode ^ left.hashCode ^ right.hashCode;
+  int get hashCode => top.hashCode ^ bottom.hashCode ^ left.hashCode ^ right.hashCode;
 }
 
 class WidthAndHeight {

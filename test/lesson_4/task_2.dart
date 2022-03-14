@@ -26,8 +26,8 @@ import '../shared/test_helpers.dart';
 ///
 void runTestLesson4Task2() {
   int callsCount = 0;
-  const imageName = "image.png";
-  const imagePath = 'test/lesson_4/task_2_docs/$imageName';
+  final imageName = "image.png";
+  final imagePath = 'test/lesson_4/task_2_docs/$imageName';
   final values = <String, dynamic>{};
 
   setUpAll(() {
@@ -35,27 +35,26 @@ void runTestLesson4Task2() {
     PathProviderPlatform.instance = FakePathProviderPlatform();
     TestWidgetsFlutterBinding.ensureInitialized();
 
-    final appDocsDir = Directory(kApplicationDocumentsPath);
+    final appDocsDir = Directory("$kApplicationDocumentsPath");
     if (appDocsDir.existsSync()) {
       appDocsDir.deleteSync(recursive: true);
     }
 
-    const MethodChannel('plugins.flutter.io/image_picker')
-        .setMockMethodCallHandler((MethodCall methodCall) async {
-      if (methodCall.method == "pickImage") {
-        final shouldReturnImage = callsCount.isOdd;
-        callsCount++;
-        return shouldReturnImage ? File(imagePath).absolute.path : null;
-      }
-    });
+    MethodChannel('plugins.flutter.io/image_picker')
+      ..setMockMethodCallHandler((MethodCall methodCall) async {
+        if (methodCall.method == "pickImage") {
+          final shouldReturnImage = callsCount % 2 == 1;
+          callsCount++;
+          return shouldReturnImage ? File(imagePath).absolute.path : null;
+        }
+      });
     const MethodChannel('plugins.flutter.io/shared_preferences')
         .setMockMethodCallHandler((MethodCall methodCall) async {
       print("$methodCall");
       if (methodCall.method == 'getAll') {
         return values;
       } else if (methodCall.method.startsWith("set")) {
-        values[methodCall.arguments["key"] as String] =
-            methodCall.arguments["value"];
+        values[methodCall.arguments["key"]] = methodCall.arguments["value"];
         return true;
       }
       return null;
@@ -69,13 +68,12 @@ void runTestLesson4Task2() {
         printType: PrintType.startEnd,
       );
 
-      await tester.pumpWidget(const MyApp());
+      await tester.pumpWidget(MyApp());
       await tester.pumpAndSettle();
 
-      const memeText = 'Мем';
+      final memeText = 'Мем';
       fancyPrint(
-        "Ищем на странице MainPage единственный виджет c текстом '$memeText'",
-      );
+          "Ищем на странице MainPage единственный виджет c текстом '$memeText'");
       final addMemeButtonFinder = find.text(memeText);
       expect(
         addMemeButtonFinder,
@@ -129,7 +127,7 @@ void runTestLesson4Task2() {
       //   "ОШИБКА! Страница asd не открылась, хотя должна была",
       // );
 
-      const templatesText = 'ШАБЛОНЫ';
+      final templatesText = 'ШАБЛОНЫ';
       fancyPrint("Ищем на странице вкладку с текстом '$templatesText'");
       final templatesButtonFinder = find.text(templatesText);
       expect(
@@ -139,14 +137,13 @@ void runTestLesson4Task2() {
             "ОШИБКА! На странице MainPage невозможно найти виджет с текстом '$templatesText'",
       );
 
-      fancyPrint("Нажимаем на вкладку с текстом '$templatesText'");
+      fancyPrint("Нажимаем на вкладку с текстом '${templatesText}'");
       await tester.tap(templatesButtonFinder);
       await tester.pumpAndSettle();
 
-      const templateText = 'Шаблон';
+      final templateText = 'Шаблон';
       fancyPrint(
-        "Ищем на странице MainPage единственный виджет c текстом '$templateText'",
-      );
+          "Ищем на странице MainPage единственный виджет c текстом '$templateText'");
       final addTemplateButtonFinder = find.text(templateText);
       expect(
         addTemplateButtonFinder,
@@ -156,8 +153,7 @@ void runTestLesson4Task2() {
       );
 
       fancyPrint(
-        "Тапаем на кнопку с текстом +Шаблон. Не выбираем ни одной картинки. Ожидаем, что страница шаблон не будет добавлен",
-      );
+          "Тапаем на кнопку с текстом +Шаблон. Не выбираем ни одной картинки. Ожидаем, что страница шаблон не будет добавлен");
       await tester.tap(addTemplateButtonFinder);
       await tester.pumpAndSettle();
 
@@ -168,16 +164,14 @@ void runTestLesson4Task2() {
       );
 
       fancyPrint(
-        "Тапаем на кнопку с текстом +Шаблон. Выбираем картинку. Ожидаем, что страница CreateMemePage откроется",
-      );
+          "Тапаем на кнопку с текстом +Шаблон. Выбираем картинку. Ожидаем, что страница CreateMemePage откроется");
       await tester.tap(addTemplateButtonFinder);
 
-      await Future.delayed(const Duration(milliseconds: 100));
+      await Future.delayed(Duration(milliseconds: 100));
       await tester.pumpAndSettle();
 
       fancyPrint(
-        "Получаем список сохранненых шаблонов. Ожидаем, что список существует",
-      );
+          "Получаем список сохранненых шаблонов. Ожидаем, что список существует");
 
       final savedTemplates = values["flutter.template_key"];
 
@@ -199,9 +193,7 @@ void runTestLesson4Task2() {
       fancyPrint("Проверяем, что сохраненный шаблон имеет нужное имя файла");
 
       final firstElement = savedTemplateString.first;
-      final template = Template.fromJson(
-        json.decode(firstElement as String) as Map<String, dynamic>,
-      );
+      final template = Template.fromJson(json.decode(firstElement as String));
 
       expect(
         template.imageUrl,
@@ -211,7 +203,7 @@ void runTestLesson4Task2() {
 
       fancyPrint("Удаляем файлы, созданные во время тестирования");
 
-      final appDocsDir = Directory(kApplicationDocumentsPath);
+      final appDocsDir = Directory("$kApplicationDocumentsPath");
       if (appDocsDir.existsSync()) {
         appDocsDir.deleteSync(recursive: true);
       }

@@ -170,7 +170,7 @@ class _EditTextBarState extends State<EditTextBar> {
         stream: bloc.observeSelectedMemeTexts(),
         builder: (context, snapshot) {
           final MemeText? selectedMemeText =
-              snapshot.hasData ? snapshot.data! : null;
+              snapshot.hasData ? snapshot.requireData : null;
           if (selectedMemeText?.text != controller.text) {
             final newText = selectedMemeText?.text ?? "";
             controller.text = newText;
@@ -183,7 +183,7 @@ class _EditTextBarState extends State<EditTextBar> {
             controller: controller,
             onChanged: (text) {
               if (haveSelected) {
-                bloc.changeMemeText(selectedMemeText.id, text);
+                bloc.changeMemeText(selectedMemeText!.id, text);
               }
             },
             onEditingComplete: () => bloc.deselectMemeText(),
