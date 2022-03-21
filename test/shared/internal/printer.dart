@@ -4,9 +4,9 @@ const _token = '-';
 const _leftToken = ' ';
 const _spaceToken = ' ';
 
-final _additionalSpacesCount = 2;
-final _maxSymbolsInLine = 70;
-final _leftIndentCount = 2;
+const _additionalSpacesCount = 2;
+const _maxSymbolsInLine = 70;
+const _leftIndentCount = 2;
 
 void fancyPrint(
   final String text, {
@@ -91,12 +91,6 @@ void fancyPrint(
 }
 
 class PrintType {
-  final int dashesCount;
-  final bool alignLeft;
-  final bool addLeftIndentOnConsequentLines;
-  final bool addLineBefore;
-  final bool addLineAfter;
-
   const PrintType._({
     required this.dashesCount,
     required this.alignLeft,
@@ -104,6 +98,12 @@ class PrintType {
     required this.addLineBefore,
     required this.addLineAfter,
   });
+
+  final int dashesCount;
+  final bool alignLeft;
+  final bool addLeftIndentOnConsequentLines;
+  final bool addLineBefore;
+  final bool addLineAfter;
 
   static const text = PrintType._(
     dashesCount: 1,

@@ -6,12 +6,12 @@ import 'package:path_provider/path_provider.dart';
 import 'package:share_plus/share_plus.dart';
 
 class ScreenshotInteractor {
-  static ScreenshotInteractor? _instance;
-
   factory ScreenshotInteractor.getInstance() =>
       _instance ??= ScreenshotInteractor._internal();
 
   ScreenshotInteractor._internal();
+
+  static ScreenshotInteractor? _instance;
 
   Future<void> shareScreenshot(final Future<Uint8List?> capture) async {
     final image = await capture;
@@ -28,7 +28,9 @@ class ScreenshotInteractor {
   }
 
   Future<void> saveThumbnail(
-      final String memeId, final Future<Uint8List?> capture) async {
+    final String memeId,
+    final Future<Uint8List?> capture,
+  ) async {
     final image = await capture;
     if (image == null) {
       return;

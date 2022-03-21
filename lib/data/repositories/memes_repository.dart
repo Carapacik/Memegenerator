@@ -5,14 +5,14 @@ import 'package:memogenerator/data/repositories/list_with_ids_reactive_repositor
 import 'package:memogenerator/data/shared_preference_data.dart';
 
 class MemesRepository extends ListWithIdsReactiveRepository<Meme> {
-  final SharedPreferenceData spData;
-
-  static MemesRepository? _instance;
-
   factory MemesRepository.getInstance() => _instance ??=
       MemesRepository._internal(SharedPreferenceData.getInstance());
 
   MemesRepository._internal(this.spData);
+
+  static MemesRepository? _instance;
+
+  final SharedPreferenceData spData;
 
   @override
   Meme convertFromString(String rawItem) =>

@@ -5,14 +5,14 @@ import 'package:memogenerator/data/repositories/list_with_ids_reactive_repositor
 import 'package:memogenerator/data/shared_preference_data.dart';
 
 class TemplatesRepository extends ListWithIdsReactiveRepository<Template> {
-  final SharedPreferenceData spData;
-
-  static TemplatesRepository? _instance;
-
   factory TemplatesRepository.getInstance() => _instance ??=
       TemplatesRepository._internal(SharedPreferenceData.getInstance());
 
   TemplatesRepository._internal(this.spData);
+
+  static TemplatesRepository? _instance;
+
+  final SharedPreferenceData spData;
 
   @override
   Template convertFromString(String rawItem) =>

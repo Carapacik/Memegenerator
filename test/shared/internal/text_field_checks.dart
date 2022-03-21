@@ -8,7 +8,7 @@ void checkTextFieldTextInputAction({
   required final TextInputAction textInputAction,
   final TextInputAction? secondTextInputAction,
 }) {
-  final String widgetName = "TextField";
+  const String widgetName = "TextField";
   expect(
     textField.textInputAction,
     isNotNull,
@@ -19,8 +19,9 @@ void checkTextFieldTextInputAction({
     secondTextInputAction != null
         ? isOneOrAnother(textInputAction, secondTextInputAction)
         : textInputAction,
-    reason: "$widgetName should have textInputAction ${secondTextInputAction != null ? "either "
-        "$textInputAction or $secondTextInputAction" : textInputAction}",
+    reason:
+        "$widgetName should have textInputAction ${secondTextInputAction != null ? "either "
+            "$textInputAction or $secondTextInputAction" : textInputAction}",
   );
 }
 
@@ -29,7 +30,7 @@ void checkTextFieldTextCapitalization({
   required final TextCapitalization textCapitalization,
   final TextCapitalization? secondTextCapitalization,
 }) {
-  final String widgetName = "TextField";
+  const String widgetName = "TextField";
   expect(
     textField.textCapitalization,
     isNotNull,
@@ -50,7 +51,7 @@ void checkTextFieldCursorColor({
   required final Color cursorColor,
   final Color? secondCursorColor,
 }) {
-  final String widgetName = "TextField";
+  const String widgetName = "TextField";
   expect(
     textField.cursorColor,
     isNotNull,
@@ -58,9 +59,12 @@ void checkTextFieldCursorColor({
   );
   expect(
     textField.cursorColor,
-    secondCursorColor != null ? isOneOrAnother(cursorColor, secondCursorColor) : cursorColor,
-    reason: "$widgetName should have color ${secondCursorColor != null ? "either "
-        "$cursorColor or $secondCursorColor" : cursorColor}",
+    secondCursorColor != null
+        ? isOneOrAnother(cursorColor, secondCursorColor)
+        : cursorColor,
+    reason:
+        "$widgetName should have color ${secondCursorColor != null ? "either "
+            "$cursorColor or $secondCursorColor" : cursorColor}",
   );
 }
 
@@ -79,7 +83,7 @@ void checkTextFieldBorders({
   final InputBorder? focusedErrorBorder,
   final InputBorder? secondFocusedErrorBorder,
 }) {
-  final String widgetName = "TextField";
+  const String widgetName = "TextField";
   expect(
     textField.decoration,
     isNotNull,
@@ -89,7 +93,7 @@ void checkTextFieldBorders({
     checkTextFieldBorder(
       widgetName: widgetName,
       actualBorderName: "border",
-      actualBorder: textField.decoration!.border,
+      actualBorder: textField.decoration!.border!,
       border: border,
       secondBorder: secondBorder,
     );
@@ -98,7 +102,7 @@ void checkTextFieldBorders({
     checkTextFieldBorder(
       widgetName: widgetName,
       actualBorderName: "focusedBorder",
-      actualBorder: textField.decoration!.focusedBorder,
+      actualBorder: textField.decoration!.focusedBorder!,
       border: focusedBorder,
       secondBorder: secondFocusedBorder,
     );
@@ -107,7 +111,7 @@ void checkTextFieldBorders({
     checkTextFieldBorder(
       widgetName: widgetName,
       actualBorderName: "errorBorder",
-      actualBorder: textField.decoration!.errorBorder,
+      actualBorder: textField.decoration!.errorBorder!,
       border: errorBorder,
       secondBorder: secondErrorBorder,
     );
@@ -116,7 +120,7 @@ void checkTextFieldBorders({
     checkTextFieldBorder(
       widgetName: widgetName,
       actualBorderName: "enabledBorder",
-      actualBorder: textField.decoration!.enabledBorder,
+      actualBorder: textField.decoration!.enabledBorder!,
       border: enabledBorder,
       secondBorder: secondEnabledBorder,
     );
@@ -125,7 +129,7 @@ void checkTextFieldBorders({
     checkTextFieldBorder(
       widgetName: widgetName,
       actualBorderName: "disabledBorder",
-      actualBorder: textField.decoration!.disabledBorder,
+      actualBorder: textField.decoration!.disabledBorder!,
       border: disabledBorder,
       secondBorder: secondDisabledBorder,
     );
@@ -134,7 +138,7 @@ void checkTextFieldBorders({
     checkTextFieldBorder(
       widgetName: widgetName,
       actualBorderName: "focusedErrorBorder",
-      actualBorder: textField.decoration!.focusedErrorBorder,
+      actualBorder: textField.decoration!.focusedErrorBorder!,
       border: focusedErrorBorder,
       secondBorder: secondFocusedErrorBorder,
     );
@@ -144,7 +148,7 @@ void checkTextFieldBorders({
 void checkTextFieldBorder({
   required final String widgetName,
   required final String actualBorderName,
-  required final InputBorder? actualBorder,
+  required final InputBorder actualBorder,
   required final InputBorder border,
   required final InputBorder? secondBorder,
 }) {
@@ -159,7 +163,8 @@ void checkTextFieldBorder({
     expect(
       actualBorder,
       isInstanceOf<OutlineInputBorder>(),
-      reason: "$widgetName should have $actualBorderName of type OutlineInputBorder",
+      reason:
+          "$widgetName should have $actualBorderName of type OutlineInputBorder",
     );
     final actualOutlinedInputBorder = actualBorder as OutlineInputBorder;
     final secondOutlinedInputBorder =
@@ -168,7 +173,8 @@ void checkTextFieldBorder({
     expect(
       actualOutlinedInputBorder.borderRadius,
       secondOutlinedInputBorder != null
-          ? isOneOrAnother(border.borderRadius, secondOutlinedInputBorder.borderRadius)
+          ? isOneOrAnother(
+              border.borderRadius, secondOutlinedInputBorder.borderRadius)
           : border.borderRadius,
       reason: "$widgetName should have $actualBorderName with borderRadius "
           "${secondOutlinedInputBorder != null ? "either ${border.borderRadius} or "
@@ -178,7 +184,8 @@ void checkTextFieldBorder({
     expect(
       actualOutlinedInputBorder.borderSide,
       secondOutlinedInputBorder != null
-          ? isOneOrAnother(border.borderSide, secondOutlinedInputBorder.borderSide)
+          ? isOneOrAnother(
+              border.borderSide, secondOutlinedInputBorder.borderSide)
           : border.borderSide,
       reason: "$widgetName should have $actualBorderName with borderSide "
           "${secondOutlinedInputBorder != null ? "either ${border.borderSide} or "
@@ -187,7 +194,8 @@ void checkTextFieldBorder({
     expect(
       actualOutlinedInputBorder.gapPadding,
       secondOutlinedInputBorder != null
-          ? isOneOrAnother(border.gapPadding, secondOutlinedInputBorder.gapPadding)
+          ? isOneOrAnother(
+              border.gapPadding, secondOutlinedInputBorder.gapPadding)
           : border.gapPadding,
       reason: "$widgetName should have $actualBorderName with gapPadding "
           "${secondOutlinedInputBorder != null ? "either ${border.gapPadding} or "
@@ -197,7 +205,8 @@ void checkTextFieldBorder({
   expect(
     actualBorder,
     secondBorder != null ? isOneOrAnother(border, secondBorder) : border,
-    reason: "$widgetName should have $actualBorderName ${secondBorder != null ? "either "
-        "$border or $secondBorder" : border}",
+    reason:
+        "$widgetName should have $actualBorderName ${secondBorder != null ? "either "
+            "$border or $secondBorder" : border}",
   );
 }

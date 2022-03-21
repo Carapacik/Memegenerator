@@ -8,15 +8,6 @@ part 'text_with_position.g.dart';
 
 @JsonSerializable()
 class TextWithPosition extends Equatable {
-  final String id;
-  final String text;
-  final Position position;
-  final double? fontSize;
-  @JsonKey(toJson: colorToJson, fromJson: colorFromJson)
-  final Color? color;
-  @JsonKey(toJson: fontWeightToJson, fromJson: fontWeightFromJson)
-  final FontWeight? fontWeight;
-
   const TextWithPosition({
     required this.id,
     required this.text,
@@ -25,6 +16,15 @@ class TextWithPosition extends Equatable {
     this.color,
     this.fontWeight,
   });
+
+  final String id;
+  final String text;
+  final Position position;
+  final double? fontSize;
+  @JsonKey(toJson: colorToJson, fromJson: colorFromJson)
+  final Color? color;
+  @JsonKey(toJson: fontWeightToJson, fromJson: fontWeightFromJson)
+  final FontWeight? fontWeight;
 
   factory TextWithPosition.fromJson(Map<String, dynamic> json) =>
       _$TextWithPositionFromJson(json);

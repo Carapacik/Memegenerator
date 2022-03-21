@@ -1,10 +1,11 @@
 import 'dart:io';
+
 import 'extensions.dart';
 
 class ElementNotExistsError extends Error {
-  final String elementPath;
-
   ElementNotExistsError(this.elementPath);
+
+  final String elementPath;
 
   @override
   String toString() {
@@ -13,11 +14,11 @@ class ElementNotExistsError extends Error {
 }
 
 class ElementHasWrongTypeError extends Error {
+  ElementHasWrongTypeError(this.elementPath, this.desiredType, this.actualType);
+
   final String elementPath;
   final FileSystemEntityType desiredType;
   final FileSystemEntityType actualType;
-
-  ElementHasWrongTypeError(this.elementPath, this.desiredType, this.actualType);
 
   @override
   String toString() {
@@ -30,7 +31,8 @@ void testStructure(final Map<String, FileSystemEntityType> structure) {
   var allPaths = directory.listSync(recursive: true);
 
   var validatePath = (String path, FileSystemEntityType desiredType) {
-    final FileSystemEntity? entity = allPaths.firstWhereOrNull((element) => element.path == path);
+    final FileSystemEntity? entity =
+        allPaths.firstWhereOrNull((element) => element.path == path);
     if (entity == null) {
       throw ElementNotExistsError(path);
     }

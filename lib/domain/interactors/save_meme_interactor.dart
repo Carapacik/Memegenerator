@@ -6,13 +6,13 @@ import 'package:memogenerator/domain/interactors/screenshot_interactor.dart';
 import 'package:screenshot/screenshot.dart';
 
 class SaveMemeInteractor {
-  static const memesPathName = "memes";
-  static SaveMemeInteractor? _instance;
-
   factory SaveMemeInteractor.getInstance() =>
       _instance ??= SaveMemeInteractor._internal();
 
   SaveMemeInteractor._internal();
+
+  static SaveMemeInteractor? _instance;
+  static const memesPathName = "memes";
 
   Future<bool> saveMeme({
     required final String id,

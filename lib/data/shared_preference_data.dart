@@ -1,15 +1,15 @@
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SharedPreferenceData {
-  static const memeKey = "meme_key";
-  static const templateKey = "template_key";
-
-  static SharedPreferenceData? _instance;
+  SharedPreferenceData._internal();
 
   factory SharedPreferenceData.getInstance() =>
       _instance ??= SharedPreferenceData._internal();
 
-  SharedPreferenceData._internal();
+  static SharedPreferenceData? _instance;
+
+  static const memeKey = "meme_key";
+  static const templateKey = "template_key";
 
   Future<bool> setMemes(final List<String> memes) async =>
       setItems(memeKey, memes);

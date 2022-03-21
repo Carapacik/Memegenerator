@@ -5,10 +5,10 @@ part 'template.g.dart';
 
 @JsonSerializable()
 class Template extends Equatable {
+  const Template({required this.id, required this.imageUrl});
+
   final String id;
   final String imageUrl;
-
-  const Template({required this.id, required this.imageUrl});
 
   factory Template.fromJson(Map<String, dynamic> json) =>
       _$TemplateFromJson(json);

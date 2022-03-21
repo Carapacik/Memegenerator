@@ -183,7 +183,7 @@ class _EditTextBarState extends State<EditTextBar> {
             controller: controller,
             onChanged: (text) {
               if (haveSelected) {
-                bloc.changeMemeText(selectedMemeText!.id, text);
+                bloc.changeMemeText(selectedMemeText.id, text);
               }
             },
             onEditingComplete: () => bloc.deselectMemeText(),

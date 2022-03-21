@@ -84,7 +84,11 @@ class _FontSettingBottomSheetState extends State<FontSettingBottomSheet> {
           child: Buttons(
             onPositiveButtonAction: () {
               bloc.changeFontSetting(
-                  widget.memeText.id, color, fontSize, fontWeight);
+                widget.memeText.id,
+                color,
+                fontSize,
+                fontWeight,
+              );
               Navigator.of(context).pop();
             },
           ),

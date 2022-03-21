@@ -18,11 +18,11 @@ abstract class ListReactiveRepository<T> {
 
   Future<List<T>> getItems() async {
     final rawItems = await getRawData();
-    return rawItems.map((rawItem) => convertFromString(rawItem)).toList();
+    return rawItems.map(convertFromString).toList();
   }
 
   Future<bool> setItems(final List<T> items) async {
-    final rawItems = items.map((item) => convertToString(item)).toList();
+    final rawItems = items.map(convertToString).toList();
     return _setRawItems(rawItems);
   }
 

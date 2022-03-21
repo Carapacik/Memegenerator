@@ -19,6 +19,17 @@ import 'package:screenshot/screenshot.dart';
 import 'package:uuid/uuid.dart';
 
 class CreateMemeBloc {
+  CreateMemeBloc({
+    final String? id,
+    final String? selectedMemePath,
+  }) : id = id ?? const Uuid().v4() {
+    memePathSubject.add(selectedMemePath);
+    _subscribeToNewMemTextOffset();
+    _subscribeToExistentMeme();
+  }
+
+  final String id;
+
   final memeTextsSubject = BehaviorSubject<List<MemeText>>.seeded([]);
   final selectedMemeTextsSubject = BehaviorSubject<MemeText?>.seeded(null);
   final memeTextOffsetsSubject =
@@ -28,17 +39,6 @@ class CreateMemeBloc {
   final memePathSubject = BehaviorSubject<String?>.seeded(null);
   final screenshotControllerSubject =
       BehaviorSubject<ScreenshotController>.seeded(ScreenshotController());
-
-  final String id;
-
-  CreateMemeBloc({
-    final String? id,
-    final String? selectedMemePath,
-  }) : id = id ?? const Uuid().v4() {
-    memePathSubject.add(selectedMemePath);
-    _subscribeToNewMemTextOffset();
-    _subscribeToExistentMeme();
-  }
 
   StreamSubscription<MemeTextOffset?>? newMemeTextOffsetSubscription;
   StreamSubscription<bool>? saveMemeSubscription;
@@ -94,12 +94,8 @@ class CreateMemeBloc {
     if (savedMeme == null) {
       return false;
     }
-    final savedMemeTexts = savedMeme.texts
-        .map(
-          (textWithPosition) =>
-              MemeText.createFromTextWithPosition(textWithPosition),
-        )
-        .toList();
+    final savedMemeTexts =
+        savedMeme.texts.map(MemeText.createFromTextWithPosition).toList();
     final savedMemeTextsOffsets = savedMeme.texts
         .map(
           (textWithPosition) => MemeTextOffset(
@@ -193,7 +189,6 @@ class CreateMemeBloc {
         .asStream()
         .listen(
       (event) {
-        // TODO dialog
         print("Meme saved: $event");
       },
       onError: (error, stackTrace) =>
@@ -261,12 +256,8 @@ class CreateMemeBloc {
         if (meme == null) {
           return;
         } else {
-          final List<MemeText> memeTexts = meme.texts
-              .map(
-                (textWithPosition) =>
-                    MemeText.createFromTextWithPosition(textWithPosition),
-              )
-              .toList();
+          final List<MemeText> memeTexts =
+              meme.texts.map(MemeText.createFromTextWithPosition).toList();
           final memeTextsOffsets = meme.texts
               .map(
                 (textWithPosition) => MemeTextOffset(
@@ -285,8 +276,8 @@ class CreateMemeBloc {
               final onlyImagePath =
                   meme.memePath!.split(Platform.pathSeparator).last;
               final fullImagePath =
-                  "${dir.absolute.path}${Platform.pathSeparator}${SaveMemeInteractor.memesPathName}" +
-                      "${Platform.pathSeparator}$onlyImagePath";
+                  "${dir.absolute.path}${Platform.pathSeparator}${SaveMemeInteractor.memesPathName}"
+                  "${Platform.pathSeparator}$onlyImagePath";
               memePathSubject.add(fullImagePath);
             });
           }

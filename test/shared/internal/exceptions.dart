@@ -1,7 +1,7 @@
 class ExpectException implements Exception {
-  final String message;
+  const ExpectException(this.message);
 
-  ExpectException(this.message);
+  final String message;
 
   @override
   String toString() {

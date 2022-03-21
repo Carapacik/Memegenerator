@@ -3,12 +3,11 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-// itemCount without separators
 void checkListViewSeparatedType({
   required final ListView listView,
   final int? itemCount,
 }) {
-  final String widgetName = "ListView";
+  const String widgetName = "ListView";
   expect(
     listView.childrenDelegate,
     isInstanceOf<SliverChildBuilderDelegate>(),
@@ -19,7 +18,8 @@ void checkListViewSeparatedType({
     expect(
       realItemsCount,
       (listView.childrenDelegate as SliverChildBuilderDelegate).childCount,
-      reason: "$widgetName should have $realItemsCount itemCount (including separators)",
+      reason:
+          "$widgetName should have $realItemsCount itemCount (including separators)",
     );
   }
 }

@@ -2,10 +2,10 @@ import 'package:equatable/equatable.dart';
 import 'package:memogenerator/data/models/meme.dart';
 
 class MemesWithDocsPath extends Equatable {
+  const MemesWithDocsPath(this.memes, this.docsPath);
+
   final List<Meme> memes;
   final String docsPath;
-
-  const MemesWithDocsPath(this.memes, this.docsPath);
 
   @override
   List<Object?> get props => [memes, docsPath];

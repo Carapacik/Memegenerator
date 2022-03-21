@@ -12,7 +12,7 @@ void checkContainerColor({
   final String? widgetName,
 }) {
   final effectiveWidgetName = widgetName ?? "Container";
-  final paramName = "color";
+  const paramName = "color";
   final actualValue = container.color;
   checkParamExistence(
     widgetName: effectiveWidgetName,
@@ -35,7 +35,7 @@ void checkContainerDecorationColor({
   final Color? secondColor,
   final String? colorName,
 }) {
-  final String widgetName = "Container";
+  const String widgetName = "Container";
   checkContainerHaveDecoration(widgetName, container);
   checkContainerHaveDecorationOfTypeBoxDecoration(container, widgetName);
 
@@ -59,7 +59,8 @@ void checkContainerHaveDecorationOfTypeBoxDecoration(
   );
 }
 
-void checkContainerHaveDecoration(final String widgetName, final Container container) {
+void checkContainerHaveDecoration(
+    final String widgetName, final Container container) {
   print("Проверяем наличие decoration в виджете $widgetName");
   expect(
     container.decoration,
@@ -72,7 +73,7 @@ void checkContainerDecorationShape({
   required final Container container,
   required final BoxShape shape,
 }) {
-  final String widgetName = "Container";
+  const String widgetName = "Container";
   expect(
     container.decoration,
     isNotNull,
@@ -94,7 +95,7 @@ void checkContainerDecorationBorderRadius({
   required final Container container,
   required final BorderRadius borderRadius,
 }) {
-  final String widgetName = "Container";
+  const String widgetName = "Container";
   expect(
     container.decoration,
     isNotNull,
@@ -130,7 +131,7 @@ void checkContainerBorder({
   final Border? secondBorder,
   final String? borderName,
 }) {
-  final String widgetName = "Container";
+  const String widgetName = "Container";
 
   checkContainerHaveDecoration(widgetName, container);
 
@@ -168,7 +169,7 @@ void checkContainerEdgeInsetsProperties({
   if (paddingOrMargin != null) {
     assert(padding == null && margin == null);
   }
-  final String widgetName = "Container";
+  const String widgetName = "Container";
   if (margin != null) {
     checkEdgeInsetParam(
       widgetName: widgetName,
@@ -200,7 +201,7 @@ void checkContainerWidthOrHeightProperties({
   required final WidthAndHeight widthAndHeight,
   final WidthAndHeight? secondWidthAndHeight,
 }) {
-  final String widgetName = "Container";
+  const String widgetName = "Container";
   final widthAndHeightConstraints = BoxConstraints.tightFor(
     width: widthAndHeight.width,
     height: widthAndHeight.height,
@@ -208,12 +209,14 @@ void checkContainerWidthOrHeightProperties({
 
   if (widthAndHeight.width != null) {
     print(
-        "$widgetName должен иметь width равный ${secondWidthAndHeight == null ? widthAndHeight.width : "${widthAndHeight.width} или ${secondWidthAndHeight.width}"}");
+      "$widgetName должен иметь width равный ${secondWidthAndHeight == null ? widthAndHeight.width : "${widthAndHeight.width} или ${secondWidthAndHeight.width}"}",
+    );
   }
 
   if (widthAndHeight.height != null) {
     print(
-        "$widgetName должен иметь параметр height равный ${secondWidthAndHeight == null ? widthAndHeight.height : "${widthAndHeight.height} или ${secondWidthAndHeight.height}"}");
+      "$widgetName должен иметь параметр height равный ${secondWidthAndHeight == null ? widthAndHeight.height : "${widthAndHeight.height} или ${secondWidthAndHeight.height}"}",
+    );
   }
 
   expect(
@@ -235,8 +238,8 @@ void checkContainerAlignment({
   required final Container container,
   required final Alignment alignment,
 }) {
-  final String widgetName = "Container";
-  final String paramName = "alignment";
+  const String widgetName = "Container";
+  const String paramName = "alignment";
   final actualValue = container.alignment;
   checkParamExistence(
     widgetName: widgetName,
@@ -304,12 +307,12 @@ void checkEdgeInsetParam({
 }
 
 class EdgeInsetsCheck {
+  const EdgeInsetsCheck({this.top, this.bottom, this.left, this.right});
+
   final double? top;
   final double? bottom;
   final double? left;
   final double? right;
-
-  const EdgeInsetsCheck({this.top, this.bottom, this.left, this.right});
 
   @override
   String toString() {
@@ -327,14 +330,15 @@ class EdgeInsetsCheck {
           right == other.right;
 
   @override
-  int get hashCode => top.hashCode ^ bottom.hashCode ^ left.hashCode ^ right.hashCode;
+  int get hashCode =>
+      top.hashCode ^ bottom.hashCode ^ left.hashCode ^ right.hashCode;
 }
 
 class WidthAndHeight {
+  const WidthAndHeight({this.width, this.height});
+
   final double? width;
   final double? height;
-
-  WidthAndHeight({this.width, this.height});
 
   @override
   bool operator ==(Object other) =>

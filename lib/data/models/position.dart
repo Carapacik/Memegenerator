@@ -5,10 +5,13 @@ part 'position.g.dart';
 
 @JsonSerializable()
 class Position extends Equatable {
+  const Position({
+    required this.left,
+    required this.top,
+  });
+
   final double top;
   final double left;
-
-  const Position({required this.left, required this.top});
 
   factory Position.fromJson(Map<String, dynamic> json) =>
       _$PositionFromJson(json);

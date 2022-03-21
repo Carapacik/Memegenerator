@@ -6,15 +6,15 @@ part 'meme.g.dart';
 
 @JsonSerializable()
 class Meme extends Equatable {
-  final String id;
-  final List<TextWithPosition> texts;
-  final String? memePath;
-
   const Meme({
     required this.id,
     required this.texts,
     this.memePath,
   });
+
+  final String id;
+  final List<TextWithPosition> texts;
+  final String? memePath;
 
   factory Meme.fromJson(Map<String, dynamic> json) => _$MemeFromJson(json);
 

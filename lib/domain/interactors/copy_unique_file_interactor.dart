@@ -4,12 +4,12 @@ import 'package:collection/collection.dart';
 import 'package:path_provider/path_provider.dart';
 
 class CopyUniqueFileInteractor {
-  static CopyUniqueFileInteractor? _instance;
-
   factory CopyUniqueFileInteractor.getInstance() =>
       _instance ??= CopyUniqueFileInteractor._internal();
 
   CopyUniqueFileInteractor._internal();
+
+  static CopyUniqueFileInteractor? _instance;
 
   Future<String> copyUniqueFile({
     required final String directoryWithFiles,

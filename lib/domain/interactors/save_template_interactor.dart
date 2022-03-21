@@ -4,13 +4,14 @@ import 'package:memogenerator/domain/interactors/copy_unique_file_interactor.dar
 import 'package:uuid/uuid.dart';
 
 class SaveTemplateInteractor {
-  static const templatesPathName = "templates";
-  static SaveTemplateInteractor? _instance;
-
   factory SaveTemplateInteractor.getInstance() =>
       _instance ??= SaveTemplateInteractor._internal();
 
   SaveTemplateInteractor._internal();
+
+  static SaveTemplateInteractor? _instance;
+
+  static const templatesPathName = "templates";
 
   Future<bool> saveTemplate({required final String imagePath}) async {
     final newImagePath =
