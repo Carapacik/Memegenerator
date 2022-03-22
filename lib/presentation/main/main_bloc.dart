@@ -21,6 +21,7 @@ class MainBloc {
           (meme) {
             final fullImageUrl =
                 "${docs.absolute.path}${Platform.pathSeparator}${meme.id}.png";
+
             return MemeThumbnail(memeId: meme.id, fullImageUrl: fullImageUrl);
           },
         ).toList();
@@ -37,6 +38,7 @@ class MainBloc {
           (template) {
             final fullImagePath =
                 "${docs.absolute.path}${Platform.pathSeparator}${SaveTemplateInteractor.templatesPathName}${Platform.pathSeparator}${template.imageUrl}";
+
             return TemplateFull(id: template.id, fullImagePath: fullImagePath);
           },
         ).toList();
@@ -51,6 +53,7 @@ class MainBloc {
       await SaveTemplateInteractor.getInstance()
           .saveTemplate(imagePath: imagePath);
     }
+
     return imagePath;
   }
 

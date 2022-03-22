@@ -52,19 +52,22 @@ class CreateMemeBloc {
 
   Stream<List<MemeTextWithOffset>> observeMemeTextsWithOffsets() {
     return Rx.combineLatest2<List<MemeText>, List<MemeTextOffset>,
-            List<MemeTextWithOffset>>(
-        observeMemeTexts(), memeTextOffsetsSubject.distinct(),
-        (memeTexts, memeTextOffsets) {
-      return memeTexts.map((memeText) {
-        final memeTextOffset = memeTextOffsets.firstWhereOrNull((elem) {
-          return elem.id == memeText.id;
-        });
-        return MemeTextWithOffset(
-          offset: memeTextOffset?.offset,
-          memeText: memeText,
-        );
-      }).toList();
-    }).distinct((prev, next) => const ListEquality().equals(prev, next));
+        List<MemeTextWithOffset>>(
+      observeMemeTexts(),
+      memeTextOffsetsSubject.distinct(),
+      (memeTexts, memeTextOffsets) {
+        return memeTexts.map((memeText) {
+          final memeTextOffset = memeTextOffsets.firstWhereOrNull((elem) {
+            return elem.id == memeText.id;
+          });
+
+          return MemeTextWithOffset(
+            offset: memeTextOffset?.offset,
+            memeText: memeText,
+          );
+        }).toList();
+      },
+    ).distinct((prev, next) => const ListEquality().equals(prev, next));
   }
 
   Stream<MemeText?> observeSelectedMemeTexts() =>
@@ -107,6 +110,7 @@ class CreateMemeBloc {
           ),
         )
         .toList();
+
     // Сравнение списков вне зависимости от положения элементов
     return const DeepCollectionEquality.unordered()
             .equals(savedMemeTexts, memeTextsSubject.value) &&
@@ -169,6 +173,7 @@ class CreateMemeBloc {
         top: memeTextPosition?.offset.dy ?? 0,
         left: memeTextPosition?.offset.dx ?? 0,
       );
+
       return TextWithPosition(
         id: memeText.id,
         text: memeText.text,

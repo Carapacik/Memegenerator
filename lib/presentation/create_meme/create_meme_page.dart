@@ -47,6 +47,7 @@ class _CreateMemePageState extends State<CreateMemePage> {
           final allSaved = await bloc.isAllSaved();
           if (allSaved) return true;
           final goBack = await showConfirmationExitDialog(context);
+
           return goBack ?? false;
         },
         child: Scaffold(
@@ -164,6 +165,7 @@ class _EditTextBarState extends State<EditTextBar> {
   @override
   Widget build(BuildContext context) {
     final bloc = Provider.of<CreateMemeBloc>(context, listen: false);
+
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
       child: StreamBuilder<MemeText?>(
@@ -178,6 +180,7 @@ class _EditTextBarState extends State<EditTextBar> {
                 TextSelection.collapsed(offset: newText.length);
           }
           final haveSelected = selectedMemeText != null;
+
           return TextField(
             enabled: haveSelected,
             controller: controller,
@@ -249,6 +252,7 @@ class BottomList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final bloc = Provider.of<CreateMemeBloc>(context, listen: false);
+
     return Container(
       color: Colors.white,
       child: StreamBuilder<List<MemeTextWithSelection>>(
@@ -258,6 +262,7 @@ class BottomList extends StatelessWidget {
           final items = snapshot.hasData
               ? snapshot.data!
               : const <MemeTextWithSelection>[];
+
           return ListView.separated(
             itemCount: items.length + 1,
             itemBuilder: (BuildContext context, int index) {
@@ -274,12 +279,14 @@ class BottomList extends StatelessWidget {
                 );
               }
               final item = items[index - 1];
+
               return BottomMemeText(item: item);
             },
             separatorBuilder: (BuildContext context, int index) {
               if (index == 0) {
                 return const SizedBox.shrink();
               }
+
               return const BottomSeparator();
             },
           );

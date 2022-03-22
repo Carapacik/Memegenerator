@@ -37,6 +37,7 @@ class SaveMemeInteractor {
         memePath: newImagePath,
       );
     }
+
     return MemesRepository.getInstance().addItemOrReplaceById(meme);
   }
 }

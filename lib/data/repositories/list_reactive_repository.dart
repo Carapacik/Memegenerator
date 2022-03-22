@@ -18,11 +18,13 @@ abstract class ListReactiveRepository<T> {
 
   Future<List<T>> getItems() async {
     final rawItems = await getRawData();
+
     return rawItems.map(convertFromString).toList();
   }
 
   Future<bool> setItems(final List<T> items) async {
     final rawItems = items.map(convertToString).toList();
+
     return _setRawItems(rawItems);
   }
 
@@ -36,17 +38,20 @@ abstract class ListReactiveRepository<T> {
   Future<bool> addItem(final T newItem) async {
     final items = await getItems();
     items.add(newItem);
+
     return setItems(items);
   }
 
   Future<bool> removeItem(final T item) async {
     final items = await getItems();
     items.remove(item);
+
     return setItems(items);
   }
 
   Future<bool> _setRawItems(final List<String> rawItems) {
     updater.add(null);
+
     return saveRawData(rawItems);
   }
 }

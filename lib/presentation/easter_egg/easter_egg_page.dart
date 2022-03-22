@@ -173,7 +173,7 @@ class _RocketAnimationBodyState extends State<RocketAnimationBody>
                     height: 50,
                   ),
                 ),
-              )
+              ),
             ],
           ),
         );

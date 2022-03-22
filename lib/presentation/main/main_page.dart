@@ -41,6 +41,7 @@ class _MainPageState extends State<MainPage>
       child: WillPopScope(
         onWillPop: () async {
           final goBack = await showConfirmationExitDialog(context);
+
           return goBack ?? false;
         },
         child: Scaffold(
@@ -68,7 +69,7 @@ class _MainPageState extends State<MainPage>
               indicatorWeight: 3,
               tabs: [
                 Tab(text: "Созданные".toUpperCase()),
-                Tab(text: "Шаблоны".toUpperCase())
+                Tab(text: "Шаблоны".toUpperCase()),
               ],
             ),
           ),
@@ -130,6 +131,7 @@ class CreateMemeFab extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final bloc = Provider.of<MainBloc>(context, listen: false);
+
     return FloatingActionButton.extended(
       onPressed: () async {
         final selectedMemePath = await bloc.selectMeme();
@@ -158,6 +160,7 @@ class CreateTemplateFab extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final bloc = Provider.of<MainBloc>(context, listen: false);
+
     return FloatingActionButton.extended(
       onPressed: () async {
         await bloc.addToTemplates();
@@ -178,6 +181,7 @@ class CreatedMemesGrid extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final bloc = Provider.of<MainBloc>(context, listen: false);
+
     return StreamBuilder<List<MemeThumbnail>>(
       stream: bloc.observeMemes(),
       builder: (context, snapshot) {
@@ -185,14 +189,14 @@ class CreatedMemesGrid extends StatelessWidget {
           return const SizedBox.shrink();
         }
         final items = snapshot.requireData;
+
         return GridView.extent(
           maxCrossAxisExtent: 180,
           mainAxisSpacing: 8,
           crossAxisSpacing: 8,
           padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 12),
-          children: items.map((item) {
-            return MemeGridItem(memeThumbnail: item);
-          }).toList(),
+          children:
+              items.map((item) => MemeGridItem(memeThumbnail: item)).toList(),
         );
       },
     );
@@ -205,6 +209,7 @@ class TemplatesGrid extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final bloc = Provider.of<MainBloc>(context, listen: false);
+
     return StreamBuilder<List<TemplateFull>>(
       stream: bloc.observeTemplates(),
       builder: (context, snapshot) {
@@ -212,6 +217,7 @@ class TemplatesGrid extends StatelessWidget {
           return const SizedBox.shrink();
         }
         final templates = snapshot.requireData;
+
         return GridView.extent(
           maxCrossAxisExtent: 180,
           mainAxisSpacing: 8,
@@ -238,6 +244,7 @@ class TemplateGridItem extends StatelessWidget {
   Widget build(BuildContext context) {
     final bloc = Provider.of<MainBloc>(context, listen: false);
     final imageFile = File(template.fullImagePath);
+
     return GestureDetector(
       onTap: () {
         Navigator.of(context).push(
@@ -284,6 +291,7 @@ class MemeGridItem extends StatelessWidget {
   Widget build(BuildContext context) {
     final bloc = Provider.of<MainBloc>(context, listen: false);
     final imageFile = File(memeThumbnail.fullImageUrl);
+
     return GestureDetector(
       onTap: () {
         Navigator.of(context).push(

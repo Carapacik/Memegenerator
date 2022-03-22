@@ -24,11 +24,13 @@ class SharedPreferenceData {
   Future<bool> setItems(final String key, final List<String> items) async {
     final sp = await SharedPreferences.getInstance();
     final result = sp.setStringList(key, items);
+
     return result;
   }
 
   Future<List<String>> getItems(final String key) async {
     final sp = await SharedPreferences.getInstance();
+
     return sp.getStringList(key) ?? [];
   }
 }
