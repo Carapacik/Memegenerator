@@ -1,8 +1,8 @@
 import 'dart:convert';
 
-import 'package:memogenerator/data/models/meme.dart';
-import 'package:memogenerator/data/repositories/list_with_ids_reactive_repository.dart';
-import 'package:memogenerator/data/shared_preference_data.dart';
+import 'package:memegenerator/data/models/meme.dart';
+import 'package:memegenerator/data/repositories/list_with_ids_reactive_repository.dart';
+import 'package:memegenerator/data/shared_preference_data.dart';
 
 class MemesRepository extends ListWithIdsReactiveRepository<Meme> {
   factory MemesRepository.getInstance() => _instance ??=

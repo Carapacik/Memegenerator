@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:memogenerator/resources/app_colors.dart';
-import 'package:memogenerator/resources/app_images.dart';
+import 'package:memegenerator/resources/app_colors.dart';
+import 'package:memegenerator/resources/app_images.dart';
 
 class EasterEggPage extends StatelessWidget {
   const EasterEggPage({Key? key}) : super(key: key);

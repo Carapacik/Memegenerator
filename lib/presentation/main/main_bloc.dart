@@ -1,13 +1,13 @@
 import 'dart:io';
 
 import 'package:image_picker/image_picker.dart';
-import 'package:memogenerator/data/models/meme.dart';
-import 'package:memogenerator/data/models/template.dart';
-import 'package:memogenerator/data/repositories/memes_repository.dart';
-import 'package:memogenerator/data/repositories/templates_repository.dart';
-import 'package:memogenerator/domain/interactors/save_template_interactor.dart';
-import 'package:memogenerator/presentation/main/models/meme_thumbnail.dart';
-import 'package:memogenerator/presentation/main/models/template_full.dart';
+import 'package:memegenerator/data/models/meme.dart';
+import 'package:memegenerator/data/models/template.dart';
+import 'package:memegenerator/data/repositories/memes_repository.dart';
+import 'package:memegenerator/data/repositories/templates_repository.dart';
+import 'package:memegenerator/domain/interactors/save_template_interactor.dart';
+import 'package:memegenerator/presentation/main/models/meme_thumbnail.dart';
+import 'package:memegenerator/presentation/main/models/template_full.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:rxdart/rxdart.dart';
 

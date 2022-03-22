@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:memogenerator/data/models/meme.dart';
+import 'package:memegenerator/data/models/meme.dart';
 
 class MemesWithDocsPath extends Equatable {
   const MemesWithDocsPath(this.memes, this.docsPath);

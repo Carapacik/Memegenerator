@@ -1,14 +1,14 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:memogenerator/presentation/create_meme/create_meme_bloc.dart';
-import 'package:memogenerator/presentation/create_meme/font_settings_bottom_sheet.dart';
-import 'package:memogenerator/presentation/create_meme/meme_text_on_canvas.dart';
-import 'package:memogenerator/presentation/create_meme/models/meme_text.dart';
-import 'package:memogenerator/presentation/create_meme/models/meme_text_with_offset.dart';
-import 'package:memogenerator/presentation/create_meme/models/meme_text_with_selection.dart';
-import 'package:memogenerator/presentation/widgets/app_button.dart';
-import 'package:memogenerator/resources/app_colors.dart';
+import 'package:memegenerator/presentation/create_meme/create_meme_bloc.dart';
+import 'package:memegenerator/presentation/create_meme/font_settings_bottom_sheet.dart';
+import 'package:memegenerator/presentation/create_meme/meme_text_on_canvas.dart';
+import 'package:memegenerator/presentation/create_meme/models/meme_text.dart';
+import 'package:memegenerator/presentation/create_meme/models/meme_text_with_offset.dart';
+import 'package:memegenerator/presentation/create_meme/models/meme_text_with_selection.dart';
+import 'package:memegenerator/presentation/widgets/app_button.dart';
+import 'package:memegenerator/resources/app_colors.dart';
 import 'package:provider/provider.dart';
 import 'package:screenshot/screenshot.dart';
 

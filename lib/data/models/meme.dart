@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
-import 'package:memogenerator/data/models/text_with_position.dart';
+import 'package:memegenerator/data/models/text_with_position.dart';
 
 part 'meme.g.dart';
 

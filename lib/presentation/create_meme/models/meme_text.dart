@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
-import 'package:memogenerator/data/models/text_with_position.dart';
+import 'package:memegenerator/data/models/text_with_position.dart';
 import 'package:uuid/uuid.dart';
 
 class MemeText extends Equatable {

@@ -1,7 +1,7 @@
-name: memogenerator
-description: Create your meme
+name: memegenerator
+description: Create meme
 publish_to: 'none'
-version: 1.0.1+1
+version: 1.0.1+2
 
 environment:
   sdk: ">=2.16.0 <3.0.0"
@@ -20,14 +20,22 @@ dependencies:
   screenshot: ^1.2.3
   share_plus: ^4.0.2
   shared_preferences: ^2.0.13
+  url_strategy: ^0.2.0
   uuid: ^3.0.6
 
 dev_dependencies:
   build_runner: ^2.1.8
+  dart_code_metrics: ^4.13.0
+  flutter_launcher_icons_maker: ^0.10.2
+  flutter_native_splash: ^2.1.1
   flutter_test:
     sdk: flutter
   json_serializable: ^6.1.5
-  lint: ^1.8.2
+
+#flutter_icons:
+#  android: true
+#  ios: true
+#  image_path: "assets/icon.png"
 
 flutter:
   uses-material-design: true

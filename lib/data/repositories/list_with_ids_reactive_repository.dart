@@ -1,6 +1,6 @@
 import 'package:collection/collection.dart';
 import 'package:flutter/foundation.dart';
-import 'package:memogenerator/data/repositories/list_reactive_repository.dart';
+import 'package:memegenerator/data/repositories/list_reactive_repository.dart';
 
 abstract class ListWithIdsReactiveRepository<T>
     extends ListReactiveRepository<T> {

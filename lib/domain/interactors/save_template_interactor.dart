@@ -1,6 +1,6 @@
-import 'package:memogenerator/data/models/template.dart';
-import 'package:memogenerator/data/repositories/templates_repository.dart';
-import 'package:memogenerator/domain/interactors/copy_unique_file_interactor.dart';
+import 'package:memegenerator/data/models/template.dart';
+import 'package:memegenerator/data/repositories/templates_repository.dart';
+import 'package:memegenerator/domain/interactors/copy_unique_file_interactor.dart';
 import 'package:uuid/uuid.dart';
 
 class SaveTemplateInteractor {

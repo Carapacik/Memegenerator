@@ -1,7 +1,7 @@
 import 'dart:ui';
 
 import 'package:equatable/equatable.dart';
-import 'package:memogenerator/presentation/create_meme/models/meme_text.dart';
+import 'package:memegenerator/presentation/create_meme/models/meme_text.dart';
 
 class MemeTextWithOffset extends Equatable {
   final MemeText memeText;
