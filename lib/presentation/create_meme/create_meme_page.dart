@@ -322,6 +322,7 @@ class BottomMemeText extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final bloc = Provider.of<CreateMemeBloc>(context, listen: false);
+
     return GestureDetector(
       behavior: HitTestBehavior.opaque,
       onTap: () => bloc.selectMemeText(item.memeText.id),
@@ -403,6 +404,7 @@ class MemeCanvasWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final bloc = Provider.of<CreateMemeBloc>(context, listen: false);
+
     return Container(
       color: AppColors.darkGrey38,
       padding: const EdgeInsets.all(8),
@@ -415,6 +417,7 @@ class MemeCanvasWidget extends StatelessWidget {
             if (!snapshot.hasData) {
               return const SizedBox.shrink();
             }
+
             return Screenshot(
               controller: snapshot.requireData,
               child: Stack(
@@ -437,12 +440,14 @@ class MemeTexts extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final bloc = Provider.of<CreateMemeBloc>(context, listen: false);
+
     return StreamBuilder<List<MemeTextWithOffset>>(
       initialData: const <MemeTextWithOffset>[],
       stream: bloc.observeMemeTextsWithOffsets(),
       builder: (context, snapshot) {
         final memeTextWithOffsets =
             snapshot.hasData ? snapshot.data! : const <MemeTextWithOffset>[];
+
         return LayoutBuilder(
           builder: (context, constraints) => GestureDetector(
             behavior: HitTestBehavior.opaque,
@@ -469,6 +474,7 @@ class BackgroundImage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final bloc = Provider.of<CreateMemeBloc>(context, listen: false);
+
     return StreamBuilder<String?>(
       stream: bloc.observeMemePath(),
       builder: (context, snapshot) {
@@ -478,6 +484,7 @@ class BackgroundImage extends StatelessWidget {
             color: Colors.white,
           );
         }
+
         return Image.file(File(path));
       },
     );
@@ -524,6 +531,7 @@ class _DraggableMemeTextState extends State<DraggableMemeText> {
   @override
   Widget build(BuildContext context) {
     final bloc = Provider.of<CreateMemeBloc>(context, listen: false);
+
     return Positioned(
       top: top,
       left: left,
@@ -547,6 +555,7 @@ class _DraggableMemeTextState extends State<DraggableMemeText> {
             final selectedItem = snapshot.hasData ? snapshot.data : null;
             final selected =
                 widget.memeTextWithOffset.memeText.id == selectedItem?.id;
+
             return MemeTextOnCanvas(
               selected: selected,
               padding: padding,
@@ -570,6 +579,7 @@ class _DraggableMemeTextState extends State<DraggableMemeText> {
     if (rawTop > widget.parentConstraints.maxHeight - padding * 2 - 30) {
       return widget.parentConstraints.maxHeight - padding * 2 - 30;
     }
+
     return rawTop;
   }
 
@@ -581,6 +591,7 @@ class _DraggableMemeTextState extends State<DraggableMemeText> {
     if (rawLeft > widget.parentConstraints.maxWidth - padding * 2 - 10) {
       return widget.parentConstraints.maxWidth - padding * 2 - 10;
     }
+
     return rawLeft;
   }
 }

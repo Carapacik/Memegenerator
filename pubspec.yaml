@@ -13,12 +13,13 @@ dependencies:
     sdk: flutter
   google_fonts: ^2.3.1
   image_picker: ^0.8.4+11
+  in_app_update: ^3.0.0
   json_annotation: ^4.4.0
   path_provider: ^2.0.9
   provider: ^6.0.2
   rxdart: ^0.27.3
   screenshot: ^1.2.3
-  share_plus: ^4.0.2
+  share_plus: ^4.0.3
   shared_preferences: ^2.0.13
   url_strategy: ^0.2.0
   uuid: ^3.0.6
@@ -32,10 +33,10 @@ dev_dependencies:
     sdk: flutter
   json_serializable: ^6.1.5
 
-#flutter_icons:
-#  android: true
-#  ios: true
-#  image_path: "assets/icon.png"
+flutter_icons:
+  android: true
+  ios: true
+  image_path: "assets/images/icon.png"
 
 flutter:
   uses-material-design: true

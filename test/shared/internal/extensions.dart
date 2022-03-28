@@ -3,6 +3,7 @@ extension MyIterable<T> on Iterable<T> {
     for (final element in this) {
       if (test(element)) return element;
     }
+
     return null;
   }
 }

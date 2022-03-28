@@ -42,6 +42,7 @@ String? colorToJson(final Color? color) {
 Color? colorFromJson(final String? colorString) {
   if (colorString == null) return null;
   final intColor = int.tryParse(colorString, radix: 16);
+
   return intColor == null ? null : Color(intColor);
 }
 
@@ -51,5 +52,6 @@ int? fontWeightToJson(final FontWeight? fontWeight) {
 
 FontWeight? fontWeightFromJson(final int? fontWeightIndex) {
   if (fontWeightIndex == null) return null;
+
   return FontWeight.values.firstWhere((fw) => fw.index == fontWeightIndex);
 }

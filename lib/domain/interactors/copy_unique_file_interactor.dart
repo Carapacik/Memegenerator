@@ -36,6 +36,7 @@ class CopyUniqueFileInteractor {
     if (oldFileWithTheSameName == null) {
       // Файлов с таким название нет. Сохраняем файл в документы
       await tempFile.copy(newImagePath);
+
       return imageName;
     }
     final oldFileLength = await (oldFileWithTheSameName as File).length();
@@ -48,6 +49,7 @@ class CopyUniqueFileInteractor {
     if (indexOfLastDot == -1) {
       // У файла нет расширения. Сохраняем файл в документы
       await tempFile.copy(newImagePath);
+
       return imageName;
     }
     final ext = imageName.substring(indexOfLastDot);
@@ -61,6 +63,7 @@ class CopyUniqueFileInteractor {
       final correctedNewImagePath =
           "$absoluteFilePath${Platform.pathSeparator}$newImageName";
       await tempFile.copy(correctedNewImagePath);
+
       return newImageName;
     }
     final suffixNumberString =
@@ -74,6 +77,7 @@ class CopyUniqueFileInteractor {
       final correctedNewImagePath =
           "$absoluteFilePath${Platform.pathSeparator}$newImageName";
       await tempFile.copy(correctedNewImagePath);
+
       return newImageName;
     }
 
@@ -86,6 +90,7 @@ class CopyUniqueFileInteractor {
     final correctedNewImagePath =
         "$absoluteFilePath${Platform.pathSeparator}newImageName";
     await tempFile.copy(correctedNewImagePath);
+
     return newImageName;
   }
 
