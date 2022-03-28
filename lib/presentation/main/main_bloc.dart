@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:image_picker/image_picker.dart';
+import 'package:in_app_update/in_app_update.dart';
 import 'package:memegenerator/data/models/meme.dart';
 import 'package:memegenerator/data/models/template.dart';
 import 'package:memegenerator/data/repositories/memes_repository.dart';
@@ -63,6 +64,14 @@ class MainBloc {
     if (imagePath != null) {
       await SaveTemplateInteractor.getInstance()
           .saveTemplate(imagePath: imagePath);
+    }
+  }
+
+  Future<void> checkForAndroidUpdate() async {
+    if (!Platform.isAndroid) return;
+    final updateInfo = await InAppUpdate.checkForUpdate();
+    if (updateInfo.updateAvailability == UpdateAvailability.updateAvailable) {
+      await InAppUpdate.performImmediateUpdate();
     }
   }
 

@@ -28,6 +28,7 @@ class _MainPageState extends State<MainPage>
   void initState() {
     super.initState();
     bloc = MainBloc();
+    bloc.checkForAndroidUpdate();
     tabController = TabController(length: 2, vsync: this);
     tabController.animation!.addListener(() {
       setState(() => tabIndex = tabController.animation!.value);
