@@ -7,7 +7,6 @@ class SharedPreferenceData {
       _instance ??= SharedPreferenceData._internal();
 
   static SharedPreferenceData? _instance;
-
   static const memeKey = "meme_key";
   static const templateKey = "template_key";
 

@@ -1,4 +1,4 @@
-class AppImages {
+abstract class AppImages {
   const AppImages._();
 
   static const rocketFire = "assets/images/rocket_fire.png";

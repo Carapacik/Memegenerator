@@ -3,11 +3,11 @@ import 'package:memegenerator/resources/app_colors.dart';
 
 class AppButton extends StatelessWidget {
   const AppButton({
-    Key? key,
+    required this.text,
     this.onTap,
     this.icon,
     this.color = AppColors.fuchsia,
-    required this.text,
+    Key? key,
   }) : super(key: key);
 
   final VoidCallback? onTap;

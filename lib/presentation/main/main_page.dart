@@ -60,7 +60,7 @@ class _MainPageState extends State<MainPage>
               },
               child: Text(
                 "Мемогенератор",
-                style: GoogleFonts.seymourOne(fontSize: 24),
+                style: GoogleFonts.rubikBeastly(fontSize: 24),
               ),
             ),
             bottom: TabBar(
@@ -235,8 +235,8 @@ class TemplatesGrid extends StatelessWidget {
 
 class TemplateGridItem extends StatelessWidget {
   const TemplateGridItem({
-    Key? key,
     required this.template,
+    Key? key,
   }) : super(key: key);
 
   final TemplateFull template;
@@ -282,8 +282,8 @@ class TemplateGridItem extends StatelessWidget {
 
 class MemeGridItem extends StatelessWidget {
   const MemeGridItem({
-    Key? key,
     required this.memeThumbnail,
+    Key? key,
   }) : super(key: key);
 
   final MemeThumbnail memeThumbnail;
@@ -327,9 +327,9 @@ class MemeGridItem extends StatelessWidget {
 
 class DeleteButton extends StatelessWidget {
   const DeleteButton({
-    Key? key,
     required this.onDeleteAction,
     required this.itemName,
+    Key? key,
   }) : super(key: key);
 
   final VoidCallback onDeleteAction;

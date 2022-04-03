@@ -14,9 +14,9 @@ import 'package:screenshot/screenshot.dart';
 
 class CreateMemePage extends StatefulWidget {
   const CreateMemePage({
-    Key? key,
-    this.id,
     this.selectedMemePath,
+    this.id,
+    Key? key,
   }) : super(key: key);
 
   final String? id;
@@ -109,9 +109,9 @@ class _CreateMemePageState extends State<CreateMemePage> {
 
 class AnimatedIconButton extends StatefulWidget {
   const AnimatedIconButton({
-    Key? key,
     required this.onTap,
     required this.icon,
+    Key? key,
   }) : super(key: key);
 
   final VoidCallback onTap;
@@ -297,9 +297,7 @@ class BottomList extends StatelessWidget {
 }
 
 class BottomSeparator extends StatelessWidget {
-  const BottomSeparator({
-    Key? key,
-  }) : super(key: key);
+  const BottomSeparator({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -313,8 +311,8 @@ class BottomSeparator extends StatelessWidget {
 
 class BottomMemeText extends StatelessWidget {
   const BottomMemeText({
-    Key? key,
     required this.item,
+    Key? key,
   }) : super(key: key);
 
   final MemeTextWithSelection item;
@@ -376,9 +374,9 @@ class BottomMemeText extends StatelessWidget {
 
 class BottomMemeTextAction extends StatelessWidget {
   const BottomMemeTextAction({
-    Key? key,
-    this.onTap,
     required this.icon,
+    this.onTap,
+    Key? key,
   }) : super(key: key);
 
   final VoidCallback? onTap;
@@ -397,9 +395,7 @@ class BottomMemeTextAction extends StatelessWidget {
 }
 
 class MemeCanvasWidget extends StatelessWidget {
-  const MemeCanvasWidget({
-    Key? key,
-  }) : super(key: key);
+  const MemeCanvasWidget({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -493,9 +489,9 @@ class BackgroundImage extends StatelessWidget {
 
 class DraggableMemeText extends StatefulWidget {
   const DraggableMemeText({
-    Key? key,
     required this.memeTextWithOffset,
     required this.parentConstraints,
+    Key? key,
   }) : super(key: key);
 
   final MemeTextWithOffset memeTextWithOffset;

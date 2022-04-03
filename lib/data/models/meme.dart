@@ -12,11 +12,11 @@ class Meme extends Equatable {
     this.memePath,
   });
 
+  factory Meme.fromJson(Map<String, dynamic> json) => _$MemeFromJson(json);
+
   final String id;
   final List<TextWithPosition> texts;
   final String? memePath;
-
-  factory Meme.fromJson(Map<String, dynamic> json) => _$MemeFromJson(json);
 
   Map<String, dynamic> toJson() => _$MemeToJson(this);
 

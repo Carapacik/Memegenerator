@@ -69,10 +69,12 @@ class MainBloc {
 
   Future<void> checkForAndroidUpdate() async {
     if (!Platform.isAndroid) return;
-    final updateInfo = await InAppUpdate.checkForUpdate();
-    if (updateInfo.updateAvailability == UpdateAvailability.updateAvailable) {
-      await InAppUpdate.performImmediateUpdate();
-    }
+    try {
+      final updateInfo = await InAppUpdate.checkForUpdate();
+      if (updateInfo.updateAvailability == UpdateAvailability.updateAvailable) {
+        await InAppUpdate.performImmediateUpdate();
+      }
+    } catch (_) {}
   }
 
   void deleteMeme(final String memeId) {

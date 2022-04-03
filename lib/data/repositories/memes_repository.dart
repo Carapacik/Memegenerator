@@ -11,7 +11,6 @@ class MemesRepository extends ListWithIdsReactiveRepository<Meme> {
   MemesRepository._internal(this.spData);
 
   static MemesRepository? _instance;
-
   final SharedPreferenceData spData;
 
   @override

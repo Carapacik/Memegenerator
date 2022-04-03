@@ -11,7 +11,6 @@ class TemplatesRepository extends ListWithIdsReactiveRepository<Template> {
   TemplatesRepository._internal(this.spData);
 
   static TemplatesRepository? _instance;
-
   final SharedPreferenceData spData;
 
   @override

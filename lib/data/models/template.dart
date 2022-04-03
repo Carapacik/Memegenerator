@@ -7,11 +7,11 @@ part 'template.g.dart';
 class Template extends Equatable {
   const Template({required this.id, required this.imageUrl});
 
-  final String id;
-  final String imageUrl;
-
   factory Template.fromJson(Map<String, dynamic> json) =>
       _$TemplateFromJson(json);
+
+  final String id;
+  final String imageUrl;
 
   Map<String, dynamic> toJson() => _$TemplateToJson(this);
 
