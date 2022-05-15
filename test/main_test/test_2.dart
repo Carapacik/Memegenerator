@@ -22,7 +22,7 @@ import '../shared/test_helpers.dart';
 void runTest2() {
   final textWithPosition = TextWithPosition(
     id: const Uuid().v4(),
-    text: "Мем-мем",
+    text: 'Мем-мем',
     position: const Position(top: 0, left: 0),
     fontSize: 30,
     color: Colors.black,
@@ -33,21 +33,21 @@ void runTest2() {
   final memeThumbnail = MemeThumbnail(
     memeId: meme.id,
     fullImageUrl:
-        "${Directory(kApplicationDocumentsPath).absolute.path}${Platform.pathSeparator}${meme.id}.png",
+        '${Directory(kApplicationDocumentsPath).absolute.path}${Platform.pathSeparator}${meme.id}.png',
   );
-  const memeKey = "meme_key";
+  const memeKey = 'meme_key';
 
   setUpAll(() {
     GoogleFonts.config.allowRuntimeFetching = false;
     PathProviderPlatform.instance = FakePathProviderPlatform();
   });
-  testWidgets('module3', (WidgetTester tester) async {
+  testWidgets('module3', (tester) async {
     fancyPrint(
-      "Запускаем тест к 3 заданию 12-го урока",
+      'Запускаем тест к 3 заданию 12-го урока',
       printType: PrintType.startEnd,
     );
 
-    fancyPrint("Добавляем в SharedPreferences один мем для тестирования");
+    fancyPrint('Добавляем в SharedPreferences один мем для тестирования');
     SharedPreferences.setMockInitialValues(<String, Object>{
       memeKey: [jsonEncode(meme.toJson())]
     });
@@ -56,11 +56,11 @@ void runTest2() {
     await tester.pumpAndSettle();
 
     fancyPrint(
-      "Проверяем, что метод observeMemes() внутри MainBloc имеет тип Stream<List<MemeThumbnail>>",
+      'Проверяем, что метод observeMemes() внутри MainBloc имеет тип Stream<List<MemeThumbnail>>',
     );
     MainBloc().observeMemes().startWith([memeThumbnail]);
 
-    fancyPrint("Ищем на странице MainPage единственный виджет MemeGridItem");
+    fancyPrint('Ищем на странице MainPage единственный виджет MemeGridItem');
     final memeGridItemFinder = find.byType(MemeGridItem);
     expect(
       memeGridItemFinder,
@@ -69,22 +69,22 @@ void runTest2() {
           "ОШИБКА! На странице MainPage невозможно найти единственный виджет с типом 'MemeGridItem'",
     );
 
-    fancyPrint("Проверяем, что параметр в MemeGridItem равен ожидаемому");
+    fancyPrint('Проверяем, что параметр в MemeGridItem равен ожидаемому');
     final memeGridItem = tester.widget<MemeGridItem>(memeGridItemFinder);
     expect(
       memeGridItem.memeThumbnail,
       memeThumbnail,
       reason:
-          "ОШИБКА! Параметр memeThumbnail в MemeGridItem не равен ожидаемому",
+          'ОШИБКА! Параметр memeThumbnail в MemeGridItem не равен ожидаемому',
     );
 
     fancyPrint(
-      "Переходим на страницу создания мема после нажатия на найденный MemeGridItem",
+      'Переходим на страницу создания мема после нажатия на найденный MemeGridItem',
     );
     await tester.tap(memeGridItemFinder);
     await tester.pumpAndSettle();
 
-    fancyPrint("Ожидаем, что страница CreateMemePage открылась успешно");
+    fancyPrint('Ожидаем, что страница CreateMemePage открылась успешно');
     final createMemePageFinder = find.byType(CreateMemePage);
 
     expect(
@@ -109,7 +109,7 @@ void runTest2() {
     );
 
     fancyPrint(
-      "УСПЕХ! Тест пройден!",
+      'УСПЕХ! Тест пройден!',
       printType: PrintType.startEnd,
     );
   });

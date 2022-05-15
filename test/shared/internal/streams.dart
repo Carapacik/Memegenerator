@@ -8,16 +8,15 @@ Future<void> expectEmitsInOrderWithTimeoutAndThenDone<T>(
   List<T> matcher, {
   String? reason,
   Duration timeoutAfterLastEvent = const Duration(seconds: 1),
-}) {
-  return expectLater(
-    actual.timeout(timeoutAfterLastEvent).onErrorResume((error, stackTrace) {
-      if (error is TimeoutException) {
-        return Stream<T>.empty();
-      } else {
-        throw error;
-      }
-    }),
-    emitsInOrder([...matcher, emitsDone]),
-    reason: reason,
-  );
-}
+}) =>
+    expectLater(
+      actual.timeout(timeoutAfterLastEvent).onErrorResume((error, stackTrace) {
+        if (error is TimeoutException) {
+          return Stream<T>.empty();
+        } else {
+          throw error;
+        }
+      }),
+      emitsInOrder(<dynamic>[...matcher, emitsDone]),
+      reason: reason,
+    );

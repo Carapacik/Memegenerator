@@ -20,7 +20,7 @@ class ScreenshotInteractor {
     }
     final tempDocs = await getTemporaryDirectory();
     final imageFile = File(
-      "${tempDocs.path}${Platform.pathSeparator}${DateTime.now().microsecondsSinceEpoch}.png",
+      '${tempDocs.path}${Platform.pathSeparator}${DateTime.now().microsecondsSinceEpoch}.png',
     );
     await imageFile.create();
     await imageFile.writeAsBytes(image);
@@ -37,7 +37,7 @@ class ScreenshotInteractor {
     }
     final tempDocs = await getApplicationDocumentsDirectory();
     final imageFile = File(
-      "${tempDocs.path}${Platform.pathSeparator}$memeId.png",
+      '${tempDocs.path}${Platform.pathSeparator}$memeId.png',
     );
     await imageFile.create();
     await imageFile.writeAsBytes(image);

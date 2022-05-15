@@ -18,7 +18,7 @@ class CopyUniqueFileInteractor {
     // Работа с папками
     final docsPath = await getApplicationDocumentsDirectory();
     final absoluteFilePath =
-        "${docsPath.absolute.path}${Platform.pathSeparator}$directoryWithFiles";
+        '${docsPath.absolute.path}${Platform.pathSeparator}$directoryWithFiles';
     final memesDirectory = Directory(absoluteFilePath);
     await memesDirectory.create(recursive: true);
     final currentFiles = memesDirectory.listSync();
@@ -26,11 +26,10 @@ class CopyUniqueFileInteractor {
     // Работа с именем файла
     final imageName = _getFileNameByPath(filePath);
     final oldFileWithTheSameName = currentFiles.firstWhereOrNull(
-      (element) {
-        return _getFileNameByPath(element.path) == imageName && element is File;
-      },
+      (element) =>
+          _getFileNameByPath(element.path) == imageName && element is File,
     );
-    final newImagePath = "$absoluteFilePath${Platform.pathSeparator}$imageName";
+    final newImagePath = '$absoluteFilePath${Platform.pathSeparator}$imageName';
     final tempFile = File(filePath);
 
     if (oldFileWithTheSameName == null) {
@@ -45,7 +44,7 @@ class CopyUniqueFileInteractor {
       // Такой файл уже существует. Не сохраняем его заново
       return imageName;
     }
-    final indexOfLastDot = imageName.lastIndexOf(".");
+    final indexOfLastDot = imageName.lastIndexOf('.');
     if (indexOfLastDot == -1) {
       // У файла нет расширения. Сохраняем файл в документы
       await tempFile.copy(newImagePath);
@@ -54,14 +53,14 @@ class CopyUniqueFileInteractor {
     }
     final ext = imageName.substring(indexOfLastDot);
     final imageNameWithoutExt = imageName.substring(0, indexOfLastDot);
-    final indexOfLastUnderscore = imageNameWithoutExt.lastIndexOf("_");
+    final indexOfLastUnderscore = imageNameWithoutExt.lastIndexOf('_');
 
     if (indexOfLastUnderscore == -1) {
       // Файл с таким названием, но с другим размером есть.
       // Сохраняем файл в документы и добавляем суффикс '_1'
-      final newImageName = "${imageNameWithoutExt}_1$ext";
+      final newImageName = '${imageNameWithoutExt}_1$ext';
       final correctedNewImagePath =
-          "$absoluteFilePath${Platform.pathSeparator}$newImageName";
+          '$absoluteFilePath${Platform.pathSeparator}$newImageName';
       await tempFile.copy(correctedNewImagePath);
 
       return newImageName;
@@ -73,9 +72,9 @@ class CopyUniqueFileInteractor {
       // Файл с таким названием, но с другим размером есть.
       // Суффикс не является числом
       // Сохраняем файл в документы и добавляем суффикс '_1'
-      final newImageName = "${imageNameWithoutExt}_1$ext";
+      final newImageName = '${imageNameWithoutExt}_1$ext';
       final correctedNewImagePath =
-          "$absoluteFilePath${Platform.pathSeparator}$newImageName";
+          '$absoluteFilePath${Platform.pathSeparator}$newImageName';
       await tempFile.copy(correctedNewImagePath);
 
       return newImageName;
@@ -86,9 +85,9 @@ class CopyUniqueFileInteractor {
     final imageNameWithoutSuffix =
         imageNameWithoutExt.substring(0, indexOfLastUnderscore);
 
-    final newImageName = "${imageNameWithoutSuffix}_${suffixNumber + 1}$ext";
+    final newImageName = '${imageNameWithoutSuffix}_${suffixNumber + 1}$ext';
     final correctedNewImagePath =
-        "$absoluteFilePath${Platform.pathSeparator}newImageName";
+        '$absoluteFilePath${Platform.pathSeparator}newImageName';
     await tempFile.copy(correctedNewImagePath);
 
     return newImageName;

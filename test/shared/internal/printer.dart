@@ -21,17 +21,17 @@ void fancyPrint(
   final lines = <String>[];
   var tempPhrase = '';
   var tempWord = '';
-  for (int i = 0; i < text.length; i++) {
+  for (var i = 0; i < text.length; i++) {
     final effectiveMaxLineCount =
         lines.isEmpty ? maxLineCount - _leftIndentCount : maxLineCount;
     if (text[i] == ' ') {
-      tempPhrase = "$tempPhrase $tempWord".trim();
+      tempPhrase = '$tempPhrase $tempWord'.trim();
       tempWord = '';
     } else {
       tempWord = tempWord + text[i];
     }
     if (i == text.length - 1) {
-      tempPhrase = "$tempPhrase $tempWord".trim();
+      tempPhrase = '$tempPhrase $tempWord'.trim();
       tempWord = '';
       lines.add(tempPhrase);
     } else if (tempPhrase.length + tempWord.length + 1 ==
@@ -44,9 +44,8 @@ void fancyPrint(
   if (printType.addLineBefore) {
     print(List.generate(_maxSymbolsInLine, (_) => _token).join());
   }
-  for (int i = 0; i < lines.length; i++) {
-    final stringBuffer = StringBuffer();
-    stringBuffer.write(dashesString);
+  for (var i = 0; i < lines.length; i++) {
+    final stringBuffer = StringBuffer()..write(dashesString);
     final needToAddLeftIndent =
         i == 0 && printType.addLeftIndentOnConsequentLines;
     if (needToAddLeftIndent) {
@@ -72,9 +71,10 @@ void fancyPrint(
       stringBuffer
           .write(List.generate(emptySpacesLeft, (_) => _spaceToken).join());
     }
-    stringBuffer.write(_spaceToken);
-    stringBuffer.write(lines[i]);
-    stringBuffer.write(_spaceToken);
+    stringBuffer
+      ..write(_spaceToken)
+      ..write(lines[i])
+      ..write(_spaceToken);
 
     if (emptySpacesRight > 0) {
       stringBuffer

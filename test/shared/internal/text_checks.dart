@@ -10,9 +10,9 @@ void checkTextProperties({
   final Color? textColor,
   final FontWeight? fontWeight,
 }) {
-  final String widgetName = "Text${text != null ? " с текстом '$text'" : ""}";
+  final widgetName = "Text${text != null ? " с текстом '$text'" : ""}";
   if (textAlign != null) {
-    const paramName = "textAlign";
+    const paramName = 'textAlign';
     checkParamExistence(
       widgetName: widgetName,
       paramName: paramName,
@@ -30,12 +30,12 @@ void checkTextProperties({
   }
   checkParamExistence(
     widgetName: widgetName,
-    paramName: "style",
+    paramName: 'style',
     actualValue: textWidget.style,
   );
-  final TextStyle notNullTextStyle = textWidget.style!;
+  final notNullTextStyle = textWidget.style!;
   if (fontSize != null) {
-    const paramName = "fontSize внутри style";
+    const paramName = 'fontSize внутри style';
     checkParamExistence(
       widgetName: widgetName,
       paramName: paramName,
@@ -49,7 +49,7 @@ void checkTextProperties({
     );
   }
   if (textColor != null) {
-    const paramName = "color внутри style";
+    const paramName = 'color внутри style';
     checkParamExistence(
       widgetName: widgetName,
       paramName: paramName,
@@ -64,7 +64,7 @@ void checkTextProperties({
   }
 
   if (fontWeight != null) {
-    const paramName = "fontWeight внутри style";
+    const paramName = 'fontWeight внутри style';
     checkParamExistence(
       widgetName: widgetName,
       paramName: paramName,

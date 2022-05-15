@@ -18,7 +18,7 @@ import '../shared/test_helpers.dart';
 void runTest1() {
   final textWithPosition = TextWithPosition(
     id: const Uuid().v4(),
-    text: "Мем-мем",
+    text: 'Мем-мем',
     position: const Position(top: 0, left: 0),
     fontSize: 30,
     color: Colors.black,
@@ -26,45 +26,45 @@ void runTest1() {
   );
 
   final meme = Meme(id: const Uuid().v4(), texts: [textWithPosition]);
-  const memeKey = "meme_key";
+  const memeKey = 'meme_key';
 
-  final template = Template(id: const Uuid().v4(), imageUrl: "pic.png");
-  const templateKey = "template_key";
+  final template = Template(id: const Uuid().v4(), imageUrl: 'pic.png');
+  const templateKey = 'template_key';
 
   setUpAll(() {
     GoogleFonts.config.allowRuntimeFetching = false;
     PathProviderPlatform.instance = FakePathProviderPlatform();
   });
 
-  testWidgets('module1', (WidgetTester tester) async {
+  testWidgets('module1', (tester) async {
     fancyPrint(
-      "Запускаем тест к 1 заданию 12-го урока",
+      'Запускаем тест к 1 заданию 12-го урока',
       printType: PrintType.startEnd,
     );
 
     fancyPrint(
-      "Добавляем в SharedPreferences один мем и один шаблон для тестирования",
+      'Добавляем в SharedPreferences один мем и один шаблон для тестирования',
     );
     SharedPreferences.setMockInitialValues(<String, Object>{
       memeKey: [jsonEncode(meme.toJson())],
       templateKey: [jsonEncode(template.toJson())]
     });
 
-    fancyPrint("Открываем App");
+    fancyPrint('Открываем App');
 
     await tester.pumpWidget(const App());
     await tester.pumpAndSettle();
 
     fancyPrint(
-      "Проверяем удаление мемов",
+      'Проверяем удаление мемов',
       printType: PrintType.headline,
     );
 
     await checkOneThing<MemeGridItem>(
       tester: tester,
       keyInSP: memeKey,
-      modelName: "мем",
-      widgetName: "MemeGridItem",
+      modelName: 'мем',
+      widgetName: 'MemeGridItem',
     );
 
     const templatesText = 'ШАБЛОНЫ';
@@ -82,18 +82,18 @@ void runTest1() {
     await tester.pumpAndSettle();
 
     fancyPrint(
-      "Проверяем удаление шаблонов",
+      'Проверяем удаление шаблонов',
       printType: PrintType.headline,
     );
     await checkOneThing<TemplateGridItem>(
       tester: tester,
       keyInSP: templateKey,
-      modelName: "шаблон",
-      widgetName: "TemplateGridItem",
+      modelName: 'шаблон',
+      widgetName: 'TemplateGridItem',
     );
 
     fancyPrint(
-      "УСПЕХ! Тест пройден!",
+      'УСПЕХ! Тест пройден!',
       printType: PrintType.startEnd,
     );
   });
@@ -105,16 +105,16 @@ Future<void> checkOneThing<T>({
   required final String modelName,
   required final String widgetName,
 }) async {
-  fancyPrint("Ищем на странице MainPage единственный виджет $widgetName");
+  fancyPrint('Ищем на странице MainPage единственный виджет $widgetName');
   final memeGridItemFinder = find.byType(T);
   expect(
     memeGridItemFinder,
     findsOneWidget,
     reason:
-        "ОШИБКА! На странице MainPage невозможно найти единственный виджет с типом $widgetName",
+        'ОШИБКА! На странице MainPage невозможно найти единственный виджет с типом $widgetName',
   );
 
-  fancyPrint("Ищем в найденном $widgetName кнопку, чтобы удалить $modelName");
+  fancyPrint('Ищем в найденном $widgetName кнопку, чтобы удалить $modelName');
   final deleteIconFinder = find.descendant(
     of: memeGridItemFinder,
     matching: find.byIcon(Icons.delete_outline),
@@ -123,14 +123,14 @@ Future<void> checkOneThing<T>({
     deleteIconFinder,
     findsOneWidget,
     reason:
-        "ОШИБКА! У виджета $widgetName не найден потомок с иконкой Icons.delete_outline",
+        'ОШИБКА! У виджета $widgetName не найден потомок с иконкой Icons.delete_outline',
   );
 
-  fancyPrint("Нажимаем на кнопку, чтобы удалить $modelName");
+  fancyPrint('Нажимаем на кнопку, чтобы удалить $modelName');
   await tester.tap(deleteIconFinder);
   await tester.pumpAndSettle();
 
-  final dialogTitle = "Удалить $modelName?";
+  final dialogTitle = 'Удалить $modelName?';
   final dialogTitleFinder = find.text(dialogTitle);
   fancyPrint(
     "Ожидаем, что на экране появится диалог с заголовком '$dialogTitle'",
@@ -138,7 +138,7 @@ Future<void> checkOneThing<T>({
   expect(
     dialogTitleFinder,
     findsOneWidget,
-    reason: "ОШИБКА! Диалог не открылся",
+    reason: 'ОШИБКА! Диалог не открылся',
   );
 
   const cancelText = 'ОТМЕНА';
@@ -154,15 +154,15 @@ Future<void> checkOneThing<T>({
   await tester.tap(cancelButtonFinder);
   await tester.pumpAndSettle(const Duration(milliseconds: 200));
 
-  fancyPrint("Ищем на странице MainPage единственный виджет $widgetName");
+  fancyPrint('Ищем на странице MainPage единственный виджет $widgetName');
   expect(
     memeGridItemFinder,
     findsOneWidget,
     reason:
-        "ОШИБКА! На странице MainPage невозможно найти единственный виджет с типом $widgetName",
+        'ОШИБКА! На странице MainPage невозможно найти единственный виджет с типом $widgetName',
   );
 
-  fancyPrint("Опять нажимаем на кнопку, чтобы удалить $modelName");
+  fancyPrint('Опять нажимаем на кнопку, чтобы удалить $modelName');
   await tester.tap(deleteIconFinder);
   await tester.pumpAndSettle();
 
@@ -172,7 +172,7 @@ Future<void> checkOneThing<T>({
   expect(
     dialogTitleFinder,
     findsOneWidget,
-    reason: "ОШИБКА! Диалог не открылся",
+    reason: 'ОШИБКА! Диалог не открылся',
   );
 
   const deleteText = 'УДАЛИТЬ';
@@ -189,21 +189,21 @@ Future<void> checkOneThing<T>({
   await tester.pumpAndSettle();
 
   fancyPrint(
-    "На странице MainPage не должно быть виджетов с типом $widgetName",
+    'На странице MainPage не должно быть виджетов с типом $widgetName',
   );
   expect(
     memeGridItemFinder,
     findsNothing,
     reason:
-        "ОШИБКА! На странице MainPage находятся виджеты $widgetName, хотя не должны",
+        'ОШИБКА! На странице MainPage находятся виджеты $widgetName, хотя не должны',
   );
 
-  fancyPrint("Проверяем, что в SharedPreferences $modelName удалён");
+  fancyPrint('Проверяем, что в SharedPreferences $modelName удалён');
 
   expect(
     (await SharedPreferences.getInstance()).getStringList(keyInSP) ??
         <String>[],
-    [],
-    reason: "ОШИБКА! В SharedPreferences остался неудаленный $modelName",
+    <String>[],
+    reason: 'ОШИБКА! В SharedPreferences остался неудаленный $modelName',
   );
 }

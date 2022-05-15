@@ -12,7 +12,7 @@ import 'package:memegenerator/resources/app_colors.dart';
 import 'package:provider/provider.dart';
 
 class MainPage extends StatefulWidget {
-  const MainPage({Key? key}) : super(key: key);
+  const MainPage({super.key});
 
   @override
   _MainPageState createState() => _MainPageState();
@@ -36,87 +36,83 @@ class _MainPageState extends State<MainPage>
   }
 
   @override
-  Widget build(BuildContext context) {
-    return Provider.value(
-      value: bloc,
-      child: WillPopScope(
-        onWillPop: () async {
-          final goBack = await showConfirmationExitDialog(context);
+  Widget build(BuildContext context) => Provider.value(
+        value: bloc,
+        child: WillPopScope(
+          onWillPop: () async {
+            final goBack = await showConfirmationExitDialog(context);
 
-          return goBack ?? false;
-        },
-        child: Scaffold(
-          appBar: AppBar(
-            centerTitle: true,
-            backgroundColor: AppColors.lemon,
-            foregroundColor: AppColors.darkGrey,
-            title: GestureDetector(
-              onLongPress: () {
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (_) => const EasterEggPage(),
-                  ),
-                );
-              },
-              child: Text(
-                "Мемогенератор",
-                style: GoogleFonts.rubikBeastly(fontSize: 24),
+            return goBack ?? false;
+          },
+          child: Scaffold(
+            appBar: AppBar(
+              centerTitle: true,
+              backgroundColor: AppColors.lemon,
+              foregroundColor: AppColors.darkGrey,
+              title: GestureDetector(
+                onLongPress: () {
+                  Navigator.of(context).push<void>(
+                    MaterialPageRoute(
+                      builder: (_) => const EasterEggPage(),
+                    ),
+                  );
+                },
+                child: Text(
+                  'Мемогенератор',
+                  style: GoogleFonts.rubikBeastly(fontSize: 24),
+                ),
+              ),
+              bottom: TabBar(
+                controller: tabController,
+                labelColor: AppColors.darkGrey,
+                indicatorColor: AppColors.fuchsia,
+                indicatorWeight: 3,
+                tabs: [
+                  Tab(text: 'Созданные'.toUpperCase()),
+                  Tab(text: 'Шаблоны'.toUpperCase()),
+                ],
               ),
             ),
-            bottom: TabBar(
+            backgroundColor: Colors.white,
+            floatingActionButton: tabIndex <= 0.5
+                ? Transform.scale(
+                    scale: 1 - tabIndex / 0.5,
+                    child: const CreateMemeFab(),
+                  )
+                : Transform.scale(
+                    scale: (tabIndex - 0.5) / 0.5,
+                    child: const CreateTemplateFab(),
+                  ),
+            body: TabBarView(
               controller: tabController,
-              labelColor: AppColors.darkGrey,
-              indicatorColor: AppColors.fuchsia,
-              indicatorWeight: 3,
-              tabs: [
-                Tab(text: "Созданные".toUpperCase()),
-                Tab(text: "Шаблоны".toUpperCase()),
+              children: const [
+                SafeArea(child: CreatedMemesGrid()),
+                SafeArea(child: TemplatesGrid()),
               ],
             ),
           ),
-          backgroundColor: Colors.white,
-          floatingActionButton: tabIndex <= 0.5
-              ? Transform.scale(
-                  scale: 1 - tabIndex / 0.5,
-                  child: const CreateMemeFab(),
-                )
-              : Transform.scale(
-                  scale: (tabIndex - 0.5) / 0.5,
-                  child: const CreateTemplateFab(),
-                ),
-          body: TabBarView(
-            controller: tabController,
-            children: const [
-              SafeArea(child: CreatedMemesGrid()),
-              SafeArea(child: TemplatesGrid()),
-            ],
-          ),
         ),
-      ),
-    );
-  }
+      );
 
-  Future<bool?> showConfirmationExitDialog(BuildContext context) {
-    return showDialog(
-      context: context,
-      builder: (context) => AlertDialog(
-        title: const Text("Точно хотите выйти?"),
-        content: const Text("Мемы сами себя не сделают"),
-        actionsPadding: const EdgeInsets.symmetric(horizontal: 16),
-        actions: [
-          AppButton(
-            onTap: () => Navigator.of(context).pop(false),
-            text: "Остаться",
-            color: AppColors.darkGrey,
-          ),
-          AppButton(
-            onTap: () => Navigator.of(context).pop(true),
-            text: "Выйти",
-          ),
-        ],
-      ),
-    );
-  }
+  Future<bool?> showConfirmationExitDialog(BuildContext context) => showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: const Text('Точно хотите выйти?'),
+          content: const Text('Мемы сами себя не сделают'),
+          actionsPadding: const EdgeInsets.symmetric(horizontal: 16),
+          actions: [
+            AppButton(
+              onTap: () => Navigator.of(context).pop(false),
+              text: 'Остаться',
+              color: AppColors.darkGrey,
+            ),
+            AppButton(
+              onTap: () => Navigator.of(context).pop(true),
+              text: 'Выйти',
+            ),
+          ],
+        ),
+      );
 
   @override
   void dispose() {
@@ -127,7 +123,7 @@ class _MainPageState extends State<MainPage>
 }
 
 class CreateMemeFab extends StatelessWidget {
-  const CreateMemeFab({Key? key}) : super(key: key);
+  const CreateMemeFab({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -139,7 +135,7 @@ class CreateMemeFab extends StatelessWidget {
         if (selectedMemePath == null) {
           return;
         }
-        Navigator.of(context).push(
+        Navigator.of(context).push<void>(
           MaterialPageRoute(
             builder: (_) => CreateMemePage(selectedMemePath: selectedMemePath),
           ),
@@ -150,13 +146,13 @@ class CreateMemeFab extends StatelessWidget {
         Icons.add,
         color: Colors.white,
       ),
-      label: const Text("Мем"),
+      label: const Text('Мем'),
     );
   }
 }
 
 class CreateTemplateFab extends StatelessWidget {
-  const CreateTemplateFab({Key? key}) : super(key: key);
+  const CreateTemplateFab({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -171,13 +167,13 @@ class CreateTemplateFab extends StatelessWidget {
         Icons.add,
         color: Colors.white,
       ),
-      label: const Text("Шаблон"),
+      label: const Text('Шаблон'),
     );
   }
 }
 
 class CreatedMemesGrid extends StatelessWidget {
-  const CreatedMemesGrid({Key? key}) : super(key: key);
+  const CreatedMemesGrid({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -205,7 +201,7 @@ class CreatedMemesGrid extends StatelessWidget {
 }
 
 class TemplatesGrid extends StatelessWidget {
-  const TemplatesGrid({Key? key}) : super(key: key);
+  const TemplatesGrid({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -236,8 +232,8 @@ class TemplatesGrid extends StatelessWidget {
 class TemplateGridItem extends StatelessWidget {
   const TemplateGridItem({
     required this.template,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   final TemplateFull template;
 
@@ -248,7 +244,7 @@ class TemplateGridItem extends StatelessWidget {
 
     return GestureDetector(
       onTap: () {
-        Navigator.of(context).push(
+        Navigator.of(context).push<void>(
           MaterialPageRoute(
             builder: (_) => CreateMemePage(
               selectedMemePath: template.fullImagePath,
@@ -283,8 +279,8 @@ class TemplateGridItem extends StatelessWidget {
 class MemeGridItem extends StatelessWidget {
   const MemeGridItem({
     required this.memeThumbnail,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   final MemeThumbnail memeThumbnail;
 
@@ -295,7 +291,7 @@ class MemeGridItem extends StatelessWidget {
 
     return GestureDetector(
       onTap: () {
-        Navigator.of(context).push(
+        Navigator.of(context).push<void>(
           MaterialPageRoute(
             builder: (context) => CreateMemePage(id: memeThumbnail.memeId),
           ),
@@ -329,55 +325,52 @@ class DeleteButton extends StatelessWidget {
   const DeleteButton({
     required this.onDeleteAction,
     required this.itemName,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   final VoidCallback onDeleteAction;
   final String itemName;
 
   @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () async {
-        final delete = await showConfirmationDeleteDialog(context) ?? false;
-        if (delete) {
-          onDeleteAction();
-        }
-      },
-      child: Container(
-        padding: const EdgeInsets.all(8),
-        decoration: BoxDecoration(
-          color: AppColors.darkGrey38,
-          shape: BoxShape.circle,
+  Widget build(BuildContext context) => GestureDetector(
+        onTap: () async {
+          final delete = await showConfirmationDeleteDialog(context) ?? false;
+          if (delete) {
+            onDeleteAction();
+          }
+        },
+        child: Container(
+          padding: const EdgeInsets.all(8),
+          decoration: BoxDecoration(
+            color: AppColors.darkGrey38,
+            shape: BoxShape.circle,
+          ),
+          child: const Icon(
+            Icons.delete_outline,
+            color: Colors.white,
+            size: 24,
+          ),
         ),
-        child: const Icon(
-          Icons.delete_outline,
-          color: Colors.white,
-          size: 24,
-        ),
-      ),
-    );
-  }
+      );
 
-  Future<bool?> showConfirmationDeleteDialog(BuildContext context) {
-    return showDialog(
-      context: context,
-      builder: (context) => AlertDialog(
-        title: Text("Удалить $itemName?"),
-        content: Text("Выбранный $itemName будет удалён навсегда"),
-        actionsPadding: const EdgeInsets.symmetric(horizontal: 16),
-        actions: [
-          AppButton(
-            onTap: () => Navigator.of(context).pop(false),
-            text: "Отмена",
-            color: AppColors.darkGrey,
-          ),
-          AppButton(
-            onTap: () => Navigator.of(context).pop(true),
-            text: "Удалить",
-          ),
-        ],
-      ),
-    );
-  }
+  Future<bool?> showConfirmationDeleteDialog(BuildContext context) =>
+      showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: Text('Удалить $itemName?'),
+          content: Text('Выбранный $itemName будет удалён навсегда'),
+          actionsPadding: const EdgeInsets.symmetric(horizontal: 16),
+          actions: [
+            AppButton(
+              onTap: () => Navigator.of(context).pop(false),
+              text: 'Отмена',
+              color: AppColors.darkGrey,
+            ),
+            AppButton(
+              onTap: () => Navigator.of(context).pop(true),
+              text: 'Удалить',
+            ),
+          ],
+        ),
+      );
 }

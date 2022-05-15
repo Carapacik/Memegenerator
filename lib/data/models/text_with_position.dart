@@ -35,9 +35,7 @@ class TextWithPosition extends Equatable {
   List<Object?> get props => [id, text, position, fontSize, color, fontWeight];
 }
 
-String? colorToJson(final Color? color) {
-  return color?.value.toRadixString(16);
-}
+String? colorToJson(final Color? color) => color?.value.toRadixString(16);
 
 Color? colorFromJson(final String? colorString) {
   if (colorString == null) return null;
@@ -46,9 +44,7 @@ Color? colorFromJson(final String? colorString) {
   return intColor == null ? null : Color(intColor);
 }
 
-int? fontWeightToJson(final FontWeight? fontWeight) {
-  return fontWeight?.index;
-}
+int? fontWeightToJson(final FontWeight? fontWeight) => fontWeight?.index;
 
 FontWeight? fontWeightFromJson(final int? fontWeightIndex) {
   if (fontWeightIndex == null) return null;
