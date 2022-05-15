@@ -16,8 +16,8 @@ class CreateMemePage extends StatefulWidget {
   const CreateMemePage({
     this.selectedMemePath,
     this.id,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   final String? id;
   final String? selectedMemePath;
@@ -39,44 +39,44 @@ class _CreateMemePageState extends State<CreateMemePage> {
   }
 
   @override
-  Widget build(BuildContext context) {
-    return Provider.value(
-      value: bloc,
-      child: WillPopScope(
-        onWillPop: () async {
-          final allSaved = await bloc.isAllSaved();
-          if (allSaved) return true;
-          final goBack = await showConfirmationExitDialog(context);
+  Widget build(BuildContext context) => Provider.value(
+        value: bloc,
+        child: WillPopScope(
+          onWillPop: () async {
+            final allSaved = await bloc.isAllSaved();
+            if (allSaved) {
+              return true;
+            }
+            final goBack = await showConfirmationExitDialog(context);
 
-          return goBack ?? false;
-        },
-        child: Scaffold(
-          appBar: AppBar(
-            centerTitle: true,
-            backgroundColor: AppColors.lemon,
-            foregroundColor: AppColors.darkGrey,
-            title: const Text("Создать мем"),
-            bottom: const EditTextBar(),
-            actions: [
-              AnimatedIconButton(
-                onTap: () => bloc.shareMeme(),
-                icon: Icons.share,
-              ),
-              AnimatedIconButton(
-                onTap: () => bloc.saveMeme(),
-                icon: Icons.save,
-              ),
-            ],
-          ),
-          backgroundColor: Colors.white,
-          resizeToAvoidBottomInset: false,
-          body: const SafeArea(
-            child: CreateMemePageContent(),
+            return goBack ?? false;
+          },
+          child: Scaffold(
+            appBar: AppBar(
+              centerTitle: true,
+              backgroundColor: AppColors.lemon,
+              foregroundColor: AppColors.darkGrey,
+              title: const Text('Создать мем'),
+              bottom: const EditTextBar(),
+              actions: [
+                AnimatedIconButton(
+                  onTap: () => bloc.shareMeme(),
+                  icon: Icons.share,
+                ),
+                AnimatedIconButton(
+                  onTap: () => bloc.saveMeme(),
+                  icon: Icons.save,
+                ),
+              ],
+            ),
+            backgroundColor: Colors.white,
+            resizeToAvoidBottomInset: false,
+            body: const SafeArea(
+              child: CreateMemePageContent(),
+            ),
           ),
         ),
-      ),
-    );
-  }
+      );
 
   @override
   void dispose() {
@@ -84,35 +84,33 @@ class _CreateMemePageState extends State<CreateMemePage> {
     super.dispose();
   }
 
-  Future<bool?> showConfirmationExitDialog(BuildContext context) {
-    return showDialog(
-      context: context,
-      builder: (context) => AlertDialog(
-        title: const Text("Хотите выйти?"),
-        content: const Text("Вы потеряете несохранённые изменения"),
-        actionsPadding: const EdgeInsets.symmetric(horizontal: 16),
-        actions: [
-          AppButton(
-            onTap: () => Navigator.of(context).pop(false),
-            text: "Отмена",
-            color: AppColors.darkGrey,
-          ),
-          AppButton(
-            onTap: () => Navigator.of(context).pop(true),
-            text: "Выйти",
-          ),
-        ],
-      ),
-    );
-  }
+  Future<bool?> showConfirmationExitDialog(BuildContext context) => showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: const Text('Хотите выйти?'),
+          content: const Text('Вы потеряете несохранённые изменения'),
+          actionsPadding: const EdgeInsets.symmetric(horizontal: 16),
+          actions: [
+            AppButton(
+              onTap: () => Navigator.of(context).pop(false),
+              text: 'Отмена',
+              color: AppColors.darkGrey,
+            ),
+            AppButton(
+              onTap: () => Navigator.of(context).pop(true),
+              text: 'Выйти',
+            ),
+          ],
+        ),
+      );
 }
 
 class AnimatedIconButton extends StatefulWidget {
   const AnimatedIconButton({
     required this.onTap,
     required this.icon,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   final VoidCallback onTap;
   final IconData icon;
@@ -125,32 +123,30 @@ class _AnimatedIconButtonState extends State<AnimatedIconButton> {
   double scale = 1;
 
   @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        setState(() => scale = 1.5);
-        widget.onTap();
-      },
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16),
-        child: AnimatedScale(
-          duration: const Duration(milliseconds: 200),
-          scale: scale,
-          curve: Curves.bounceInOut,
-          child: Icon(
-            widget.icon,
-            color: AppColors.darkGrey,
-            size: 24,
+  Widget build(BuildContext context) => GestureDetector(
+        onTap: () {
+          setState(() => scale = 1.5);
+          widget.onTap();
+        },
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16),
+          child: AnimatedScale(
+            duration: const Duration(milliseconds: 200),
+            scale: scale,
+            curve: Curves.bounceInOut,
+            child: Icon(
+              widget.icon,
+              color: AppColors.darkGrey,
+              size: 24,
+            ),
+            onEnd: () => setState(() => scale = 1),
           ),
-          onEnd: () => setState(() => scale = 1),
         ),
-      ),
-    );
-  }
+      );
 }
 
 class EditTextBar extends StatefulWidget implements PreferredSizeWidget {
-  const EditTextBar({Key? key}) : super(key: key);
+  const EditTextBar({super.key});
 
   @override
   Size get preferredSize => const Size.fromHeight(68);
@@ -171,13 +167,13 @@ class _EditTextBarState extends State<EditTextBar> {
       child: StreamBuilder<MemeText?>(
         stream: bloc.observeSelectedMemeTexts(),
         builder: (context, snapshot) {
-          final MemeText? selectedMemeText =
+          final selectedMemeText =
               snapshot.hasData ? snapshot.requireData : null;
           if (selectedMemeText?.text != controller.text) {
-            final newText = selectedMemeText?.text ?? "";
-            controller.text = newText;
-            controller.selection =
-                TextSelection.collapsed(offset: newText.length);
+            final newText = selectedMemeText?.text ?? '';
+            controller
+              ..text = newText
+              ..selection = TextSelection.collapsed(offset: newText.length);
           }
           final haveSelected = selectedMemeText != null;
 
@@ -189,11 +185,11 @@ class _EditTextBarState extends State<EditTextBar> {
                 bloc.changeMemeText(selectedMemeText.id, text);
               }
             },
-            onEditingComplete: () => bloc.deselectMemeText(),
+            onEditingComplete: bloc.deselectMemeText,
             cursorColor: AppColors.fuchsia,
             decoration: InputDecoration(
               filled: true,
-              hintText: haveSelected ? "Ввести текст" : null,
+              hintText: haveSelected ? 'Ввести текст' : null,
               hintStyle: TextStyle(fontSize: 16, color: AppColors.darkGrey38),
               fillColor:
                   haveSelected ? AppColors.fuchsia16 : AppColors.darkGrey6,
@@ -221,7 +217,7 @@ class _EditTextBarState extends State<EditTextBar> {
 }
 
 class CreateMemePageContent extends StatefulWidget {
-  const CreateMemePageContent({Key? key}) : super(key: key);
+  const CreateMemePageContent({super.key});
 
   @override
   _CreateMemePageContentState createState() => _CreateMemePageContentState();
@@ -229,31 +225,28 @@ class CreateMemePageContent extends StatefulWidget {
 
 class _CreateMemePageContentState extends State<CreateMemePageContent> {
   @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        const Expanded(
-          flex: 2,
-          child: MemeCanvasWidget(),
-        ),
-        Container(
-          height: 1,
-          color: AppColors.darkGrey,
-        ),
-        const Expanded(child: BottomList()),
-      ],
-    );
-  }
+  Widget build(BuildContext context) => Column(
+        children: [
+          const Expanded(
+            flex: 2,
+            child: MemeCanvasWidget(),
+          ),
+          Container(
+            height: 1,
+            color: AppColors.darkGrey,
+          ),
+          const Expanded(child: BottomList()),
+        ],
+      );
 }
 
 class BottomList extends StatelessWidget {
-  const BottomList({Key? key}) : super(key: key);
+  const BottomList({super.key});
 
   @override
   Widget build(BuildContext context) {
     final bloc = Provider.of<CreateMemeBloc>(context, listen: false);
-
-    return Container(
+    return ColoredBox(
       color: Colors.white,
       child: StreamBuilder<List<MemeTextWithSelection>>(
         stream: bloc.observeSelectedMemeTextsWithSelection(),
@@ -265,14 +258,14 @@ class BottomList extends StatelessWidget {
 
           return ListView.separated(
             itemCount: items.length + 1,
-            itemBuilder: (BuildContext context, int index) {
+            itemBuilder: (context, index) {
               if (index == 0) {
                 return Padding(
                   padding: const EdgeInsets.only(top: 16),
                   child: Center(
                     child: AppButton(
-                      text: "Добавить текст",
-                      onTap: () => bloc.addNewText(),
+                      text: 'Добавить текст',
+                      onTap: bloc.addNewText,
                       icon: Icons.add,
                     ),
                   ),
@@ -282,7 +275,7 @@ class BottomList extends StatelessWidget {
 
               return BottomMemeText(item: item);
             },
-            separatorBuilder: (BuildContext context, int index) {
+            separatorBuilder: (context, index) {
               if (index == 0) {
                 return const SizedBox.shrink();
               }
@@ -297,23 +290,21 @@ class BottomList extends StatelessWidget {
 }
 
 class BottomSeparator extends StatelessWidget {
-  const BottomSeparator({Key? key}) : super(key: key);
+  const BottomSeparator({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.only(left: 16),
-      color: AppColors.darkGrey,
-      height: 1,
-    );
-  }
+  Widget build(BuildContext context) => Container(
+        margin: const EdgeInsets.only(left: 16),
+        color: AppColors.darkGrey,
+        height: 1,
+      );
 }
 
 class BottomMemeText extends StatelessWidget {
   const BottomMemeText({
     required this.item,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   final MemeTextWithSelection item;
 
@@ -340,19 +331,17 @@ class BottomMemeText extends StatelessWidget {
             const SizedBox(width: 4),
             BottomMemeTextAction(
               onTap: () {
-                showModalBottomSheet(
+                showModalBottomSheet<void>(
                   context: context,
                   shape: const RoundedRectangleBorder(
                     borderRadius: BorderRadius.vertical(
                       top: Radius.circular(24),
                     ),
                   ),
-                  builder: (context) {
-                    return Provider.value(
-                      value: bloc,
-                      child: FontSettingBottomSheet(memeText: item.memeText),
-                    );
-                  },
+                  builder: (context) => Provider.value(
+                    value: bloc,
+                    child: FontSettingBottomSheet(memeText: item.memeText),
+                  ),
                 );
               },
               icon: Icons.font_download_outlined,
@@ -376,26 +365,24 @@ class BottomMemeTextAction extends StatelessWidget {
   const BottomMemeTextAction({
     required this.icon,
     this.onTap,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   final VoidCallback? onTap;
   final IconData icon;
 
   @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: onTap,
-      child: Padding(
-        padding: const EdgeInsets.all(8),
-        child: Icon(icon),
-      ),
-    );
-  }
+  Widget build(BuildContext context) => GestureDetector(
+        onTap: onTap,
+        child: Padding(
+          padding: const EdgeInsets.all(8),
+          child: Icon(icon),
+        ),
+      );
 }
 
 class MemeCanvasWidget extends StatelessWidget {
-  const MemeCanvasWidget({Key? key}) : super(key: key);
+  const MemeCanvasWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -413,8 +400,7 @@ class MemeCanvasWidget extends StatelessWidget {
             if (!snapshot.hasData) {
               return const SizedBox.shrink();
             }
-
-            return Screenshot(
+            return Screenshot<void>(
               controller: snapshot.requireData,
               child: Stack(
                 children: const [
@@ -431,7 +417,7 @@ class MemeCanvasWidget extends StatelessWidget {
 }
 
 class MemeTexts extends StatelessWidget {
-  const MemeTexts({Key? key}) : super(key: key);
+  const MemeTexts({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -447,15 +433,17 @@ class MemeTexts extends StatelessWidget {
         return LayoutBuilder(
           builder: (context, constraints) => GestureDetector(
             behavior: HitTestBehavior.opaque,
-            onTap: () => bloc.deselectMemeText(),
+            onTap: bloc.deselectMemeText,
             child: Stack(
-              children: memeTextWithOffsets.map((elem) {
-                return DraggableMemeText(
-                  key: ValueKey(elem.memeText.id),
-                  memeTextWithOffset: elem,
-                  parentConstraints: constraints,
-                );
-              }).toList(),
+              children: memeTextWithOffsets
+                  .map(
+                    (elem) => DraggableMemeText(
+                      key: ValueKey(elem.memeText.id),
+                      memeTextWithOffset: elem,
+                      parentConstraints: constraints,
+                    ),
+                  )
+                  .toList(),
             ),
           ),
         );
@@ -465,7 +453,7 @@ class MemeTexts extends StatelessWidget {
 }
 
 class BackgroundImage extends StatelessWidget {
-  const BackgroundImage({Key? key}) : super(key: key);
+  const BackgroundImage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -476,9 +464,7 @@ class BackgroundImage extends StatelessWidget {
       builder: (context, snapshot) {
         final path = snapshot.hasData ? snapshot.data : null;
         if (path == null) {
-          return Container(
-            color: Colors.white,
-          );
+          return const ColoredBox(color: Colors.white);
         }
 
         return Image.file(File(path));
@@ -491,8 +477,8 @@ class DraggableMemeText extends StatefulWidget {
   const DraggableMemeText({
     required this.memeTextWithOffset,
     required this.parentConstraints,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   final MemeTextWithOffset memeTextWithOffset;
   final BoxConstraints parentConstraints;
@@ -513,9 +499,9 @@ class _DraggableMemeTextState extends State<DraggableMemeText> {
     top = widget.memeTextWithOffset.offset?.dy ??
         widget.parentConstraints.maxHeight / 2;
     if (widget.memeTextWithOffset.offset == null) {
-      WidgetsBinding.instance?.addPostFrameCallback((timeStamp) {
-        final bloc = Provider.of<CreateMemeBloc>(context, listen: false);
-        bloc.changeMemeTextOffset(
+      WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+        Provider.of<CreateMemeBloc>(context, listen: false)
+            .changeMemeTextOffset(
           widget.memeTextWithOffset.memeText.id,
           Offset(left, top),
         );

@@ -12,7 +12,7 @@ class SaveMemeInteractor {
   SaveMemeInteractor._internal();
 
   static SaveMemeInteractor? _instance;
-  static const memesPathName = "memes";
+  static const memesPathName = 'memes';
 
   Future<bool> saveMeme({
     required final String id,

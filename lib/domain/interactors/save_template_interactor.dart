@@ -10,7 +10,7 @@ class SaveTemplateInteractor {
   SaveTemplateInteractor._internal();
 
   static SaveTemplateInteractor? _instance;
-  static const templatesPathName = "templates";
+  static const templatesPathName = 'templates';
 
   Future<bool> saveTemplate({required final String imagePath}) async {
     final newImagePath =

@@ -3,22 +3,20 @@ import 'package:memegenerator/resources/app_colors.dart';
 import 'package:memegenerator/resources/app_images.dart';
 
 class EasterEggPage extends StatelessWidget {
-  const EasterEggPage({Key? key}) : super(key: key);
+  const EasterEggPage({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: AppColors.lemon,
-        foregroundColor: AppColors.darkGrey,
-      ),
-      body: const RocketAnimationBody(),
-    );
-  }
+  Widget build(BuildContext context) => Scaffold(
+        appBar: AppBar(
+          backgroundColor: AppColors.lemon,
+          foregroundColor: AppColors.darkGrey,
+        ),
+        body: const RocketAnimationBody(),
+      );
 }
 
 class RocketAnimationBody extends StatefulWidget {
-  const RocketAnimationBody({Key? key}) : super(key: key);
+  const RocketAnimationBody({super.key});
 
   @override
   _RocketAnimationBodyState createState() => _RocketAnimationBodyState();
@@ -111,10 +109,8 @@ class _RocketAnimationBodyState extends State<RocketAnimationBody>
   }
 
   @override
-  Widget build(BuildContext context) {
-    return LayoutBuilder(
-      builder: (BuildContext context, BoxConstraints constraints) {
-        return DecoratedBox(
+  Widget build(BuildContext context) => LayoutBuilder(
+        builder: (context, constraints) => DecoratedBox(
           decoration: const BoxDecoration(
             image: DecorationImage(
               image: AssetImage(AppImages.starsPattern),
@@ -176,10 +172,8 @@ class _RocketAnimationBodyState extends State<RocketAnimationBody>
               ),
             ],
           ),
-        );
-      },
-    );
-  }
+        ),
+      );
 
   @override
   void dispose() {

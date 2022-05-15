@@ -11,8 +11,8 @@ void checkContainerColor({
   final String? colorName,
   final String? widgetName,
 }) {
-  final effectiveWidgetName = widgetName ?? "Container";
-  const paramName = "color";
+  final effectiveWidgetName = widgetName ?? 'Container';
+  const paramName = 'color';
   final actualValue = container.color;
   checkParamExistence(
     widgetName: effectiveWidgetName,
@@ -35,15 +35,15 @@ void checkContainerDecorationColor({
   final Color? secondColor,
   final String? colorName,
 }) {
-  const String widgetName = "Container";
+  const widgetName = 'Container';
   checkContainerHaveDecoration(widgetName, container);
   checkContainerHaveDecorationOfTypeBoxDecoration(container, widgetName);
 
-  print("Параметр color в decoration должен быть равен ${colorName ?? color}");
+  print('Параметр color в decoration должен быть равен ${colorName ?? color}');
   expect(
     (container.decoration as BoxDecoration).color,
     secondColor != null ? isOneOrAnother(color, secondColor) : color,
-    reason: "ОШИБКА! Параметр color в decoration неверный",
+    reason: 'ОШИБКА! Параметр color в decoration неверный',
   );
 }
 
@@ -51,21 +51,23 @@ void checkContainerHaveDecorationOfTypeBoxDecoration(
   final Container container,
   final String widgetName,
 ) {
-  print("decoration внутри виджета $widgetName должен иметь тип BoxDecoration");
+  print('decoration внутри виджета $widgetName должен иметь тип BoxDecoration');
   expect(
     container.decoration,
     isInstanceOf<BoxDecoration>(),
-    reason: "ОШИБКА! $widgetName содержит decoration неверного типа",
+    reason: 'ОШИБКА! $widgetName содержит decoration неверного типа',
   );
 }
 
 void checkContainerHaveDecoration(
-    final String widgetName, final Container container) {
-  print("Проверяем наличие decoration в виджете $widgetName");
+  final String widgetName,
+  final Container container,
+) {
+  print('Проверяем наличие decoration в виджете $widgetName');
   expect(
     container.decoration,
     isNotNull,
-    reason: "ОШИБКА! В виджете $widgetName отсутствует decoration",
+    reason: 'ОШИБКА! В виджете $widgetName отсутствует decoration',
   );
 }
 
@@ -73,21 +75,21 @@ void checkContainerDecorationShape({
   required final Container container,
   required final BoxShape shape,
 }) {
-  const String widgetName = "Container";
+  const widgetName = 'Container';
   expect(
     container.decoration,
     isNotNull,
-    reason: "$widgetName should have not null decoration property",
+    reason: '$widgetName should have not null decoration property',
   );
   expect(
     container.decoration,
     isInstanceOf<BoxDecoration>(),
-    reason: "$widgetName should have decoration of BoxDecoration type",
+    reason: '$widgetName should have decoration of BoxDecoration type',
   );
   expect(
-    (container.decoration as BoxDecoration).shape,
+    (container.decoration! as BoxDecoration).shape,
     shape,
-    reason: "$widgetName decoration should have shape $shape}",
+    reason: '$widgetName decoration should have shape $shape}',
   );
 }
 
@@ -95,31 +97,31 @@ void checkContainerDecorationBorderRadius({
   required final Container container,
   required final BorderRadius borderRadius,
 }) {
-  const String widgetName = "Container";
+  const widgetName = 'Container';
   expect(
     container.decoration,
     isNotNull,
-    reason: "$widgetName should have not null decoration property",
+    reason: '$widgetName should have not null decoration property',
   );
   expect(
     container.decoration,
     isInstanceOf<BoxDecoration>(),
-    reason: "$widgetName should have decoration of BoxDecoration type",
+    reason: '$widgetName should have decoration of BoxDecoration type',
   );
   expect(
-    (container.decoration as BoxDecoration).borderRadius,
+    (container.decoration! as BoxDecoration).borderRadius,
     isNotNull,
-    reason: "$widgetName decoration should have not null borderRadius",
+    reason: '$widgetName decoration should have not null borderRadius',
   );
 
   expect(
-    (container.decoration as BoxDecoration).borderRadius,
+    (container.decoration! as BoxDecoration).borderRadius,
     isInstanceOf<BorderRadius>(),
     reason: "$widgetName decoration's borderRadius has type of BorderRadius",
   );
 
   expect(
-    (container.decoration as BoxDecoration).borderRadius as BorderRadius,
+    (container.decoration! as BoxDecoration).borderRadius! as BorderRadius,
     borderRadius,
     reason: "$widgetName decoration's borderRadius should be $borderRadius",
   );
@@ -131,7 +133,7 @@ void checkContainerBorder({
   final Border? secondBorder,
   final String? borderName,
 }) {
-  const String widgetName = "Container";
+  const widgetName = 'Container';
 
   checkContainerHaveDecoration(widgetName, container);
 
@@ -139,11 +141,11 @@ void checkContainerBorder({
 
   checkContainerHaveBorderInDecorationOfTypeBorder(container, widgetName);
 
-  print("border внутри decoration должен иметь ${borderName ?? border}");
+  print('border внутри decoration должен иметь ${borderName ?? border}');
   expect(
-    (container.decoration as BoxDecoration).border as Border,
+    (container.decoration! as BoxDecoration).border! as Border,
     secondBorder != null ? isOneOrAnother(border, secondBorder) : border,
-    reason: "ОШИБКА! $widgetName содержит decoration с неверным border",
+    reason: 'ОШИБКА! $widgetName содержит decoration с неверным border',
   );
 }
 
@@ -151,11 +153,11 @@ void checkContainerHaveBorderInDecorationOfTypeBorder(
   final Container container,
   final String widgetName,
 ) {
-  print("border внутри decoration должен иметь тип Border");
+  print('border внутри decoration должен иметь тип Border');
   expect(
-    (container.decoration as BoxDecoration).border,
+    (container.decoration! as BoxDecoration).border,
     isInstanceOf<Border>(),
-    reason: "ОШИБКА! $widgetName содержит decoration с border неверного типа",
+    reason: 'ОШИБКА! $widgetName содержит decoration с border неверного типа',
   );
 }
 
@@ -169,12 +171,12 @@ void checkContainerEdgeInsetsProperties({
   if (paddingOrMargin != null) {
     assert(padding == null && margin == null);
   }
-  const String widgetName = "Container";
+  const widgetName = 'Container';
   if (margin != null) {
     checkEdgeInsetParam(
       widgetName: widgetName,
       param: container.margin,
-      paramName: "margin",
+      paramName: 'margin',
       edgeInsetsCheck: margin,
     );
   }
@@ -182,7 +184,7 @@ void checkContainerEdgeInsetsProperties({
     checkEdgeInsetParam(
       widgetName: widgetName,
       param: container.padding,
-      paramName: "padding",
+      paramName: 'padding',
       edgeInsetsCheck: padding,
     );
   }
@@ -190,7 +192,7 @@ void checkContainerEdgeInsetsProperties({
     checkEdgeInsetParam(
       widgetName: widgetName,
       param: container.padding ?? container.margin,
-      paramName: "margin or padding",
+      paramName: 'margin or padding',
       edgeInsetsCheck: paddingOrMargin,
     );
   }
@@ -201,7 +203,7 @@ void checkContainerWidthOrHeightProperties({
   required final WidthAndHeight widthAndHeight,
   final WidthAndHeight? secondWidthAndHeight,
 }) {
-  const String widgetName = "Container";
+  const widgetName = 'Container';
   final widthAndHeightConstraints = BoxConstraints.tightFor(
     width: widthAndHeight.width,
     height: widthAndHeight.height,
@@ -230,7 +232,7 @@ void checkContainerWidthOrHeightProperties({
             ),
           )
         : widthAndHeightConstraints,
-    reason: "ОШИБКА! В $widgetName указаны неверные размеры",
+    reason: 'ОШИБКА! В $widgetName указаны неверные размеры',
   );
 }
 
@@ -238,8 +240,8 @@ void checkContainerAlignment({
   required final Container container,
   required final Alignment alignment,
 }) {
-  const String widgetName = "Container";
-  const String paramName = "alignment";
+  const widgetName = 'Container';
+  const paramName = 'alignment';
   final actualValue = container.alignment;
   checkParamExistence(
     widgetName: widgetName,
@@ -275,32 +277,32 @@ void checkEdgeInsetParam({
   if (edgeInsetsCheck.top != null) {
     checkParamValue(
       widgetName: widgetName,
-      paramName: "top внутри $paramName",
-      rightValue: (param as EdgeInsets).top,
+      paramName: 'top внутри $paramName',
+      rightValue: (param! as EdgeInsets).top,
       actualValue: edgeInsetsCheck.top,
     );
   }
   if (edgeInsetsCheck.bottom != null) {
     checkParamValue(
       widgetName: widgetName,
-      paramName: "bottom внутри $paramName",
-      rightValue: (param as EdgeInsets).bottom,
+      paramName: 'bottom внутри $paramName',
+      rightValue: (param! as EdgeInsets).bottom,
       actualValue: edgeInsetsCheck.bottom,
     );
   }
   if (edgeInsetsCheck.left != null) {
     checkParamValue(
       widgetName: widgetName,
-      paramName: "left внутри $paramName",
-      rightValue: (param as EdgeInsets).left,
+      paramName: 'left внутри $paramName',
+      rightValue: (param! as EdgeInsets).left,
       actualValue: edgeInsetsCheck.left,
     );
   }
   if (edgeInsetsCheck.right != null) {
     checkParamValue(
       widgetName: widgetName,
-      paramName: "right внутри $paramName",
-      rightValue: (param as EdgeInsets).right,
+      paramName: 'right внутри $paramName',
+      rightValue: (param! as EdgeInsets).right,
       actualValue: edgeInsetsCheck.right,
     );
   }
@@ -315,9 +317,8 @@ class EdgeInsetsCheck {
   final double? right;
 
   @override
-  String toString() {
-    return 'EdgeInsetsCheck{top: $top, bottom: $bottom, left: $left, right: $right}';
-  }
+  String toString() =>
+      'EdgeInsetsCheck{top: $top, bottom: $bottom, left: $left, right: $right}';
 
   @override
   bool operator ==(Object other) =>
@@ -352,7 +353,5 @@ class WidthAndHeight {
   int get hashCode => width.hashCode ^ height.hashCode;
 
   @override
-  String toString() {
-    return 'WidthAndHeight{width: $width, height: $height}';
-  }
+  String toString() => 'WidthAndHeight{width: $width, height: $height}';
 }

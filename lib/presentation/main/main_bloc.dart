@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:flutter/foundation.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:in_app_update/in_app_update.dart';
 import 'package:memegenerator/data/models/meme.dart';
@@ -13,39 +14,33 @@ import 'package:path_provider/path_provider.dart';
 import 'package:rxdart/rxdart.dart';
 
 class MainBloc {
-  Stream<List<MemeThumbnail>> observeMemes() {
-    return Rx.combineLatest2<List<Meme>, Directory, List<MemeThumbnail>>(
-      MemesRepository.getInstance().observeItems(),
-      getApplicationDocumentsDirectory().asStream(),
-      (memes, docs) {
-        return memes.map(
+  Stream<List<MemeThumbnail>> observeMemes() =>
+      Rx.combineLatest2<List<Meme>, Directory, List<MemeThumbnail>>(
+        MemesRepository.getInstance().observeItems(),
+        getApplicationDocumentsDirectory().asStream(),
+        (memes, docs) => memes.map(
           (meme) {
             final fullImageUrl =
-                "${docs.absolute.path}${Platform.pathSeparator}${meme.id}.png";
+                '${docs.absolute.path}${Platform.pathSeparator}${meme.id}.png';
 
             return MemeThumbnail(memeId: meme.id, fullImageUrl: fullImageUrl);
           },
-        ).toList();
-      },
-    );
-  }
+        ).toList(),
+      );
 
-  Stream<List<TemplateFull>> observeTemplates() {
-    return Rx.combineLatest2<List<Template>, Directory, List<TemplateFull>>(
-      TemplatesRepository.getInstance().observeItems(),
-      getApplicationDocumentsDirectory().asStream(),
-      (templates, docs) {
-        return templates.map(
+  Stream<List<TemplateFull>> observeTemplates() =>
+      Rx.combineLatest2<List<Template>, Directory, List<TemplateFull>>(
+        TemplatesRepository.getInstance().observeItems(),
+        getApplicationDocumentsDirectory().asStream(),
+        (templates, docs) => templates.map(
           (template) {
             final fullImagePath =
-                "${docs.absolute.path}${Platform.pathSeparator}${SaveTemplateInteractor.templatesPathName}${Platform.pathSeparator}${template.imageUrl}";
+                '${docs.absolute.path}${Platform.pathSeparator}${SaveTemplateInteractor.templatesPathName}${Platform.pathSeparator}${template.imageUrl}';
 
             return TemplateFull(id: template.id, fullImagePath: fullImagePath);
           },
-        ).toList();
-      },
-    );
-  }
+        ).toList(),
+      );
 
   Future<String?> selectMeme() async {
     final file = await ImagePicker().pickImage(source: ImageSource.gallery);
@@ -68,13 +63,19 @@ class MainBloc {
   }
 
   Future<void> checkForAndroidUpdate() async {
-    if (!Platform.isAndroid) return;
+    if (kIsWeb || !Platform.isAndroid) {
+      return;
+    }
     try {
       final updateInfo = await InAppUpdate.checkForUpdate();
       if (updateInfo.updateAvailability == UpdateAvailability.updateAvailable) {
         await InAppUpdate.performImmediateUpdate();
       }
-    } catch (_) {}
+    } catch (e) {
+      if (kDebugMode) {
+        print(e);
+      }
+    }
   }
 
   void deleteMeme(final String memeId) {
