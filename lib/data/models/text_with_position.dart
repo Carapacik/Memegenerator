@@ -38,7 +38,9 @@ class TextWithPosition extends Equatable {
 String? colorToJson(final Color? color) => color?.value.toRadixString(16);
 
 Color? colorFromJson(final String? colorString) {
-  if (colorString == null) return null;
+  if (colorString == null) {
+    return null;
+  }
   final intColor = int.tryParse(colorString, radix: 16);
 
   return intColor == null ? null : Color(intColor);
@@ -47,7 +49,9 @@ Color? colorFromJson(final String? colorString) {
 int? fontWeightToJson(final FontWeight? fontWeight) => fontWeight?.index;
 
 FontWeight? fontWeightFromJson(final int? fontWeightIndex) {
-  if (fontWeightIndex == null) return null;
+  if (fontWeightIndex == null) {
+    return null;
+  }
 
   return FontWeight.values.firstWhere((fw) => fw.index == fontWeightIndex);
 }

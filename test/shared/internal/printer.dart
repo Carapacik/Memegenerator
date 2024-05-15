@@ -82,7 +82,7 @@ void fancyPrint(
     }
     stringBuffer.write(dashesString);
 
-    print(stringBuffer.toString());
+    print(stringBuffer);
   }
 
   if (printType.addLineAfter) {
@@ -90,7 +90,29 @@ void fancyPrint(
   }
 }
 
-class PrintType {
+enum PrintType {
+  text._(
+    dashesCount: 1,
+    alignLeft: true,
+    addLeftIndentOnConsequentLines: true,
+    addLineBefore: false,
+    addLineAfter: false,
+  ),
+  headline._(
+    dashesCount: 5,
+    alignLeft: true,
+    addLeftIndentOnConsequentLines: false,
+    addLineBefore: true,
+    addLineAfter: true,
+  ),
+  startEnd._(
+    dashesCount: 10,
+    alignLeft: false,
+    addLeftIndentOnConsequentLines: false,
+    addLineBefore: true,
+    addLineAfter: true,
+  );
+
   const PrintType._({
     required this.dashesCount,
     required this.alignLeft,
@@ -104,26 +126,4 @@ class PrintType {
   final bool addLeftIndentOnConsequentLines;
   final bool addLineBefore;
   final bool addLineAfter;
-
-  static const text = PrintType._(
-    dashesCount: 1,
-    alignLeft: true,
-    addLeftIndentOnConsequentLines: true,
-    addLineBefore: false,
-    addLineAfter: false,
-  );
-  static const headline = PrintType._(
-    dashesCount: 5,
-    alignLeft: true,
-    addLeftIndentOnConsequentLines: false,
-    addLineBefore: true,
-    addLineAfter: true,
-  );
-  static const startEnd = PrintType._(
-    dashesCount: 10,
-    alignLeft: false,
-    addLeftIndentOnConsequentLines: false,
-    addLineBefore: true,
-    addLineAfter: true,
-  );
 }

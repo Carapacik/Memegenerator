@@ -3,7 +3,6 @@ import 'package:memegenerator/resources/app_colors.dart';
 
 class MemeTextOnCanvas extends StatelessWidget {
   const MemeTextOnCanvas({
-    Key? key,
     required this.selected,
     required this.padding,
     required this.fontSize,
@@ -11,7 +10,8 @@ class MemeTextOnCanvas extends StatelessWidget {
     required this.parentConstraints,
     required this.text,
     required this.color,
-  }) : super(key: key);
+    super.key,
+  });
 
   final bool selected;
   final double padding;

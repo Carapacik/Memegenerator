@@ -7,11 +7,11 @@ void checkListViewSeparatedType({
   required final ListView listView,
   final int? itemCount,
 }) {
-  const String widgetName = "ListView";
+  const widgetName = 'ListView';
   expect(
     listView.childrenDelegate,
     isInstanceOf<SliverChildBuilderDelegate>(),
-    reason: "$widgetName should use constructor ListView.separated",
+    reason: '$widgetName should use constructor ListView.separated',
   );
   if (itemCount != null) {
     final realItemsCount = max(0, itemCount * 2 - 1);
@@ -19,7 +19,7 @@ void checkListViewSeparatedType({
       realItemsCount,
       (listView.childrenDelegate as SliverChildBuilderDelegate).childCount,
       reason:
-          "$widgetName should have $realItemsCount itemCount (including separators)",
+          '$widgetName should have $realItemsCount itemCount (including separators)',
     );
   }
 }

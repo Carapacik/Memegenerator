@@ -1,6 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 
-Matcher isOneOrAnother(dynamic one, dynamic another) =>
+Matcher isOneOrAnother(Object one, Object another) =>
     OneOrAnotherMatcher(one, another);
 
 class OneOrAnotherMatcher extends Matcher {
@@ -12,10 +12,11 @@ class OneOrAnotherMatcher extends Matcher {
   @override
   Description describe(Description description) {
     return description.add(
-        'either ${_one.runtimeType}:<$_one> or ${_another.runtimeType}:<$_another>');
+      'either ${_one.runtimeType}:<$_one> or ${_another.runtimeType}:<$_another>',
+    );
   }
 
   @override
-  bool matches(Object? item, Map matchState) =>
+  bool matches(Object? item, Map<dynamic, dynamic> matchState) =>
       item == _one || item == _another;
 }

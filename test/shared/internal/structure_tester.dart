@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'extensions.dart';
+import 'package:collection/collection.dart';
 
 class ElementNotExistsError extends Error {
   ElementNotExistsError(this.elementPath);
@@ -28,7 +28,7 @@ void testStructure(final Map<String, FileSystemEntityType> structure) {
   final directory = Directory('');
   final allPaths = directory.listSync(recursive: true);
 
-  final validatePath = (String path, FileSystemEntityType desiredType) {
+  void validatePath(String path, FileSystemEntityType desiredType) {
     final entity = allPaths.firstWhereOrNull((element) => element.path == path);
     if (entity == null) {
       throw ElementNotExistsError(path);
@@ -37,7 +37,7 @@ void testStructure(final Map<String, FileSystemEntityType> structure) {
     if (actualType != desiredType) {
       throw ElementHasWrongTypeError(path, desiredType, actualType);
     }
-  };
+  }
 
   structure.forEach(validatePath);
 }

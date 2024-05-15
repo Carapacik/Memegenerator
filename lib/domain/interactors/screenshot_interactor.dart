@@ -24,7 +24,7 @@ class ScreenshotInteractor {
     );
     await imageFile.create();
     await imageFile.writeAsBytes(image);
-    await Share.shareFiles([imageFile.path]);
+    await Share.shareXFiles([XFile(imageFile.path)]);
   }
 
   Future<void> saveThumbnail(

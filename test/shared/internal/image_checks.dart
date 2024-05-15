@@ -8,29 +8,29 @@ void checkImageProperties({
   final BoxFit? boxFit,
   final ImageProvider? imageProvider,
 }) {
-  const String widgetName = "Image";
+  const widgetName = 'Image';
   if (height != null) {
     expect(
       image.height,
       isNotNull,
-      reason: "$widgetName should have not null property height",
+      reason: '$widgetName should have not null property height',
     );
     expect(
       image.height,
       height,
-      reason: "$widgetName should have height property of $height",
+      reason: '$widgetName should have height property of $height',
     );
   }
   if (width != null) {
     expect(
       image.width,
       isNotNull,
-      reason: "$widgetName should have not null property width",
+      reason: '$widgetName should have not null property width',
     );
     expect(
       image.width,
       width,
-      reason: "$widgetName should have width property of $height",
+      reason: '$widgetName should have width property of $height',
     );
   }
 
@@ -38,19 +38,19 @@ void checkImageProperties({
     expect(
       image.fit,
       isNotNull,
-      reason: "$widgetName should have not null property fit",
+      reason: '$widgetName should have not null property fit',
     );
     expect(
       image.fit,
       boxFit,
-      reason: "$widgetName should have fit property of $boxFit",
+      reason: '$widgetName should have fit property of $boxFit',
     );
   }
   if (imageProvider != null) {
     expect(
       image.image,
       imageProvider,
-      reason: "$widgetName should have image property of $imageProvider",
+      reason: '$widgetName should have image property of $imageProvider',
     );
   }
 }

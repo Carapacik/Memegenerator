@@ -41,15 +41,15 @@ void runTest2() {
     GoogleFonts.config.allowRuntimeFetching = false;
     PathProviderPlatform.instance = FakePathProviderPlatform();
   });
-  testWidgets('module3', (tester) async {
+  testWidgets('module2', (tester) async {
     fancyPrint(
-      'Запускаем тест к 3 заданию 12-го урока',
+      'Run test module2',
       printType: PrintType.startEnd,
     );
 
-    fancyPrint('Добавляем в SharedPreferences один мем для тестирования');
+    fancyPrint('Adding one meme to SharedPreferences for testing');
     SharedPreferences.setMockInitialValues(<String, Object>{
-      memeKey: [jsonEncode(meme.toJson())]
+      memeKey: [jsonEncode(meme.toJson())],
     });
 
     await tester.pumpWidget(const App());
@@ -60,22 +60,26 @@ void runTest2() {
     );
     MainBloc().observeMemes().startWith([memeThumbnail]);
 
-    fancyPrint('Ищем на странице MainPage единственный виджет MemeGridItem');
+    fancyPrint(
+      'We check that the observeMemes() method inside the Main Block is of type Stream<List<MemeThumbnail>>',
+    );
     final memeGridItemFinder = find.byType(MemeGridItem);
     expect(
       memeGridItemFinder,
       findsOneWidget,
       reason:
-          "ОШИБКА! На странице MainPage невозможно найти единственный виджет с типом 'MemeGridItem'",
+          "mistake! It is impossible to find a single widget with the type 'MemeGridItem' on the MainPage page",
     );
 
-    fancyPrint('Проверяем, что параметр в MemeGridItem равен ожидаемому');
+    fancyPrint(
+      'We check that the parameter in MemeGridItem is equal to the expected one',
+    );
     final memeGridItem = tester.widget<MemeGridItem>(memeGridItemFinder);
     expect(
       memeGridItem.memeThumbnail,
       memeThumbnail,
       reason:
-          'ОШИБКА! Параметр memeThumbnail в MemeGridItem не равен ожидаемому',
+          'mistake! The memeThumbnail parameter in MemeGridItem is not equal to the expected one',
     );
 
     fancyPrint(
@@ -84,18 +88,18 @@ void runTest2() {
     await tester.tap(memeGridItemFinder);
     await tester.pumpAndSettle();
 
-    fancyPrint('Ожидаем, что страница CreateMemePage открылась успешно');
+    fancyPrint('We expect the Create Meme Page to open successfully');
     final createMemePageFinder = find.byType(CreateMemePage);
 
     expect(
       createMemePageFinder,
       findsOneWidget,
       reason:
-          "ОШИБКА! Невозможно найти единственный виджет с типом 'CreateMemePage'",
+          "mistake! It is impossible to find a single widget with the type 'CreateMemePage'",
     );
 
     fancyPrint(
-      "Ожидаем, что на странице находится текст мема '${textWithPosition.text}'",
+      "We expect that the text of the meme is on the page '${textWithPosition.text}'",
     );
     final memeTextFinder = find.descendant(
       of: find.byType(MemeCanvasWidget),
@@ -105,11 +109,11 @@ void runTest2() {
       memeTextFinder,
       findsOneWidget,
       reason:
-          "ОШИБКА! Невозможно найти единственный виджет с текстом '${textWithPosition.text}'",
+          "mistake! It is impossible to find a single widget with text '${textWithPosition.text}'",
     );
 
     fancyPrint(
-      'УСПЕХ! Тест пройден!',
+      'SUCCESS! The test is passed!',
       printType: PrintType.startEnd,
     );
   });

@@ -26,7 +26,7 @@ class CreateMemeBloc {
   }) : id = id ?? const Uuid().v4() {
     memePathSubject.add(selectedMemePath);
     _subscribeToNewMemTextOffset();
-    _subscribeToExistentMeme();
+    unawaited(_subscribeToExistentMeme());
   }
 
   final String id;
@@ -117,14 +117,15 @@ class CreateMemeBloc {
             .equals(savedMemeTextsOffsets, memeTextOffsetsSubject.value);
   }
 
-  void shareMeme() {
-    shareMemeSubscription?.cancel();
+  Future<void> shareMeme() async {
+    await shareMemeSubscription?.cancel();
     shareMemeSubscription = ScreenshotInteractor.getInstance()
         .shareScreenshot(screenshotControllerSubject.value.capture())
         .asStream()
         .listen(
       (event) {},
-      onError: (Object error, StackTrace stackTrace) {
+      // ignore: inference_failure_on_untyped_parameter
+      onError: (error, stackTrace) {
         if (kDebugMode) {
           print('Error in shareMemeSubscription: $error, $stackTrace');
         }
@@ -162,7 +163,7 @@ class CreateMemeBloc {
     memeTextsSubject.add(updatedMemeTexts);
   }
 
-  void saveMeme() {
+  Future<void> saveMeme() async {
     final memeTexts = memeTextsSubject.value;
     final memeTextOffsets = memeTextOffsetsSubject.value;
 
@@ -200,7 +201,8 @@ class CreateMemeBloc {
           print('Meme saved: $event');
         }
       },
-      onError: (Object error, StackTrace stackTrace) {
+      // ignore: inference_failure_on_untyped_parameter
+      onError: (error, stackTrace) {
         if (kDebugMode) {
           print('Error in saveMemeSubscription: $error, $stackTrace');
         }
@@ -256,7 +258,8 @@ class CreateMemeBloc {
           _changeMemeTextOffsetInternal(newMemeTextOffset);
         }
       },
-      onError: (Object error, StackTrace stackTrace) {
+      // ignore: inference_failure_on_untyped_parameter
+      onError: (error, stackTrace) {
         if (kDebugMode) {
           print('Error in newMemeTextOffsetSubscription: $error, $stackTrace');
         }
@@ -264,10 +267,10 @@ class CreateMemeBloc {
     );
   }
 
-  void _subscribeToExistentMeme() {
+  Future<void> _subscribeToExistentMeme() async {
     existentMemeSubscription =
         MemesRepository.getInstance().getItemById(id).asStream().listen(
-      (meme) {
+      (meme) async {
         if (meme == null) {
           return;
         } else {
@@ -287,7 +290,7 @@ class CreateMemeBloc {
           memeTextsSubject.add(memeTexts);
           memeTextOffsetsSubject.add(memeTextsOffsets);
           if (meme.memePath != null) {
-            getApplicationDocumentsDirectory().then((dir) {
+            await getApplicationDocumentsDirectory().then((dir) {
               final onlyImagePath =
                   meme.memePath!.split(Platform.pathSeparator).last;
               final fullImagePath =
@@ -297,7 +300,8 @@ class CreateMemeBloc {
           }
         }
       },
-      onError: (Object error, StackTrace stackTrace) {
+      // ignore: inference_failure_on_untyped_parameter
+      onError: (error, stackTrace) {
         if (kDebugMode) {
           print('Error in existentMemeSubscription: $error, $stackTrace');
         }
@@ -305,17 +309,17 @@ class CreateMemeBloc {
     );
   }
 
-  void dispose() {
-    memeTextsSubject.close();
-    selectedMemeTextsSubject.close();
-    memeTextOffsetsSubject.close();
-    newMemeTextOffsetSubject.close();
-    memePathSubject.close();
-    screenshotControllerSubject.close();
+  Future<void> dispose() async {
+    await memeTextsSubject.close();
+    await selectedMemeTextsSubject.close();
+    await memeTextOffsetsSubject.close();
+    await newMemeTextOffsetSubject.close();
+    await memePathSubject.close();
+    await screenshotControllerSubject.close();
 
-    newMemeTextOffsetSubscription?.cancel();
-    saveMemeSubscription?.cancel();
-    existentMemeSubscription?.cancel();
-    shareMemeSubscription?.cancel();
+    await newMemeTextOffsetSubscription?.cancel();
+    await saveMemeSubscription?.cancel();
+    await existentMemeSubscription?.cancel();
+    await shareMemeSubscription?.cancel();
   }
 }

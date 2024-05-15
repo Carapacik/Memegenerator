@@ -19,14 +19,14 @@ abstract class ListWithIdsReactiveRepository<T>
     return setItems(items);
   }
 
-  Future<bool> removeFromItemsById(final dynamic id) async {
+  Future<bool> removeFromItemsById(final String id) async {
     final items = await getItems();
     items.removeWhere((item) => getId(item) == id);
 
     return setItems(items);
   }
 
-  Future<T?> getItemById(final dynamic id) async {
+  Future<T?> getItemById(final String id) async {
     final items = await getItems();
 
     return items.firstWhereOrNull((item) => getId(item) == id);

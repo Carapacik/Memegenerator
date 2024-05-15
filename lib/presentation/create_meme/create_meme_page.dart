@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
@@ -41,15 +42,24 @@ class _CreateMemePageState extends State<CreateMemePage> {
   @override
   Widget build(BuildContext context) => Provider.value(
         value: bloc,
-        child: WillPopScope(
-          onWillPop: () async {
+        child: PopScope(
+          canPop: false,
+          onPopInvoked: (didPop) async {
+            if (didPop) {
+              return;
+            }
+            final navigator = Navigator.of(context);
             final allSaved = await bloc.isAllSaved();
             if (allSaved) {
-              return true;
+              return navigator.pop();
             }
-            final goBack = await showConfirmationExitDialog(context);
+            if (context.mounted) {
+              final goBack = await showConfirmationExitDialog(context);
 
-            return goBack ?? false;
+              if (goBack ?? false) {
+                navigator.pop();
+              }
+            }
           },
           child: Scaffold(
             appBar: AppBar(
@@ -60,11 +70,11 @@ class _CreateMemePageState extends State<CreateMemePage> {
               bottom: const EditTextBar(),
               actions: [
                 AnimatedIconButton(
-                  onTap: () => bloc.shareMeme(),
+                  onTap: () async => bloc.shareMeme(),
                   icon: Icons.share,
                 ),
                 AnimatedIconButton(
-                  onTap: () => bloc.saveMeme(),
+                  onTap: () async => bloc.saveMeme(),
                   icon: Icons.save,
                 ),
               ],
@@ -80,7 +90,7 @@ class _CreateMemePageState extends State<CreateMemePage> {
 
   @override
   void dispose() {
-    bloc.dispose();
+    unawaited(bloc.dispose());
     super.dispose();
   }
 
@@ -330,20 +340,18 @@ class BottomMemeText extends StatelessWidget {
             ),
             const SizedBox(width: 4),
             BottomMemeTextAction(
-              onTap: () {
-                showModalBottomSheet<void>(
-                  context: context,
-                  shape: const RoundedRectangleBorder(
-                    borderRadius: BorderRadius.vertical(
-                      top: Radius.circular(24),
-                    ),
+              onTap: () async => showModalBottomSheet<void>(
+                context: context,
+                shape: const RoundedRectangleBorder(
+                  borderRadius: BorderRadius.vertical(
+                    top: Radius.circular(24),
                   ),
-                  builder: (context) => Provider.value(
-                    value: bloc,
-                    child: FontSettingBottomSheet(memeText: item.memeText),
-                  ),
-                );
-              },
+                ),
+                builder: (context) => Provider.value(
+                  value: bloc,
+                  child: FontSettingBottomSheet(memeText: item.memeText),
+                ),
+              ),
               icon: Icons.font_download_outlined,
             ),
             const SizedBox(width: 4),
@@ -400,10 +408,10 @@ class MemeCanvasWidget extends StatelessWidget {
             if (!snapshot.hasData) {
               return const SizedBox.shrink();
             }
-            return Screenshot<void>(
+            return Screenshot(
               controller: snapshot.requireData,
-              child: Stack(
-                children: const [
+              child: const Stack(
+                children: [
                   BackgroundImage(),
                   MemeTexts(),
                 ],

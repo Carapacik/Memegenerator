@@ -2,7 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:rxdart/rxdart.dart';
 
 abstract class ListReactiveRepository<T> {
-  final updater = PublishSubject<Null>();
+  final updater = PublishSubject<void>();
 
   @protected
   Future<List<String>> getRawData();

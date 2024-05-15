@@ -38,25 +38,25 @@ void runTest1() {
 
   testWidgets('module1', (tester) async {
     fancyPrint(
-      'Запускаем тест к 1 заданию 12-го урока',
+      'Run test module1',
       printType: PrintType.startEnd,
     );
 
     fancyPrint(
-      'Добавляем в SharedPreferences один мем и один шаблон для тестирования',
+      'Adding one meme and one template to SharedPreferences for testing',
     );
     SharedPreferences.setMockInitialValues(<String, Object>{
       memeKey: [jsonEncode(meme.toJson())],
-      templateKey: [jsonEncode(template.toJson())]
+      templateKey: [jsonEncode(template.toJson())],
     });
 
-    fancyPrint('Открываем App');
+    fancyPrint('Opening the App');
 
     await tester.pumpWidget(const App());
     await tester.pumpAndSettle();
 
     fancyPrint(
-      'Проверяем удаление мемов',
+      'Checking the removal of memes',
       printType: PrintType.headline,
     );
 
@@ -68,21 +68,23 @@ void runTest1() {
     );
 
     const templatesText = 'ШАБЛОНЫ';
-    fancyPrint("Ищем на странице вкладку с текстом '$templatesText'");
+    fancyPrint(
+      "We are looking for a tab with text on the page '$templatesText'",
+    );
     final templatesButtonFinder = find.text(templatesText);
     expect(
       templatesButtonFinder,
       findsOneWidget,
       reason:
-          "ОШИБКА! На странице MainPage невозможно найти виджет с текстом '$templatesText'",
+          "mistake! It is impossible to find a widget with text on the MainPage page '$templatesText'",
     );
 
-    fancyPrint("Нажимаем на вкладку с текстом '$templatesText'");
+    fancyPrint("Click on the tab with the text '$templatesText'");
     await tester.tap(templatesButtonFinder);
     await tester.pumpAndSettle();
 
     fancyPrint(
-      'Проверяем удаление шаблонов',
+      'Checking the deletion of templates',
       printType: PrintType.headline,
     );
     await checkOneThing<TemplateGridItem>(
@@ -93,7 +95,7 @@ void runTest1() {
     );
 
     fancyPrint(
-      'УСПЕХ! Тест пройден!',
+      'SUCCESS! The test is passed!',
       printType: PrintType.startEnd,
     );
   });
@@ -105,16 +107,20 @@ Future<void> checkOneThing<T>({
   required final String modelName,
   required final String widgetName,
 }) async {
-  fancyPrint('Ищем на странице MainPage единственный виджет $widgetName');
+  fancyPrint(
+    'We are looking for the only widget on the MainPage page $widgetName',
+  );
   final memeGridItemFinder = find.byType(T);
   expect(
     memeGridItemFinder,
     findsOneWidget,
     reason:
-        'ОШИБКА! На странице MainPage невозможно найти единственный виджет с типом $widgetName',
+        'mistake! It is impossible to find a single widget with the type on the MainPage page $widgetName',
   );
 
-  fancyPrint('Ищем в найденном $widgetName кнопку, чтобы удалить $modelName');
+  fancyPrint(
+    'We search in the found $widgetName the button to delete $modelName',
+  );
   final deleteIconFinder = find.descendant(
     of: memeGridItemFinder,
     matching: find.byIcon(Icons.delete_outline),
@@ -123,87 +129,93 @@ Future<void> checkOneThing<T>({
     deleteIconFinder,
     findsOneWidget,
     reason:
-        'ОШИБКА! У виджета $widgetName не найден потомок с иконкой Icons.delete_outline',
+        'mistake! The widget has $widgetName the descendant with the icon was not found Icons.delete_outline',
   );
 
-  fancyPrint('Нажимаем на кнопку, чтобы удалить $modelName');
+  fancyPrint('Click on the button to delete $modelName');
   await tester.tap(deleteIconFinder);
   await tester.pumpAndSettle();
 
   final dialogTitle = 'Удалить $modelName?';
   final dialogTitleFinder = find.text(dialogTitle);
   fancyPrint(
-    "Ожидаем, что на экране появится диалог с заголовком '$dialogTitle'",
+    "We expect that a dialog with the title will appear on the screen '$dialogTitle'",
   );
   expect(
     dialogTitleFinder,
     findsOneWidget,
-    reason: 'ОШИБКА! Диалог не открылся',
+    reason: 'mistake! The dialog did not open',
   );
 
   const cancelText = 'ОТМЕНА';
   final cancelButtonFinder = find.text(cancelText);
-  fancyPrint("Ожидаем, что в диалоге есть кнопка с текстом '$cancelText'");
+  fancyPrint(
+    "We expect that there is a button with text in the dialog '$cancelText'",
+  );
   expect(
     cancelButtonFinder,
     findsOneWidget,
-    reason: "ОШИБКА! Невозможно найти кнопку с текстом '$cancelText'",
+    reason: "mistake! The button with the text cannot be found '$cancelText'",
   );
 
-  fancyPrint("Нажимаем на кнопку с текстом '$cancelText'");
+  fancyPrint("Click on the button with the text '$cancelText'");
   await tester.tap(cancelButtonFinder);
   await tester.pumpAndSettle(const Duration(milliseconds: 200));
 
-  fancyPrint('Ищем на странице MainPage единственный виджет $widgetName');
+  fancyPrint(
+    'We are looking for the only widget on the MainPage page $widgetName',
+  );
   expect(
     memeGridItemFinder,
     findsOneWidget,
     reason:
-        'ОШИБКА! На странице MainPage невозможно найти единственный виджет с типом $widgetName',
+        'mistake! It is impossible to find a single widget with the type on the MainPage page $widgetName',
   );
 
-  fancyPrint('Опять нажимаем на кнопку, чтобы удалить $modelName');
+  fancyPrint('Click on the button again to delete $modelName');
   await tester.tap(deleteIconFinder);
   await tester.pumpAndSettle();
 
   fancyPrint(
-    "Ожидаем, что на экране появится диалог с заголовком '$dialogTitle'",
+    "We expect that a dialog with the title will appear on the screen '$dialogTitle'",
   );
   expect(
     dialogTitleFinder,
     findsOneWidget,
-    reason: 'ОШИБКА! Диалог не открылся',
+    reason: 'mistake! The dialog did not open',
   );
 
   const deleteText = 'УДАЛИТЬ';
   final deleteButtonFinder = find.text(deleteText);
-  fancyPrint("Ожидаем, что в диалоге есть кнопка с текстом '$deleteText'");
+  fancyPrint(
+    "We expect that there is a button with text in the dialog '$deleteText'",
+  );
   expect(
     deleteButtonFinder,
     findsOneWidget,
-    reason: "ОШИБКА! Невозможно найти кнопку с текстом '$deleteText'",
+    reason: "mistake! The button with the text cannot be found '$deleteText'",
   );
 
-  fancyPrint("Нажимаем на кнопку с текстом '$deleteText'");
+  fancyPrint("Click on the button with the text '$deleteText'");
   await tester.tap(deleteButtonFinder);
   await tester.pumpAndSettle();
 
   fancyPrint(
-    'На странице MainPage не должно быть виджетов с типом $widgetName',
+    'The MainPage page should not have widgets with the type $widgetName',
   );
   expect(
     memeGridItemFinder,
     findsNothing,
     reason:
-        'ОШИБКА! На странице MainPage находятся виджеты $widgetName, хотя не должны',
+        'mistake! The MainPage page contains widgets $widgetName, although they should not',
   );
 
-  fancyPrint('Проверяем, что в SharedPreferences $modelName удалён');
+  fancyPrint('Checking that in SharedPreferences $modelName deleted');
 
   expect(
     (await SharedPreferences.getInstance()).getStringList(keyInSP) ??
         <String>[],
     <String>[],
-    reason: 'ОШИБКА! В SharedPreferences остался неудаленный $modelName',
+    reason: 'mistake! The SharedPreferences remained undelivered $modelName',
   );
 }

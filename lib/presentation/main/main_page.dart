@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
@@ -28,7 +29,7 @@ class _MainPageState extends State<MainPage>
   void initState() {
     super.initState();
     bloc = MainBloc();
-    bloc.checkForAndroidUpdate();
+    unawaited(bloc.checkForAndroidUpdate());
     tabController = TabController(length: 2, vsync: this);
     tabController.animation!.addListener(() {
       setState(() => tabIndex = tabController.animation!.value);
@@ -38,11 +39,18 @@ class _MainPageState extends State<MainPage>
   @override
   Widget build(BuildContext context) => Provider.value(
         value: bloc,
-        child: WillPopScope(
-          onWillPop: () async {
+        child: PopScope(
+          canPop: false,
+          onPopInvoked: (didPop) async {
+            if (didPop) {
+              return;
+            }
+            final navigator = Navigator.of(context);
             final goBack = await showConfirmationExitDialog(context);
 
-            return goBack ?? false;
+            if (goBack ?? false) {
+              navigator.pop();
+            }
           },
           child: Scaffold(
             appBar: AppBar(
@@ -50,13 +58,11 @@ class _MainPageState extends State<MainPage>
               backgroundColor: AppColors.lemon,
               foregroundColor: AppColors.darkGrey,
               title: GestureDetector(
-                onLongPress: () {
-                  Navigator.of(context).push<void>(
-                    MaterialPageRoute(
-                      builder: (_) => const EasterEggPage(),
-                    ),
-                  );
-                },
+                onLongPress: () async => Navigator.of(context).push<void>(
+                  MaterialPageRoute(
+                    builder: (_) => const EasterEggPage(),
+                  ),
+                ),
                 child: Text(
                   'Мемогенератор',
                   style: GoogleFonts.rubikBeastly(fontSize: 24),
@@ -135,18 +141,18 @@ class CreateMemeFab extends StatelessWidget {
         if (selectedMemePath == null) {
           return;
         }
-        Navigator.of(context).push<void>(
-          MaterialPageRoute(
-            builder: (_) => CreateMemePage(selectedMemePath: selectedMemePath),
-          ),
-        );
+        if (context.mounted) {
+          await Navigator.of(context).push<void>(
+            MaterialPageRoute(
+              builder: (_) =>
+                  CreateMemePage(selectedMemePath: selectedMemePath),
+            ),
+          );
+        }
       },
       backgroundColor: AppColors.fuchsia,
-      icon: const Icon(
-        Icons.add,
-        color: Colors.white,
-      ),
-      label: const Text('Мем'),
+      icon: const Icon(Icons.add, color: Colors.white),
+      label: const Text('Мем', style: TextStyle(color: Colors.white)),
     );
   }
 }
@@ -157,17 +163,11 @@ class CreateTemplateFab extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final bloc = Provider.of<MainBloc>(context, listen: false);
-
     return FloatingActionButton.extended(
-      onPressed: () async {
-        await bloc.addToTemplates();
-      },
+      onPressed: () async => bloc.addToTemplates(),
       backgroundColor: AppColors.fuchsia,
-      icon: const Icon(
-        Icons.add,
-        color: Colors.white,
-      ),
-      label: const Text('Шаблон'),
+      icon: const Icon(Icons.add, color: Colors.white),
+      label: const Text('Шаблон', style: TextStyle(color: Colors.white)),
     );
   }
 }
@@ -243,15 +243,13 @@ class TemplateGridItem extends StatelessWidget {
     final imageFile = File(template.fullImagePath);
 
     return GestureDetector(
-      onTap: () {
-        Navigator.of(context).push<void>(
-          MaterialPageRoute(
-            builder: (_) => CreateMemePage(
-              selectedMemePath: template.fullImagePath,
-            ),
+      onTap: () async => Navigator.of(context).push<void>(
+        MaterialPageRoute(
+          builder: (_) => CreateMemePage(
+            selectedMemePath: template.fullImagePath,
           ),
-        );
-      },
+        ),
+      ),
       child: Stack(
         children: [
           Container(
@@ -266,7 +264,7 @@ class TemplateGridItem extends StatelessWidget {
             bottom: 4,
             right: 4,
             child: DeleteButton(
-              onDeleteAction: () => bloc.deleteTemplate(template.id),
+              onDeleteAction: () async => bloc.deleteTemplate(template.id),
               itemName: 'шаблон',
             ),
           ),
@@ -290,13 +288,11 @@ class MemeGridItem extends StatelessWidget {
     final imageFile = File(memeThumbnail.fullImageUrl);
 
     return GestureDetector(
-      onTap: () {
-        Navigator.of(context).push<void>(
-          MaterialPageRoute(
-            builder: (context) => CreateMemePage(id: memeThumbnail.memeId),
-          ),
-        );
-      },
+      onTap: () async => Navigator.of(context).push<void>(
+        MaterialPageRoute(
+          builder: (context) => CreateMemePage(id: memeThumbnail.memeId),
+        ),
+      ),
       child: Stack(
         children: [
           Container(
@@ -311,7 +307,7 @@ class MemeGridItem extends StatelessWidget {
             bottom: 4,
             right: 4,
             child: DeleteButton(
-              onDeleteAction: () => bloc.deleteMeme(memeThumbnail.memeId),
+              onDeleteAction: () async => bloc.deleteMeme(memeThumbnail.memeId),
               itemName: 'мем',
             ),
           ),

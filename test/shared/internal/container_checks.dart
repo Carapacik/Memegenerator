@@ -41,7 +41,7 @@ void checkContainerDecorationColor({
 
   print('Параметр color в decoration должен быть равен ${colorName ?? color}');
   expect(
-    (container.decoration as BoxDecoration).color,
+    (container.decoration! as BoxDecoration).color,
     secondColor != null ? isOneOrAnother(color, secondColor) : color,
     reason: 'ОШИБКА! Параметр color в decoration неверный',
   );

@@ -17,6 +17,7 @@ class MainBloc {
   Stream<List<MemeThumbnail>> observeMemes() =>
       Rx.combineLatest2<List<Meme>, Directory, List<MemeThumbnail>>(
         MemesRepository.getInstance().observeItems(),
+        // ignore: discarded_futures
         getApplicationDocumentsDirectory().asStream(),
         (memes, docs) => memes.map(
           (meme) {
@@ -31,6 +32,7 @@ class MainBloc {
   Stream<List<TemplateFull>> observeTemplates() =>
       Rx.combineLatest2<List<Template>, Directory, List<TemplateFull>>(
         TemplatesRepository.getInstance().observeItems(),
+        // ignore: discarded_futures
         getApplicationDocumentsDirectory().asStream(),
         (templates, docs) => templates.map(
           (template) {
@@ -71,20 +73,18 @@ class MainBloc {
       if (updateInfo.updateAvailability == UpdateAvailability.updateAvailable) {
         await InAppUpdate.performImmediateUpdate();
       }
-    } catch (e) {
+    } on Object catch (e) {
       if (kDebugMode) {
         print(e);
       }
     }
   }
 
-  void deleteMeme(final String memeId) {
-    MemesRepository.getInstance().removeFromItemsById(memeId);
-  }
+  Future<void> deleteMeme(final String memeId) =>
+      MemesRepository.getInstance().removeFromItemsById(memeId);
 
-  void deleteTemplate(final String templateId) {
-    TemplatesRepository.getInstance().removeFromItemsById(templateId);
-  }
+  Future<void> deleteTemplate(final String templateId) async =>
+      TemplatesRepository.getInstance().removeFromItemsById(templateId);
 
   void dispose() {}
 }
